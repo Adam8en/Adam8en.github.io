@@ -11,4 +11,8 @@ http://example.com/categories/index.html
 http://example.com/about/index.html
 http://example.com/
 http://example.com/tags/www/
-http://example.com/tags/difference-privacy-Mobile-Crowdsourcing-Location-based-service-k-anonymization-DP/
+http://example.com/tags/difference-privacy/
+http://example.com/tags/Mobile-Crowdsourcing/
+http://example.com/tags/Location-based-service/
+http://example.com/tags/k-anonymization/
+http://example.com/tags/DP/
