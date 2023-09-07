@@ -13,8 +13,8 @@ http://example.com/movies/index.html
 http://example.com/comment/index.html
 http://example.com/about/index.html
 http://example.com/
-http://example.com/tags/Python/
 http://example.com/tags/www/
+http://example.com/tags/Python/
 http://example.com/tags/difference-privacy/
 http://example.com/tags/Mobile-Crowdsourcing/
 http://example.com/tags/Location-based-service/
