@@ -1,0 +1,377 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>数字逻辑小结（二）——逻辑电路基础 | Adam8enの8log</title><meta name="author" content="Adam Ben"><meta name="copyright" content="Adam Ben"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="介绍了逻辑电路的相关知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字逻辑小结（二）——逻辑电路基础">
+<meta property="og:url" content="http://example.com/2023/10/07/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E5%B0%8F%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Adam8enの8log">
+<meta property="og:description" content="介绍了逻辑电路的相关知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/301684.jpg">
+<meta property="article:published_time" content="2023-10-07T03:19:21.000Z">
+<meta property="article:modified_time" content="2023-10-09T06:24:48.233Z">
+<meta property="article:author" content="Adam Ben">
+<meta property="article:tag" content="数字逻辑">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/301684.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/2023/10/07/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E5%B0%8F%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数字逻辑小结（二）——逻辑电路基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-09 14:24:48'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Adam8enの8log" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/loading.gif" data-original="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/301684.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Adam8enの8log"><span class="site-name">Adam8enの8log</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数字逻辑小结（二）——逻辑电路基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-10-07T03:19:21.000Z" title="发表于 2023-10-07 11:19:21">2023-10-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-09T06:24:48.233Z" title="更新于 2023-10-09 14:24:48">2023-10-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E5%9F%BA%E7%A1%80/">数字逻辑基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数字逻辑小结（二）——逻辑电路基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="逻辑电路基础"><a href="#逻辑电路基础" class="headerlink" title="逻辑电路基础"></a>逻辑电路基础</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="逻辑、二值逻辑、逻辑运算、逻辑代数"><a href="#逻辑、二值逻辑、逻辑运算、逻辑代数" class="headerlink" title="逻辑、二值逻辑、逻辑运算、逻辑代数"></a>逻辑、二值逻辑、逻辑运算、逻辑代数</h3><ol>
+<li>逻辑：事物间的因果关系</li>
+<li>二值逻辑：只有两种逻辑关系称为二值逻辑</li>
+<li>逻辑运算：逻辑状态按照某种指定的因果关系进行推理运算</li>
+<li>逻辑代数：按照一定逻辑工具进行运算的代数，是分析和设计数字电路的数学工具</li>
+</ol>
+<h3 id="与普通代数的区别"><a href="#与普通代数的区别" class="headerlink" title="与普通代数的区别"></a>与普通代数的区别</h3><p>普通代数可以取任何值，并运用加减乘除进行运算。</p>
+<p>但是逻辑运算仅可取0和1，并且采用与、或、非进行运算。</p>
+<h3 id="与、或、非"><a href="#与、或、非" class="headerlink" title="与、或、非"></a>与、或、非</h3><p>与：<em>Y&#x3D;A·B</em></p>
+<p>或：<em>Y&#x3D;A+B</em></p>
+<p>非：<em>Y&#x3D;A’</em></p>
+<h2 id="复合逻辑运算"><a href="#复合逻辑运算" class="headerlink" title="复合逻辑运算"></a>复合逻辑运算</h2><p>与非，或非、</p>
+<p>与或非：*(AB+CD)’*</p>
+<p>异或：<em>A’B+AB’</em></p>
+<p>同或：<em>AB+A’B’</em></p>
+<h3 id="基本公式"><a href="#基本公式" class="headerlink" title="基本公式"></a>基本公式</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>公式</th>
+<th></th>
+<th></th>
+<th>公式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><em>0·A&#x3D;0</em></td>
+<td>常量与变量的关系</td>
+<td>11</td>
+<td><em>1+A&#x3D;1</em></td>
+</tr>
+<tr>
+<td>2</td>
+<td><em>1·A&#x3D;A</em></td>
+<td>常量与变量的关系</td>
+<td>12</td>
+<td><em>0+A&#x3D;A</em></td>
+</tr>
+<tr>
+<td>3</td>
+<td><em>A·A&#x3D;A</em></td>
+<td>重叠律</td>
+<td>13</td>
+<td><em>A+A&#x3D;A</em></td>
+</tr>
+<tr>
+<td>4</td>
+<td><em>A·A&#x3D;0</em></td>
+<td>互补律</td>
+<td>14</td>
+<td><em>A+A’&#x3D;1</em></td>
+</tr>
+<tr>
+<td>5</td>
+<td><em>A·B&#x3D;B·A</em></td>
+<td>交换律</td>
+<td>15</td>
+<td><em>A+B&#x3D;B+A</em></td>
+</tr>
+<tr>
+<td>6</td>
+<td><em>A·(B·C)&#x3D;(A·B)·C</em></td>
+<td>结合律</td>
+<td>16</td>
+<td><em>A+(B+C)&#x3D;(A+B)+C</em></td>
+</tr>
+<tr>
+<td>7</td>
+<td><em>A·(B+C)&#x3D;A·B+A·C</em></td>
+<td>分配律</td>
+<td>17</td>
+<td>A+B·C&#x3D;(A+B)·(A+C)</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td><em><strong>(A·B)’&#x3D;A’+B’</strong></em></td>
+<td><strong>摩根定理</strong></td>
+<td><strong>18</strong></td>
+<td><strong>(A+B)’&#x3D;A’·B’</strong></td>
+</tr>
+<tr>
+<td>9</td>
+<td><em>(A’)’&#x3D;A</em></td>
+<td>还原律</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td><em>1’&#x3D;0;   0’&#x3D;1</em></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="常用公式"><a href="#常用公式" class="headerlink" title="常用公式"></a>常用公式</h3><p><em>A+AB&#x3D;A</em></p>
+<p><em><strong>A+A’B&#x3D;A+B</strong></em>….②</p>
+<p><em>AB+AB’&#x3D;A</em></p>
+<p><em>A(A+B)&#x3D;A</em></p>
+<p><em><strong>AB+A’C+BC&#x3D;AB+A’C</strong></em> #若两个乘积项的因子刚好互补，那么他们剩余因子构成的乘积是多余的。</p>
+<p>关于②的推导，在*(A+B)<em>的这边乘上一个</em>(A+A’)*进行化简，有</p>
+<p><em>(A+B)·(A+A’)&#x3D;A·A+A·A’+BA+BA’&#x3D;A+AB</em></p>
+<h2 id="逻辑代数的基本定理"><a href="#逻辑代数的基本定理" class="headerlink" title="逻辑代数的基本定理"></a>逻辑代数的基本定理</h2><h3 id="代入规则——主要应用于公式的推广"><a href="#代入规则——主要应用于公式的推广" class="headerlink" title="代入规则——主要应用于公式的推广"></a>代入规则——主要应用于公式的推广</h3><p>在任何一个包含相同变量的逻辑等式中，如果以另外一个函数代入式中所有该变量的位置，则等式仍成立。类似于换元法，往往应用于定义的推广。</p>
+<p>例如：摩根定理的推广</p>
+<p><em>(A+B)’&#x3D;A’·B’  –&gt;  (A+B+C)’&#x3D;A’·(B+C)’&#x3D;A’B’C’</em></p>
+<h3 id="反演规则——主要用于求函数的反函数"><a href="#反演规则——主要用于求函数的反函数" class="headerlink" title="反演规则——主要用于求函数的反函数"></a>反演规则——主要用于求函数的反函数</h3><ol>
+<li>把01互换，·+互换，原变量和反变量互换</li>
+<li>先括号，然后乘，最后加</li>
+<li>不是单个引号上的反号要保留</li>
+</ol>
+<p>例如：<em>Y&#x3D;A·(B+C’)’+A’D</em></p>
+<p>​		   <em>Y’&#x3D;(A’+(B’·C’))·(A+D’)</em></p>
+<h3 id="对偶规则——主要用于公式的推广"><a href="#对偶规则——主要用于公式的推广" class="headerlink" title="对偶规则——主要用于公式的推广"></a>对偶规则——主要用于公式的推广</h3><p>即将01互换，·+互换。</p>
+<p>若两逻辑式相等，则他们对偶式相等。</p>
+<h2 id="逻辑函数的表示方法"><a href="#逻辑函数的表示方法" class="headerlink" title="逻辑函数的表示方法"></a>逻辑函数的表示方法</h2><ol>
+<li>真值表</li>
+<li>逻辑代数式</li>
+<li>逻辑图</li>
+<li>波形图</li>
+</ol>
+<h3 id="各种表示方法的相互转化"><a href="#各种表示方法的相互转化" class="headerlink" title="各种表示方法的相互转化"></a>各种表示方法的相互转化</h3><h4 id="从真值表写逻辑函数式"><a href="#从真值表写逻辑函数式" class="headerlink" title="从真值表写逻辑函数式"></a>从真值表写逻辑函数式</h4><ul>
+<li>找出真值表中使函数为1的那些输入变量取值的总和</li>
+<li>每组取值组合对应一个乘积项，取值为1的写入原变量，取值为0的写入反变量</li>
+<li>将这些乘积项相加得到目标函数</li>
+<li>如果取值为1的情况过多，可以先求逻辑表达式的反函数，然后将取0的情况按照上述规则写出，最后由反演定理求出原函数。</li>
+</ul>
+<h4 id="逻辑式列真值表"><a href="#逻辑式列真值表" class="headerlink" title="逻辑式列真值表"></a>逻辑式列真值表</h4><p>将所有变量的取值组合写出然后代入计算即可</p>
+<h4 id="逻辑式画逻辑图"><a href="#逻辑式画逻辑图" class="headerlink" title="逻辑式画逻辑图"></a>逻辑式画逻辑图</h4><p>略，好扯淡……</p>
+<h4 id="逻辑图写逻辑函数式"><a href="#逻辑图写逻辑函数式" class="headerlink" title="逻辑图写逻辑函数式"></a>逻辑图写逻辑函数式</h4><p>这个也略……感觉不是很重要……</p>
+<h4 id="逻辑函数式画波形图"><a href="#逻辑函数式画波形图" class="headerlink" title="逻辑函数式画波形图"></a>逻辑函数式画波形图</h4><p>对于给定的函数式，我们要遍历给出的所有变量组合，也就是要给出2^n^种情况（n为变量个数）。然后在最底部给出由函数式计算的结果并画图。</p>
+<h4 id="由波形图写逻辑函数式"><a href="#由波形图写逻辑函数式" class="headerlink" title="由波形图写逻辑函数式"></a>由波形图写逻辑函数式</h4><p>由波形图可以得到所有变量的组合和运算值，将结果列出得到真值表，后续步骤参考真值表转化为逻辑函数式操作。</p>
+<h2 id="逻辑函数的标准形式"><a href="#逻辑函数的标准形式" class="headerlink" title="逻辑函数的标准形式"></a>逻辑函数的标准形式</h2><h3 id="最小项和最大项"><a href="#最小项和最大项" class="headerlink" title="最小项和最大项"></a>最小项和最大项</h3><h4 id="最小项的定义"><a href="#最小项的定义" class="headerlink" title="最小项的定义"></a>最小项的定义</h4><p>在n变量逻辑函数中，若m为包含n个因子的乘积项，而这n个变量在乘积项中均以原变量或者反变量的形式出现且仅出现一次，那么m称作该组变量的<strong>最小项</strong></p>
+<p>如给定变量<em>A、B、C</em>，乘积项*ABC’*是一个最小项</p>
+<p>比如<em>F(A,B)&#x3D;AB+A’B+AB’+A’B’&#x3D;m<del>3</del>+m<del>1</del>+m<del>2</del>+m<del>0</del>&#x3D;∑m<del>i</del>(i&#x3D;0~3)</em></p>
+<h4 id="最小项的编号表示方法"><a href="#最小项的编号表示方法" class="headerlink" title="最小项的编号表示方法"></a>最小项的编号表示方法</h4><p>将最小项中的原变量用1表示，反变量用0表示，得到的二进制数转为十进制后对应的编码即为该最小项的编号。</p>
+<p>最小项的起始编码为0，取值范围为0~2^n-1^。记作m<del>i</del>。</p>
+<h4 id="最大项的定义"><a href="#最大项的定义" class="headerlink" title="最大项的定义"></a>最大项的定义</h4><p>在n变量逻辑函数中，若M为包含n个因子的和项，而这n个变量在和项中均以原变量或者反变量的形式出现且仅出现一次，那么M称作该组变量的<strong>最大项</strong></p>
+<h4 id="最大项的编号表示方法"><a href="#最大项的编号表示方法" class="headerlink" title="最大项的编号表示方法"></a>最大项的编号表示方法</h4><p>编号方法与最小值相同，记为M<del>i</del>。</p>
+<h4 id="最小项和最大项的性质"><a href="#最小项和最大项的性质" class="headerlink" title="最小项和最大项的性质"></a>最小项和最大项的性质</h4><p><strong>相邻性</strong>：若两个最小项&#x2F;最大项只有一个因子不同，则称他们具有相邻性。</p>
+<p>对于最小值，相邻的两个最小项相加可以合并成一项，并消去差异因子。</p>
+<p>对于最大项，相邻的两个最大项相乘可以合并成一项，并消去差异因子。</p>
+<h3 id="逻辑函数的“最小项之和”形式-标准与或式"><a href="#逻辑函数的“最小项之和”形式-标准与或式" class="headerlink" title="逻辑函数的“最小项之和”形式&#x2F;标准与或式"></a>逻辑函数的“最小项之和”形式&#x2F;标准与或式</h3><p>全部由最小项构成的“积之和”表达式，称为最小项表达式。</p>
+<p>任何逻辑函数都能化成一个<strong>唯一的</strong>标准与或式。</p>
+<h3 id="逻辑函数的“最大项之和”形式-标准或与式"><a href="#逻辑函数的“最大项之和”形式-标准或与式" class="headerlink" title="逻辑函数的“最大项之和”形式&#x2F;标准或与式"></a>逻辑函数的“最大项之和”形式&#x2F;标准或与式</h3><p>全部由最大项构成的“和之积”表达式，称为最大项表达式。</p>
+<p>任何逻辑函数都能化成一个<strong>唯一的</strong>标准或与式。</p>
+<h3 id="标准或与式和标准与或式的关系"><a href="#标准或与式和标准与或式的关系" class="headerlink" title="标准或与式和标准与或式的关系"></a>标准或与式和标准与或式的关系</h3><p>M<del>i</del>&#x3D;m<del>i</del>‘。</p>
+<p>由此可知，如果函数式可以由最小项之和表示，那么它一定也能由最大项之积来表示，它们两者是等价的。</p>
+<h2 id="逻辑函数的化简方法"><a href="#逻辑函数的化简方法" class="headerlink" title="逻辑函数的化简方法"></a>逻辑函数的化简方法</h2><p>通过反复使用逻辑函数的运算公式来化简。</p>
+<p>关于化最简的标准，其实要根据实际应用中提供的逻辑器件来决定。以使用电子器件数目最少，成本最低为判断最简的标准。默认最简形式为与或式，即只用与门和或门来实现电路。</p>
+<p>最简与或式要求式子中与项数目最少，且乘积项中包含的变量数目最少。</p>
+<h3 id="常用的公式化简方法"><a href="#常用的公式化简方法" class="headerlink" title="常用的公式化简方法"></a>常用的公式化简方法</h3><h3 id="卡诺图化简法"><a href="#卡诺图化简法" class="headerlink" title="卡诺图化简法"></a>卡诺图化简法</h3><p>卡诺图的思想源于两个相邻的最小项可以化简。</p>
+<h4 id="认识卡诺图"><a href="#认识卡诺图" class="headerlink" title="认识卡诺图"></a>认识卡诺图</h4><p>将n变量的全部最小项各用一个小方格表示，并且使具有逻辑相邻性的最小项在几何位置上也相邻的排列起来，所得到的图形叫做<strong>n变量卡诺图</strong></p>
+<h4 id="怎么用卡诺图表示逻辑函数"><a href="#怎么用卡诺图表示逻辑函数" class="headerlink" title="怎么用卡诺图表示逻辑函数"></a>怎么用卡诺图表示逻辑函数</h4><p>注意循环码，即变量之间的排序两两之间只有一位发生了变化，而不是递增排序。</p>
+<p>卡诺图一般画成正方形或矩形。</p>
+<p>在卡诺图中，凡是几何相邻的最小项，在逻辑上都是相邻的。</p>
+<p>相接：紧挨着；相对：任意一行或一列的两头；相重：对折之后位置相重</p>
+<h4 id="逻辑函数写卡诺图"><a href="#逻辑函数写卡诺图" class="headerlink" title="逻辑函数写卡诺图"></a>逻辑函数写卡诺图</h4><ul>
+<li>首先把画出一个正方形或矩形表格，n变量的卡诺图有2^n^个小方格。</li>
+<li>然后把变量分为两组，如AB&#x2F;CD。</li>
+<li>按循环码循环给变量取值排序。比如00、01、11、10。</li>
+<li>随后根据逻辑函数填表，若逻辑函数不是标准与或式则化为标准与或式。在逻辑函数包含的最小项在卡诺图对应的方格填1，其余填0（一般省略0）</li>
+<li>在卡诺图中几何相邻的最小项可以合并为一项并消去相异因子，从而达到化简的目的。</li>
+<li>注意，上述<strong>几何相邻</strong>的意义为相邻、对折相邻、上下角相邻，左右角相邻。</li>
+<li>将所有相邻的1圈起来，圈越大越好；一个方格可以被多个圈入，但必须要有新的1在圈内，否则该圈为多余。</li>
+<li>当0比较多的时候，也可以选择将所有0圈起来写出Y’，再取反得到答案。</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这节内容主要介绍了一些逻辑运算的方法，以及一些运算规则和化简方法。</p>
+<p><img src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/301684.jpg"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Adam Ben</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/10/07/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E5%B0%8F%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80/">http://example.com/2023/10/07/数字逻辑小结（二）——逻辑电路基础/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Adam8enの8log</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/">数字逻辑</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/301684.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="/img/loading.gif" data-original="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/loading.gif" data-original="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/10/07/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E5%B0%8F%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E6%95%B0%E5%88%B6%E5%9F%BA%E7%A1%80/" title="数字逻辑小结（一）——数制基础"><img class="cover" src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/2b4ac66703d6f4f4f42296696389284f.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数字逻辑小结（一）——数制基础</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/10/07/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E5%B0%8F%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E6%95%B0%E5%88%B6%E5%9F%BA%E7%A1%80/" title="数字逻辑小结（一）——数制基础"><img class="cover" src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/2b4ac66703d6f4f4f42296696389284f.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-07</div><div class="title">数字逻辑小结（一）——数制基础</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/loading.gif" data-original="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Adam Ben</div><div class="author-info__description">你的孤独与月为伴，你的深情与星同归</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adam8en"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Adam8en" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:adamben@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/Adam_Ben?type=blog" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=2813879949&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不知道说什么好,放个表情包在这里好了,⁽˙³˙⁾◟(๑•́ ₃ •̀๑)◞⁽˙³˙⁾</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">逻辑电路基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E3%80%81%E4%BA%8C%E5%80%BC%E9%80%BB%E8%BE%91%E3%80%81%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E3%80%81%E9%80%BB%E8%BE%91%E4%BB%A3%E6%95%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">逻辑、二值逻辑、逻辑运算、逻辑代数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E%E6%99%AE%E9%80%9A%E4%BB%A3%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.2.</span> <span class="toc-text">与普通代数的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E%E3%80%81%E6%88%96%E3%80%81%E9%9D%9E"><span class="toc-number">1.1.3.</span> <span class="toc-text">与、或、非</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E5%90%88%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="toc-number">1.2.</span> <span class="toc-text">复合逻辑运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%85%AC%E5%BC%8F"><span class="toc-number">1.2.1.</span> <span class="toc-text">基本公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%85%AC%E5%BC%8F"><span class="toc-number">1.2.2.</span> <span class="toc-text">常用公式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E4%BB%A3%E6%95%B0%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9A%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text">逻辑代数的基本定理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E5%85%A5%E8%A7%84%E5%88%99%E2%80%94%E2%80%94%E4%B8%BB%E8%A6%81%E5%BA%94%E7%94%A8%E4%BA%8E%E5%85%AC%E5%BC%8F%E7%9A%84%E6%8E%A8%E5%B9%BF"><span class="toc-number">1.3.1.</span> <span class="toc-text">代入规则——主要应用于公式的推广</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E6%BC%94%E8%A7%84%E5%88%99%E2%80%94%E2%80%94%E4%B8%BB%E8%A6%81%E7%94%A8%E4%BA%8E%E6%B1%82%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%8D%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.2.</span> <span class="toc-text">反演规则——主要用于求函数的反函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E5%81%B6%E8%A7%84%E5%88%99%E2%80%94%E2%80%94%E4%B8%BB%E8%A6%81%E7%94%A8%E4%BA%8E%E5%85%AC%E5%BC%8F%E7%9A%84%E6%8E%A8%E5%B9%BF"><span class="toc-number">1.3.3.</span> <span class="toc-text">对偶规则——主要用于公式的推广</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="toc-number">1.4.</span> <span class="toc-text">逻辑函数的表示方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E5%8C%96"><span class="toc-number">1.4.1.</span> <span class="toc-text">各种表示方法的相互转化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E%E7%9C%9F%E5%80%BC%E8%A1%A8%E5%86%99%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E5%BC%8F"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">从真值表写逻辑函数式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%BC%8F%E5%88%97%E7%9C%9F%E5%80%BC%E8%A1%A8"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">逻辑式列真值表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%BC%8F%E7%94%BB%E9%80%BB%E8%BE%91%E5%9B%BE"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">逻辑式画逻辑图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%9B%BE%E5%86%99%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E5%BC%8F"><span class="toc-number">1.4.1.4.</span> <span class="toc-text">逻辑图写逻辑函数式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E5%BC%8F%E7%94%BB%E6%B3%A2%E5%BD%A2%E5%9B%BE"><span class="toc-number">1.4.1.5.</span> <span class="toc-text">逻辑函数式画波形图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B1%E6%B3%A2%E5%BD%A2%E5%9B%BE%E5%86%99%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E5%BC%8F"><span class="toc-number">1.4.1.6.</span> <span class="toc-text">由波形图写逻辑函数式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%87%E5%87%86%E5%BD%A2%E5%BC%8F"><span class="toc-number">1.5.</span> <span class="toc-text">逻辑函数的标准形式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E9%A1%B9%E5%92%8C%E6%9C%80%E5%A4%A7%E9%A1%B9"><span class="toc-number">1.5.1.</span> <span class="toc-text">最小项和最大项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E9%A1%B9%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">最小项的定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E9%A1%B9%E7%9A%84%E7%BC%96%E5%8F%B7%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="toc-number">1.5.1.2.</span> <span class="toc-text">最小项的编号表示方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E9%A1%B9%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.5.1.3.</span> <span class="toc-text">最大项的定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E9%A1%B9%E7%9A%84%E7%BC%96%E5%8F%B7%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="toc-number">1.5.1.4.</span> <span class="toc-text">最大项的编号表示方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E9%A1%B9%E5%92%8C%E6%9C%80%E5%A4%A7%E9%A1%B9%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">1.5.1.5.</span> <span class="toc-text">最小项和最大项的性质</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E7%9A%84%E2%80%9C%E6%9C%80%E5%B0%8F%E9%A1%B9%E4%B9%8B%E5%92%8C%E2%80%9D%E5%BD%A2%E5%BC%8F-%E6%A0%87%E5%87%86%E4%B8%8E%E6%88%96%E5%BC%8F"><span class="toc-number">1.5.2.</span> <span class="toc-text">逻辑函数的“最小项之和”形式&#x2F;标准与或式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E7%9A%84%E2%80%9C%E6%9C%80%E5%A4%A7%E9%A1%B9%E4%B9%8B%E5%92%8C%E2%80%9D%E5%BD%A2%E5%BC%8F-%E6%A0%87%E5%87%86%E6%88%96%E4%B8%8E%E5%BC%8F"><span class="toc-number">1.5.3.</span> <span class="toc-text">逻辑函数的“最大项之和”形式&#x2F;标准或与式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E6%88%96%E4%B8%8E%E5%BC%8F%E5%92%8C%E6%A0%87%E5%87%86%E4%B8%8E%E6%88%96%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.5.4.</span> <span class="toc-text">标准或与式和标准与或式的关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%96%E7%AE%80%E6%96%B9%E6%B3%95"><span class="toc-number">1.6.</span> <span class="toc-text">逻辑函数的化简方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E5%85%AC%E5%BC%8F%E5%8C%96%E7%AE%80%E6%96%B9%E6%B3%95"><span class="toc-number">1.6.1.</span> <span class="toc-text">常用的公式化简方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%A1%E8%AF%BA%E5%9B%BE%E5%8C%96%E7%AE%80%E6%B3%95"><span class="toc-number">1.6.2.</span> <span class="toc-text">卡诺图化简法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A4%E8%AF%86%E5%8D%A1%E8%AF%BA%E5%9B%BE"><span class="toc-number">1.6.2.1.</span> <span class="toc-text">认识卡诺图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E7%94%A8%E5%8D%A1%E8%AF%BA%E5%9B%BE%E8%A1%A8%E7%A4%BA%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0"><span class="toc-number">1.6.2.2.</span> <span class="toc-text">怎么用卡诺图表示逻辑函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E5%86%99%E5%8D%A1%E8%AF%BA%E5%9B%BE"><span class="toc-number">1.6.2.3.</span> <span class="toc-text">逻辑函数写卡诺图</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.7.</span> <span class="toc-text">小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/10/07/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E5%B0%8F%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80/" title="数字逻辑小结（二）——逻辑电路基础"><img src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/301684.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数字逻辑小结（二）——逻辑电路基础"/></a><div class="content"><a class="title" href="/2023/10/07/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E5%B0%8F%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80/" title="数字逻辑小结（二）——逻辑电路基础">数字逻辑小结（二）——逻辑电路基础</a><time datetime="2023-10-07T03:19:21.000Z" title="发表于 2023-10-07 11:19:21">2023-10-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/07/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E5%B0%8F%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E6%95%B0%E5%88%B6%E5%9F%BA%E7%A1%80/" title="数字逻辑小结（一）——数制基础"><img src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/2b4ac66703d6f4f4f42296696389284f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数字逻辑小结（一）——数制基础"/></a><div class="content"><a class="title" href="/2023/10/07/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E5%B0%8F%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E6%95%B0%E5%88%B6%E5%9F%BA%E7%A1%80/" title="数字逻辑小结（一）——数制基础">数字逻辑小结（一）——数制基础</a><time datetime="2023-10-07T03:18:22.000Z" title="发表于 2023-10-07 11:18:22">2023-10-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/22/PHP%E7%A2%8E%E7%A2%8E%E5%BF%B5%EF%BC%88%E4%B8%80%EF%BC%89/" title="PHP碎碎念（一）"><img src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/300411.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PHP碎碎念（一）"/></a><div class="content"><a class="title" href="/2023/09/22/PHP%E7%A2%8E%E7%A2%8E%E5%BF%B5%EF%BC%88%E4%B8%80%EF%BC%89/" title="PHP碎碎念（一）">PHP碎碎念（一）</a><time datetime="2023-09-21T16:34:41.000Z" title="发表于 2023-09-22 00:34:41">2023-09-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/20/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%80%E9%94%A6%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E9%93%BE%E8%A1%A8%E7%AF%87/" title="数据结构什锦（二）——链表篇"><img src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/300470.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据结构什锦（二）——链表篇"/></a><div class="content"><a class="title" href="/2023/09/20/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%80%E9%94%A6%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E9%93%BE%E8%A1%A8%E7%AF%87/" title="数据结构什锦（二）——链表篇">数据结构什锦（二）——链表篇</a><time datetime="2023-09-20T07:49:55.000Z" title="发表于 2023-09-20 15:49:55">2023-09-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/18/CTFer%E7%9A%84%E8%8B%A6%E7%97%9B%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94SQL%E6%B3%A8%E5%85%A5%E7%AF%87/" title="CTFer的苦痛之路——SQL注入篇"><img src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/62841026_p0.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CTFer的苦痛之路——SQL注入篇"/></a><div class="content"><a class="title" href="/2023/09/18/CTFer%E7%9A%84%E8%8B%A6%E7%97%9B%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94SQL%E6%B3%A8%E5%85%A5%E7%AF%87/" title="CTFer的苦痛之路——SQL注入篇">CTFer的苦痛之路——SQL注入篇</a><time datetime="2023-09-18T08:33:20.000Z" title="发表于 2023-09-18 16:33:20">2023-09-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/301684.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Adam Ben</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '07g7RVgbp0tb6j6gBjcZCTKv-gzGzoHsz',
+      appKey: '4w4tpzByVtxnDriO8BFDKLBt',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
