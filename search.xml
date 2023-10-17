@@ -20,7 +20,11 @@
       
         <tags>
             
-            <tag> -CTF -Web -Misc </tag>
+            <tag> CTF </tag>
+            
+            <tag> Web </tag>
+            
+            <tag> Misc </tag>
             
         </tags>
       
@@ -170,11 +174,11 @@
       
         <tags>
             
+            <tag> CTF </tag>
+            
             <tag> Web </tag>
             
             <tag> SQL注入 </tag>
-            
-            <tag> CTF </tag>
             
         </tags>
       
