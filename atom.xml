@@ -83,9 +83,9 @@
     
     <category term="CTF" scheme="http://example.com/tags/CTF/"/>
     
-    <category term="Web" scheme="http://example.com/tags/Web/"/>
-    
     <category term="RCE" scheme="http://example.com/tags/RCE/"/>
+    
+    <category term="Web" scheme="http://example.com/tags/Web/"/>
     
   </entry>
   
