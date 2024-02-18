@@ -76,9 +76,9 @@
       
         <tags>
             
-            <tag> Web </tag>
-            
             <tag> CTF </tag>
+            
+            <tag> Web </tag>
             
             <tag> RCE </tag>
             
@@ -207,9 +207,9 @@
       
         <tags>
             
-            <tag> Web </tag>
-            
             <tag> CTF </tag>
+            
+            <tag> Web </tag>
             
             <tag> 目录穿越 </tag>
             
@@ -288,9 +288,9 @@
       
         <tags>
             
-            <tag> Web </tag>
-            
             <tag> CTF </tag>
+            
+            <tag> Web </tag>
             
             <tag> Misc </tag>
             
@@ -444,11 +444,11 @@
       
         <tags>
             
+            <tag> CTF </tag>
+            
             <tag> Web </tag>
             
             <tag> SQL注入 </tag>
-            
-            <tag> CTF </tag>
             
         </tags>
       
