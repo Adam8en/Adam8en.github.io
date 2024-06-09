@@ -203,7 +203,7 @@
 </ol>
 <p>代码方面，回溯问题的伪代码框架大致如下：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = []</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">backtrack</span>(<span class="params">路径, 选择列表</span>):</span><br><span class="line">    <span class="keyword">if</span> 满足结束条件:</span><br><span class="line">        result.add(路径)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> 选择 <span class="keyword">in</span> 选择列表:</span><br><span class="line">    <span class="comment"># 做选择</span></span><br><span class="line">    将该选择从选择列表移除</span><br><span class="line">    路径.add(选择)</span><br><span class="line">    backtrack(路径, 选择列表)</span><br><span class="line">    <span class="comment"># 撤销选择</span></span><br><span class="line">    路径.remove(选择)</span><br><span class="line">    将该选择再加入选择列表</span><br></pre></td></tr></table></figure>
-<p>回溯算法代码的核心，就是一个for循环中的递归。**首先检查结束条件，决定是否退出；如果没有退出，就在递归调用之前，「做选择」；在递归调用之后「撤销选择」。**就是这么简单。</p>
+<p>回溯算法代码的核心，就是一个for循环中的递归。<strong>首先检查结束条件，决定是否退出；如果没有退出，就在递归调用之前，「做选择」；在递归调用之后「撤销选择」</strong>。就是这么简单。</p>
 <p>接下来用两个问题来理解回溯法：全排列和N皇后问题。</p>
 <h2 id="全排列"><a class="markdownIt-Anchor" href="#全排列"></a> 全排列</h2>
 <blockquote>
