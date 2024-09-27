@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>算法笔记之动态规划 | Adam8enの8log</title><meta name="author" content="Adam Ben"><meta name="copyright" content="Adam Ben"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="简单的介绍了算法中的动态规划思想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法笔记之动态规划">
+<meta property="og:url" content="http://example.com/posts/4524d9d2cf27/index.html">
+<meta property="og:site_name" content="Adam8enの8log">
+<meta property="og:description" content="简单的介绍了算法中的动态规划思想">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/56475bad5af636d0f03dc7aac3b1d87d.jpeg">
+<meta property="article:published_time" content="2024-04-21T15:05:10.000Z">
+<meta property="article:modified_time" content="2024-04-21T15:05:10.000Z">
+<meta property="article:author" content="Adam Ben">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="DP">
+<meta property="article:tag" content="Dynamic Programming">
+<meta property="article:tag" content="DAG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/56475bad5af636d0f03dc7aac3b1d87d.jpeg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/posts/4524d9d2cf27/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '算法笔记之动态规划',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-21 23:05:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/transparency.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Adam8enの8log" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/56475bad5af636d0f03dc7aac3b1d87d.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Adam8enの8log"><span class="site-name">Adam8enの8log</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">算法笔记之动态规划</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-21T15:05:10.000Z" title="发表于 2024-04-21 23:05:10">2024-04-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-21T15:05:10.000Z" title="更新于 2024-04-21 23:05:10">2024-04-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">算法笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="算法笔记之动态规划"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>久违了各位，自数据结构的学习告一段落之后，接下来登场的是——算法！</p>
+<p>让我们直接从动态规划开始吧！</p>
+<p>ps：为什么出场就是王炸……</p>
+<p>pps：因为分治和递归在数据结构部分都有提及，也许后续会再补充吧……</p>
+<hr />
+<h2 id="什么是动态规划"><a class="markdownIt-Anchor" href="#什么是动态规划"></a> 什么是动态规划？</h2>
+<h3 id="小故事"><a class="markdownIt-Anchor" href="#小故事"></a> 小故事</h3>
+<p>在进入枯燥无味（误）的正文前，我们先通过一个小故事来理解动态规划。</p>
+<p>假如你有三种面值的钞票：1、5、10。我们要如何用最少的钞票凑出面值为15的金额呢？</p>
+<p>第一种想法是，既然要求用最少的钞票，那我每次选择面值最大的钞票不就好了？如果剩余金额要小于最大面值，那么就选择第二大的面值。这样，每次都把累加的金额设置的尽可能大，就可以达到减少钞票数量的目的。比如在这个例子中，我们可以依次选择面值为10和5的钞票，就成功用最少数量的钞票凑出了要求金额。</p>
+<p>这种思想就是<strong>贪心法</strong>，即通过每一步都选择局部最优解的情况来达成整体最优。就比如往瓶子里装尽可能多的东西，先装体积比较大的石头，再装体积小的砂石，最后还可以往瓶子里注水。贪心法也是一种非常重要的算法思想，后续我们也会专门开文章来讲解。但是，在这一个例子的情况下，使用贪心法真的就是最优解了吗？</p>
+<p><strong>显然不是</strong>。假如一个奇葩国家的面值金额只有1、5、11，那我们再去凑出15时使用贪心算法就会出错。具体情况如下：</p>
+<ul>
+<li>贪心算法：11*1+1*4，一共5张</li>
+<li>最优解：5*3，一共3张</li>
+</ul>
+<p>为什么会出现这种矛盾呢？因为贪心法很重要的一个缺点就是容易<strong>鼠目寸光</strong>。在有些情况下，局部最优并不一定指向全局最优。</p>
+<p>我们把问题抽象成“需要凑出一个具体的金额w，需要用到尽可能少的钞票”。那么贪心法的策略就是让你还需要凑出的w<strong>尽快</strong>的变得小。很显然，“让w尽快变的小”并不意味着最终的开销一定是最小的。</p>
+<p>如果用暴力枚举w的方式呢？这个选择就太多了，所带来的时间复杂度是不可接受的。</p>
+<p>那么，接下来该怎么办呢？</p>
+<p>我们把“凑出n所需要的最小钞票数量”用f(n)表示。</p>
+<p>那么，如果我们取了11，最后的代价（用掉的钞票总数）是多少呢？<br />
+明显</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>c</mi><mi>o</mi><mi>s</mi><mi>t</mi><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mn>4</mn><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn><mo>=</mo><mn>4</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">cost=f(4)+1=4+1=5
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord">4</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span></span></span></span></p>
+<p>，它的意义是：利用11来凑出15，付出的代价等于f(4)加上自己这一张钞票。现在我们暂时不管f(4)怎么求出来。<br />
+依次类推，马上可以知道：如果我们用5来凑出15，cost就是</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mn>10</mn><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn><mo>=</mo><mn>2</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">f(10)+1=2+1=3
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord">1</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span></span></p>
+<p>也就是说，在做出决策，我们只需要在方案中，选择cost值最低的那个就行了。而用于表达cost的式子也很简单：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>min</mi><mo>⁡</mo><mo stretchy="false">{</mo><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>5</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>11</mn><mo stretchy="false">)</mo><mo stretchy="false">}</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">f(n)=\min\{f(n-1),f(n-5),f(n-11)\}+1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mopen">{</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">5</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mclose">)</span><span class="mclose">}</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span></p>
+<p>也就是说，我们要求出f(n)，只需要求出几个更小的f值就行了；那么，我们可以从小到大把所有的f值都求出来，并储存在表中，就可以求出f(n)时的情况了。</p>
+<p>我们成功以O(n)的时间复杂度解决了这个问题，接下来我们再来分析一下这道个式子的原理：</p>
+<ul>
+<li>f(n)只与f(n-1)、f(n-5)、f(n-11)的值相关。</li>
+<li>我们只关心f(w)的值，并不关心它是怎么求出来的。</li>
+</ul>
+<p>这就是这个方法的优势所在。相对于贪心法，它会分别计算出各个决策的代价，并选择最小的那一个，而不是一昧的选择局部最优的决策。相对于暴力枚举法，它会舍弃枚举使用的硬币，因为这属于冗余信息，我们只关心f(w)的值，而不需要知道它是怎么凑出来的。</p>
+<p>我们能这样干，取决于问题的性质：求出f(n)，只需要知道几个更小的f©。<strong>我们将求解f©称作求解f(n)的“子问题”。</strong></p>
+<p>这就是动态规划，它的核心思想就是：<strong>将一个问题拆成几个子问题，分别求解并记录这些子问题，即可推断出大问题的解</strong>。</p>
+<h3 id="正文"><a class="markdownIt-Anchor" href="#正文"></a> 正文</h3>
+<p>动态规划的工作原理与**记忆(memorization)**相关。动态规划与分治法之间的主要区别在于，后者要求子问题是相互独立的，而在DP中允许存在子问题的重叠。通过使用记忆(维护一张存储已求解子问题的解的表格)，动态规划将求解许多问题的指数复杂度降低到多项式复杂度(O(n<sup>2</sup>)、O(n<sup>3</sup>)等)。DP的主要组成部分是:</p>
+<ul>
+<li>递归：递归的求解子问题</li>
+<li>记忆：在表中存储已经求解的子问题的解(memorization代表缓存)</li>
+</ul>
+<p>动态规划和简单递归的区别就在于递归调用的记忆，也就是能够储存每一个子决策的最优解。但是，如果子问题之间相互独立、没有重复，那么储存子决策的解就没有任何帮助。所以，动态规划并不是万能的，它有自己的局限性和要求。要判断一个问题是否满足动态规划的使用条件，可以参考以下两个概念：</p>
+<h3 id="无后效性"><a class="markdownIt-Anchor" href="#无后效性"></a> 无后效性</h3>
+<p>如果给定某一个阶段的状态，那么这一个阶段以后的发展就与这个阶段之前的发展无关。“未来与过去无关”，这就是无后效性。</p>
+<p>参考之前的小故事，只要我们确定了f(n)，那么“我们如何凑出f(n)”就再也用不着了。</p>
+<h3 id="最优子结构"><a class="markdownIt-Anchor" href="#最优子结构"></a> 最优子结构</h3>
+<p>大问题的最优解能够由小问题的最优解推出，这就叫最优子结构。</p>
+<p>参考前面的小故事，我们定义的f(n)是“凑出某个w所需要的<strong>最少</strong>钞票数量”。这个定义已经包含了“最优”的意思。于是我们分别利用w=14，10，4的最优解，来推算出w=15时的最优解。</p>
+<p>因此，要判断问题是否能用DP解决，我们只需要分析问题是否满足以下条件：</p>
+<ol>
+<li>能将大问题拆分成几个小问题</li>
+<li>满足无后效性</li>
+<li>满足最优子结构</li>
+</ol>
+<h2 id="动态规划的方法"><a class="markdownIt-Anchor" href="#动态规划的方法"></a> 动态规划的方法</h2>
+<p>一般来说，有两种动态规划的方法：</p>
+<ul>
+<li>自底向上的动态规划</li>
+<li>自顶向下的动态规划</li>
+</ul>
+<h3 id="自底向上"><a class="markdownIt-Anchor" href="#自底向上"></a> 自底向上</h3>
+<p>在这种方法中，状态转移方程从最小可能的输入参数值开始，然后逐步通过可能的值，慢慢增加输入参数值。在计算时，我们将所有计算得到的值存储在一个表(内存)中在求解较大输入参数值的状态转移方程时，我们可以使用输入参数值较小时状态转移方程得到的解。</p>
+<p>比如背包问题，就适用于自底向上方法。可以从0开始遍历到背包容量，将结果储存在表中。</p>
+<h3 id="自顶向下"><a class="markdownIt-Anchor" href="#自顶向下"></a> 自顶向下</h3>
+<p>在这种方法中，问题被分解为多个子问题；求解每个子问题并记住它们的解，以避免再次求解它们时的重复计算。此外，我们将保存每个计算值作为递归函数的最终操作并将判断预计算的值是否已存在作为递归函数的第一个操作。</p>
+<p>具体选择哪种方法，应该根据具体环境来决定。在自底向上的动态规划中，程序员必须选择值来计算并决定计算顺序。在这种情况下，所有可能的子问题都被事先求解，然后用于求解更大的问题。在自顶向下的动态规划中，保留了原问题的递归结构，避免了求解不必要的子问题，同时也避免了需要求解的子问题中重复子问题的重复求解。原问题被分解为子问题，求解这些子问题并存储它们的解，以避免它们的重复求解。</p>
+<p>具体的动态规划法多种多样，但都具有相同的填表形式。</p>
+<p>一般来说，动态规划法的求解过程由以下三个阶段组成：<br />
+划分子问题：将原问题分解为若干个子问题，每个子问题对应一个决策阶段，并且子问题之间具有重叠关系。<br />
+确定动态规划函数：根据子问题之间的重叠关系找到子问题满足的递推关系式即动态规划函数，这是动态规划法的关键。一般来说，可以表示为<strong>问题解的代价=子问题的代价+选择带来的开销</strong>。</p>
+<p>填写表格：设计表格，以自底向上或自顶向下的方式计算各个子问题的解并填表，实现动态规划过程。</p>
+<p>上述动态规划过程可以求得问题的最优值即目标函数的极值，如果要求出具体的最优解，通常在动态规划过程中记录必要的信息，再根据最优决策序列构造最优解。</p>
+<h2 id="动态规划算法举例"><a class="markdownIt-Anchor" href="#动态规划算法举例"></a> 动态规划算法举例</h2>
+<h3 id="dag最短路"><a class="markdownIt-Anchor" href="#dag最短路"></a> DAG最短路</h3>
+<p>问题很简单：给定一个城市的地图，所有的道路都是单行道，而且不会构成环。每条道路都有过路费，问从S点到T点花费的最少费用。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240407183232936.png" alt="image-20240407183232936" /></p>
+<p>有向无环图的最短路径问题是一个经典的问题，它的解法是拓扑排序的一个应用。</p>
+<p>它满足无后效性和最优子结构性质，可以用动态规划的方法解决。</p>
+<p>既然满足动态规划性质，则可以确定关系式f(P)=min{f®+W(R,P)}，其中R是P的前驱结点，W(R,P)是边R-&gt;P的权值。</p>
+<p>有向无环图的最短路径问题的算法如下：</p>
+<ol>
+<li>对有向无环图进行拓扑排序，得到拓扑序列。</li>
+<li>初始化源点的最短路径长度为0，其他点的最短路径长度为无穷大。</li>
+<li>依次对拓扑序列中的每个点P进行如下操作：如果f(P)+W(P,R)&lt;f®，则f®=f(P)+W(P,R)。</li>
+<li>最后返回终点到起点的距离f(n)。</li>
+</ol>
+<p>这里我整理出了一份C++代码仅供参考，不过需要注意的是我并没有采用传统的方式开表来保存最优解，而是选择用维护distance属性来代替开表，其底层的核心思路是一样的。其实，只要有诸如<code>f(R)=f(P)+W(P,R)</code>的式子来判断并储存最优解，都可视为借鉴了动态规划的思想。如果要用更加熟悉传统的动态规划算法解决最短路问题，可以参考<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Floyd%E7%AE%97%E6%B3%95/291990?fr=ge_ala">Floyd算法_百度百科 (baidu.com)</a>。</p>
+<p>代码如下。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * DAG最短路问题</span></span><br><span class="line"><span class="comment"> * 有向无环图的最短路径问题</span></span><br><span class="line"><span class="comment"> * 有向无环图的最短路径问题是一个经典的问题，它的解法是拓扑排序的一个应用。</span></span><br><span class="line"><span class="comment"> * 它满足无后效性和最优子结构性质，可以用动态规划的方法解决。</span></span><br><span class="line"><span class="comment"> * 既然满足动态规划性质，则可以确定关系式f(P)=min&#123;f(R)+W(R,P)&#125;，其中R是P的前驱结点，W(R,P)是边R-&gt;P的权值。</span></span><br><span class="line"><span class="comment"> * 有向无环图的最短路径问题的算法如下：</span></span><br><span class="line"><span class="comment"> * 1. 对有向无环图进行拓扑排序，得到拓扑序列。</span></span><br><span class="line"><span class="comment"> * 2. 初始化源点的最短路径长度为0，其他点的最短路径长度为无穷大。</span></span><br><span class="line"><span class="comment"> * 3. 依次对拓扑序列中的每个点P进行如下操作：</span></span><br><span class="line"><span class="comment"> *   1. 依次对P的每个邻接点R进行如下操作：</span></span><br><span class="line"><span class="comment"> *   1. 如果f(P)+W(P,R)&lt;f(R)，则f(R)=f(P)+W(P,R)。</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;climits&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;chrono&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义图中的顶点</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Vertex</span> &#123;</span><br><span class="line">    <span class="type">int</span> id;</span><br><span class="line">    <span class="type">int</span> distance; <span class="comment">// 从起始位置到该顶点的最短距离</span></span><br><span class="line">    [[maybe_unused]] <span class="type">bool</span> visited; <span class="comment">// 该顶点是否已经访问过</span></span><br><span class="line">    vector&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt; neighbors; <span class="comment">// 该顶点的邻居（相邻顶点编号和边权重）</span></span><br><span class="line">    <span class="comment">//其中neighbor.first表示单项图中该顶点邻接的顶点的编号，neighbor.second表示边的权重</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Vertex</span><span class="params">(<span class="type">int</span> _id)</span> : id(_id), distance(INT_MAX), visited(false) &#123;</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义图</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Graph</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;Vertex *&gt; vertices; <span class="comment">// 图中的所有顶点，对应邻接表中储存所有顶点的链表</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Graph</span><span class="params">(<span class="type">int</span> numVertices)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建图中的所有顶点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; numVertices; ++i) &#123;</span><br><span class="line">            vertices.<span class="built_in">push_back</span>(<span class="keyword">new</span> <span class="built_in">Vertex</span>(i));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加有向边</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addDirectedEdge</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to, <span class="type">int</span> weight)</span> </span>&#123;</span><br><span class="line">        vertices[from]-&gt;neighbors.<span class="built_in">emplace_back</span>(to, weight);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 拓扑排序</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">topologicalSort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        queue&lt;Vertex *&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算每个顶点的入度</span></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inDegrees</span><span class="params">(vertices.size(), <span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (Vertex *v: vertices) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;neighbor: v-&gt;neighbors) &#123;</span><br><span class="line">                inDegrees[neighbor.first]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将入度为0的顶点加入队列</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; vertices.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (inDegrees[i] == <span class="number">0</span>) &#123;</span><br><span class="line">                q.<span class="built_in">push</span>(vertices[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 执行拓扑排序</span></span><br><span class="line">        <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            Vertex *v = q.<span class="built_in">front</span>();</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">            result.<span class="built_in">push_back</span>(v-&gt;id);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 减少邻居顶点的入度，若入度为0，则加入队列</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;neighbor: v-&gt;neighbors) &#123;<span class="comment">//遍历邻居</span></span><br><span class="line">                inDegrees[neighbor.first]--;<span class="comment">//减少邻居顶点的入度</span></span><br><span class="line">                <span class="keyword">if</span> (inDegrees[neighbor.first] == <span class="number">0</span>) &#123;</span><br><span class="line">                    q.<span class="built_in">push</span>(vertices[neighbor.first]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">shortestPathByViolence</span><span class="params">(<span class="type">int</span> start, <span class="type">int</span> end)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//用蛮力法求解最短路径问题</span></span><br><span class="line">        <span class="type">int</span> result = INT_MAX;</span><br><span class="line">        <span class="keyword">auto</span> v = vertices[start];</span><br><span class="line">        <span class="comment">//用DFS遍历每一条路径</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> neighbor: v-&gt;neighbors) &#123;</span><br><span class="line">            <span class="type">int</span> weight = neighbor.second;</span><br><span class="line">            <span class="type">int</span> next = neighbor.first;</span><br><span class="line">            <span class="keyword">if</span> (next == end) &#123;</span><br><span class="line">                <span class="comment">//如果到达终点，更新最短路径</span></span><br><span class="line">                result = <span class="built_in">min</span>(result, weight);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//如果没有到达终点，继续递归</span></span><br><span class="line">                result = <span class="built_in">min</span>(result,</span><br><span class="line">                             weight + <span class="built_in">shortestPathByViolence</span>(next, end));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算从起始顶点到目标顶点的最短路径</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">shortestPath</span><span class="params">(<span class="type">int</span> start, <span class="type">int</span> end)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 对图进行拓扑排序</span></span><br><span class="line">        <span class="keyword">auto</span> order = <span class="built_in">topologicalSort</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化起始顶点的距离为0</span></span><br><span class="line">        vertices[start]-&gt;distance = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 按照拓扑排序的顺序，逐个更新顶点的距离</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i: order) &#123;<span class="comment">//遍历拓扑排序的顺序</span></span><br><span class="line">            Vertex *v = vertices[i];<span class="comment">//取出对应的顶点</span></span><br><span class="line">            <span class="keyword">if</span> (v-&gt;distance !=</span><br><span class="line">                INT_MAX) &#123;<span class="comment">//如果顶点的距离不是无穷大，也就是说该顶点是可以到达的，这里因为只初始化了起始顶点的距离为0，所以只有起始顶点的距离不是无穷大</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;neighbor: v-&gt;neighbors) &#123;<span class="comment">//遍历该顶点的邻居，这里第一个被处理的一定是顶点，先遍历顶点的邻居</span></span><br><span class="line">                    <span class="keyword">if</span> (v-&gt;distance + neighbor.second &lt;</span><br><span class="line">                        vertices[neighbor.first]-&gt;distance) &#123;</span><br><span class="line">                        <span class="comment">// 如果通过该顶点到达邻居顶点的距离更短</span></span><br><span class="line">                        <span class="comment">// 更新邻居顶点的距离</span></span><br><span class="line">                        vertices[neighbor.first]-&gt;distance =</span><br><span class="line">                                v-&gt;distance + neighbor.second;</span><br><span class="line">                        <span class="comment">//f(P)=min&#123;f(R)+W(R,P)&#125;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 返回目标顶点的最短路径</span></span><br><span class="line">        <span class="keyword">return</span> vertices[end]-&gt;distance;</span><br><span class="line">        <span class="comment">//依次分析该算法是否满足最优子结构和无后效性</span></span><br><span class="line">        <span class="comment">//最优子结构：f(P)=min&#123;f(R)+W(R,P)&#125;，其中R是P的前驱结点，W(R,P)是边R-&gt;P的权值。</span></span><br><span class="line">        <span class="comment">//无后效性：f(P)只与P的前驱结点有关，与P的后继结点无关。</span></span><br><span class="line">        <span class="comment">//这里从起点开始处理，通过比较从该顶点到起点的最短距离v-&gt;distance和到邻居顶点的距离neighbor.second，</span></span><br><span class="line">        <span class="comment">// 和邻居顶点到起点的最短距离distance，来维护distance属性，更新邻居顶点的距离，</span></span><br><span class="line">        <span class="comment">// 从起点到每个顶点的最短距离推导出到终点的最短距离，即满足最优子结构</span></span><br><span class="line">        <span class="comment">// 从起点到每个顶点的最短距离只与前驱结点v-&gt;distance有关，与后继结点无关，即满足无后效性</span></span><br><span class="line">        <span class="comment">// 这样就满足了最优子结构和无后效性。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">Graph <span class="title">Init_graph</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;请输入顶点数：&quot;</span>;</span><br><span class="line">    cin&gt;&gt;num;</span><br><span class="line">    <span class="function">Graph <span class="title">graph</span><span class="params">(num)</span></span>;</span><br><span class="line">    <span class="type">int</span> from, to, weight;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;请输入边的起点、终点和权重（以-1 -1 -1结束）：&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">        cin&gt;&gt;from&gt;&gt;to&gt;&gt;weight;</span><br><span class="line">        <span class="keyword">if</span>(from==<span class="number">-1</span>&amp;&amp;to==<span class="number">-1</span>&amp;&amp;weight==<span class="number">-1</span>)&#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        graph.<span class="built_in">addDirectedEdge</span>(from, to, weight);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> graph;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个带权有向无环图</span></span><br><span class="line">    <span class="comment">// Graph graph=Init_graph();</span></span><br><span class="line">    <span class="function">Graph <span class="title">graph</span><span class="params">(<span class="number">13</span>)</span></span>;</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">9</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">1</span>, <span class="number">3</span>, <span class="number">7</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">1</span>, <span class="number">5</span>, <span class="number">2</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">2</span>, <span class="number">6</span>, <span class="number">4</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">2</span>, <span class="number">7</span>, <span class="number">2</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">2</span>, <span class="number">8</span>, <span class="number">1</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">3</span>, <span class="number">6</span>, <span class="number">2</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">3</span>, <span class="number">7</span>, <span class="number">7</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">4</span>, <span class="number">8</span>, <span class="number">11</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">5</span>, <span class="number">8</span>, <span class="number">8</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">6</span>, <span class="number">9</span>, <span class="number">6</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">6</span>, <span class="number">10</span>, <span class="number">5</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">7</span>, <span class="number">9</span>, <span class="number">4</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">7</span>, <span class="number">10</span>, <span class="number">3</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">8</span>, <span class="number">10</span>, <span class="number">5</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">8</span>, <span class="number">11</span>, <span class="number">6</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">9</span>, <span class="number">12</span>, <span class="number">4</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">10</span>, <span class="number">12</span>, <span class="number">2</span>);</span><br><span class="line">    graph.<span class="built_in">addDirectedEdge</span>(<span class="number">11</span>, <span class="number">12</span>, INT_MAX/<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 求从顶点0到顶点5的最短路径</span></span><br><span class="line">    <span class="keyword">auto</span> timeStart = chrono::high_resolution_clock::<span class="built_in">now</span>();</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> shortestViolence = graph.<span class="built_in">shortestPathByViolence</span>(<span class="number">1</span>, <span class="number">12</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> timeEnd = chrono::high_resolution_clock::<span class="built_in">now</span>();</span><br><span class="line">    <span class="keyword">auto</span> duration = timeEnd - timeStart;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Shortest distance by violence from vertex 1 to vertex 5: &quot;</span></span><br><span class="line">         &lt;&lt; shortestViolence &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;And the time cost is:&quot;</span> &lt;&lt; duration.<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;ms&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    timeStart = chrono::high_resolution_clock::<span class="built_in">now</span>();</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> shortest = graph.<span class="built_in">shortestPath</span>(<span class="number">1</span>, <span class="number">12</span>);</span><br><span class="line"></span><br><span class="line">    timeEnd = chrono::high_resolution_clock::<span class="built_in">now</span>();</span><br><span class="line">    duration = timeEnd - timeStart;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Shortest distance from vertex 1 to vertex 5: &quot;</span> &lt;&lt; shortest &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;And the time cost is:&quot;</span> &lt;&lt; duration.<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;ms&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="想说的话"><a class="markdownIt-Anchor" href="#想说的话"></a> 想说的话</h2>
+<p>其实这点内容远不足以学习到动态规划的精髓，但由于时间关系，我目前只写了这么多。其实对于算法的学习而言，多刷题永远是最有效的方法。多实践，把抽象的思想转化为具体的solution，从而对算法的思想有更深入的了解，避免纸上谈兵。</p>
+<p>目前只更新了DAG最短路问题，其实涉及到动态规划算法的经典问题还有很多，诸如矩阵连乘、最长公共子序列等问题我都还没来得及更新，希望日后刷题时会补上<s>才不会鸽了呢</s>。</p>
+<hr />
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/56475bad5af636d0f03dc7aac3b1d87d.jpeg" alt="56475bad5af636d0f03dc7aac3b1d87d" /></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Adam Ben</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/posts/4524d9d2cf27/">http://example.com/posts/4524d9d2cf27/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Adam8enの8log</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><a class="post-meta__tags" href="/tags/DP/">DP</a><a class="post-meta__tags" href="/tags/Dynamic-Programming/">Dynamic Programming</a><a class="post-meta__tags" href="/tags/DAG/">DAG</a></div><div class="post_share"><div class="social-share" data-image="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/56475bad5af636d0f03dc7aac3b1d87d.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/97e7c5ac2148/" title="浅谈中国剩余定理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/3be1fbc5b0aaefdae08b32df0e361258.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">浅谈中国剩余定理</div></div></a></div><div class="next-post pull-right"><a href="/posts/b50e8c107ef5/" title="3月总结·2024"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/4ee07d93e2515fc33fd8f9f5dcaf207.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">3月总结·2024</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/1f3d16f9a7e2/" title="LeetCode经典面试150题题解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%7B930EB68A-6F85-4666-BA42-9333A5074315%7D.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-08</div><div class="title">LeetCode经典面试150题题解</div></div></a></div><div><a href="/posts/f4c69437cf30/" title="算法笔记之复杂性理论"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/100852589_p0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-23</div><div class="title">算法笔记之复杂性理论</div></div></a></div><div><a href="/posts/1616990c38e1/" title="关于移动群智感知中的隐私保护的一些理解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110250.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-04</div><div class="title">关于移动群智感知中的隐私保护的一些理解</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Adam Ben</div><div class="author-info__description">你的孤独与月为伴，你的深情与星同归</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adam8en"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Adam8en" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:adamben@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/Adam_Ben?type=blog" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=2813879949&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不知道说什么好,放个表情包在这里好了,⁽˙³˙⁾◟(๑•́ ₃ •̀๑)◞⁽˙³˙⁾</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">1.</span> <span class="toc-text"> 什么是动态规划？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E6%95%85%E4%BA%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 小故事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-number">1.2.</span> <span class="toc-text"> 正文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E5%90%8E%E6%95%88%E6%80%A7"><span class="toc-number">1.3.</span> <span class="toc-text"> 无后效性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E5%AD%90%E7%BB%93%E6%9E%84"><span class="toc-number">1.4.</span> <span class="toc-text"> 最优子结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text"> 动态规划的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%BA%95%E5%90%91%E4%B8%8A"><span class="toc-number">2.1.</span> <span class="toc-text"> 自底向上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B"><span class="toc-number">2.2.</span> <span class="toc-text"> 自顶向下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95%E4%B8%BE%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text"> 动态规划算法举例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#dag%E6%9C%80%E7%9F%AD%E8%B7%AF"><span class="toc-number">3.1.</span> <span class="toc-text"> DAG最短路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%B3%E8%AF%B4%E7%9A%84%E8%AF%9D"><span class="toc-number">4.</span> <span class="toc-text"> 想说的话</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1c2342ee510b/" title="计算机组成指北（七）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/C10AD1752A521C3C297E7D81400952F1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（七）"/></a><div class="content"><a class="title" href="/posts/1c2342ee510b/" title="计算机组成指北（七）">计算机组成指北（七）</a><time datetime="2024-09-27T03:43:26.000Z" title="发表于 2024-09-27 11:43:26">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4ddedbf342f8/" title="计算机组成指北（六）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/612FFB2DEDE35B9C77545DB9ADF1C8BF.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（六）"/></a><div class="content"><a class="title" href="/posts/4ddedbf342f8/" title="计算机组成指北（六）">计算机组成指北（六）</a><time datetime="2024-09-27T03:43:17.000Z" title="发表于 2024-09-27 11:43:17">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/159e2ded72f9/" title="计算机组成指北（五）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/105468887_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（五）"/></a><div class="content"><a class="title" href="/posts/159e2ded72f9/" title="计算机组成指北（五）">计算机组成指北（五）</a><time datetime="2024-09-27T03:43:08.000Z" title="发表于 2024-09-27 11:43:08">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/B457C9EC79F0421BB773651E8FFE5F05.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（四）"/></a><div class="content"><a class="title" href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）">计算机组成指北（四）</a><time datetime="2024-09-27T03:42:55.000Z" title="发表于 2024-09-27 11:42:55">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1da683a19632/" title="计算机组成指北（三）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/118769966_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（三）"/></a><div class="content"><a class="title" href="/posts/1da683a19632/" title="计算机组成指北（三）">计算机组成指北（三）</a><time datetime="2024-09-27T03:42:38.000Z" title="发表于 2024-09-27 11:42:38">2024-09-27</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/56475bad5af636d0f03dc7aac3b1d87d.jpeg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Adam Ben</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '07g7RVgbp0tb6j6gBjcZCTKv-gzGzoHsz',
+      appKey: '4w4tpzByVtxnDriO8BFDKLBt',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

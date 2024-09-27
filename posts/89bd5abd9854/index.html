@@ -1,0 +1,600 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>计算机组成指北（一） | Adam8enの8log</title><meta name="author" content="Adam Ben"><meta name="copyright" content="Adam Ben"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="对标期末重点整理出来的计算机组成原理笔记。可以放心翘课，有它足矣。本章主要介绍计组的前导概论和总线部分。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成指北（一）">
+<meta property="og:url" content="http://example.com/posts/89bd5abd9854/index.html">
+<meta property="og:site_name" content="Adam8enの8log">
+<meta property="og:description" content="对标期末重点整理出来的计算机组成原理笔记。可以放心翘课，有它足矣。本章主要介绍计组的前导概论和总线部分。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/60e6e4dec743523c13ccc9fcabd56171.png">
+<meta property="article:published_time" content="2024-09-27T03:42:06.000Z">
+<meta property="article:modified_time" content="2024-09-27T03:42:06.000Z">
+<meta property="article:author" content="Adam Ben">
+<meta property="article:tag" content="计算机组成原理">
+<meta property="article:tag" content="概论">
+<meta property="article:tag" content="系统总线">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/60e6e4dec743523c13ccc9fcabd56171.png"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/posts/89bd5abd9854/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计算机组成指北（一）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-27 11:42:06'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/transparency.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Adam8enの8log" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/60e6e4dec743523c13ccc9fcabd56171.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Adam8enの8log"><span class="site-name">Adam8enの8log</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">计算机组成指北（一）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-27T03:42:06.000Z" title="发表于 2024-09-27 11:42:06">2024-09-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-27T03:42:06.000Z" title="更新于 2024-09-27 11:42:06">2024-09-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E6%8C%87%E5%8C%97/">计算机组成指北</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="计算机组成指北（一）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>写在开头</p>
+<p>本笔记初次完成于2024.6.21。因原文篇幅过长导致网页渲染极其卡顿，出现了严重的性能问题。故将原文分章节重新补档，内容并无差异。助阅读愉快！</p>
+<p>：）</p>
+</blockquote>
+<h1 id="计算机组成原理速成版"><a class="markdownIt-Anchor" href="#计算机组成原理速成版"></a> 计算机组成原理速成版</h1>
+<p>计算机组成原理速成版，五天整理出来的一篇小笔记，对标期末重点做出来的博客。教你从一名普通的大学牲逐渐成长为冯·诺依曼:)</p>
+<p>本文基于教材《计算机组成原理》·唐朔飞、学校教学PPT，部分参考了<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1t4411e7LH?p=1&amp;vd_source=5e421b52b9103cce8e012430aa932553">计算机组成原理（哈工大刘宏伟）135讲（全）高清</a>整理而成。预计共有四大部分：</p>
+<ul>
+<li>第一部分：对应教材的1~2章，主要介绍一些计算机的基础知识，重在概念考察，难度较为简单。</li>
+<li>第二部分：对应教材的3~5章，介绍了系统总线、储存器和I/O系统。存储器部分涉及到设计，需要重点掌握。</li>
+<li>第三部分：对应教材的6~7章，介绍了计算机的运算方法和指令系统，重点是ALU的原理与设计，非常重要。</li>
+<li>第四部分：对应教材的8~10章，涵盖了CU和CPU所有功能设计，题目比较关键，也最为复杂。</li>
+</ul>
+<p>当然，为了便于排版和查找，本文还是按照传统的章节来逐章介绍，列出部分是为了帮助读者快速归纳定位到自己想要学习的知识，对整本书的知识体系有一个大概的概念。</p>
+<p>Now, let’s begin.</p>
+<h2 id="第一-二章-概论"><a class="markdownIt-Anchor" href="#第一-二章-概论"></a> 第一、二章 概论</h2>
+<blockquote>
+<p>基础知识的理解，常见于选择判断题。<br />
+如：第一台计算机的名字和时间，计算机的层次结构、储存体基本名词。着重记忆。<br />
+要记住冯诺依曼计算机的基本特点</p>
+</blockquote>
+<h3 id="基础知识"><a class="markdownIt-Anchor" href="#基础知识"></a> 基础知识</h3>
+<p>ENIAC，全称为Electronic Numerical Integrator And Computer，即电子数字积分计算机，于1946年诞生于美国，是世界上第一台计算机。（有争议，百度上指出ABC计算机才是第一台，但是以教材为准）</p>
+<p>目前的计算机的层次结构，可以划分为五种：</p>
+<ol>
+<li>虚拟机器M4，用编译程序将高级语言翻译成汇编语言程序</li>
+<li>虚拟机器M3，用汇编程序将汇编语言翻译成机器语言程序</li>
+<li>虚拟机器M2，用机器语言解释操作系统</li>
+<li>虚拟机器M1：用微指令解释机器指令</li>
+<li>虚拟机器M0：由硬件直接执行微指令</li>
+</ol>
+<p>其中M4~M2由软件实现，M1~M0由硬件实现。计组只要讨论的是M1~M0。</p>
+<p>冯·诺依曼体系计算机的特点：</p>
+<ol>
+<li>计算机由五大部件组成：运算器、存储器、控制器、输入设备和输出设备</li>
+<li>指令和数据以同等地位存于存储器，可按地址寻访</li>
+<li>指令和数据用二进制表示</li>
+<li>指令由操作码和地址码组成</li>
+<li>存储程序，指令在储存器内按顺序存放</li>
+<li>机器以运算器为中心</li>
+</ol>
+<p>硬件结构框图如下：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616134051396.png" alt="image-20240616134051396" style="zoom: 33%;" />
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616134256787.png" alt="image-20240616134256787" style="zoom:33%;" />
+<h3 id="存储器的基本组成"><a class="markdownIt-Anchor" href="#存储器的基本组成"></a> 存储器的基本组成</h3>
+<p>存储器包含：</p>
+<ul>
+<li>MAR（存储器地址寄存器）</li>
+<li>MDR（存储器数据寄存器）</li>
+<li>存储体（存储数据的内存）</li>
+</ul>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616134805357.png" alt="image-20240616134805357" style="zoom:33%;" />
+<p><strong>存储体</strong>又包含<strong>存储单元</strong>和<strong>存储元件（0/1）</strong>。三者的关系依次对应于：大楼、房间、床位（无人/有人）。<strong>存储单元</strong>内存放一串二进制代码，每个存储单元被赋予一个地址号；<strong>存储字</strong>是存储单元内存放的二进制代码的组合，即存放不同的存储字；<strong>存储字长</strong>即存储字的位数，即一个字内有几个存储元件。</p>
+<p>MAR是存储器地址寄存器，反映存储单元的个数。MDR是存储器数据寄存器，反映存储字长。若MAR=4，MDR=8，则有2<sup>4</sup>=16个存储单元，存储字长为8。</p>
+<p>除了存储字长，还有一个机器字长需要区分：机器字长是CPU一次能处理数据的位数，与CPU中寄存器的位数有关。一般机器字长等于ALU（算术逻辑单元）和寄存器之间的数据传输宽度和寄存器的位数。</p>
+<table>
+<thead>
+<tr>
+<th>机器字长</th>
+<th>存储字长</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>机器字长通常指的是CPU一次性能处理的数据的位数。它是计算机体系结构的一个基本参数，决定了CPU内部运算和处理数据的能力。</td>
+<td>存储字长是指存储系统中一次性能读写的数据的位数。它与存储设备的设计有关，如RAM的组织方式。</td>
+</tr>
+<tr>
+<td>机器字长影响着CPU的寄存器大小、指令集的设计以及数据的宽度。例如，一个32位的CPU意味着其寄存器和大多数指令都是32位宽。</td>
+<td>存储字长可以与机器字长相同，也可以不同。例如，一个32位的CPU可能使用16位的存储字长，这意味着每次读写操作涉及两个存储单元。</td>
+</tr>
+<tr>
+<td>机器字长直接关系到计算机的寻址能力和数据处理能力。一个较长的机器字长通常意味着更高的性能和更复杂的计算能力。</td>
+<td>存储字长影响数据的存储效率和访问速度。较长的存储字长可以减少读写操作的次数，提高数据访问速度。</td>
+</tr>
+</tbody>
+</table>
+<p>两者的主要区别在于它们的应用领域和影响范围：</p>
+<ul>
+<li>机器字长主要影响CPU的运算能力和指令集的设计。</li>
+<li>存储字长主要影响数据的存储方式和访问效率。</li>
+</ul>
+<p>在实际应用中，机器字长和存储字长可能会相互影响。例如，如果存储字长小于机器字长，CPU在一次读写操作中无法获取或存储完整的机器字数据。这意味着CPU需要进行多次存储访问才能完成一次完整的数据传输，从而降低数据传输效率。反之，如果存储字长大于机器字长，每次存储访问都传输多于CPU实际需要的数据，可能导致资源浪费。例如，一个32位的CPU使用64位的存储字长，每次访问存储器都会传输64位的数据，但实际只处理32位的数据。</p>
+<p>掌握这些概念后就可以计算存储容量了，如下图：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616143832648.png" alt="image-20240616143832648" style="zoom:50%;" />
+<h2 id="第三章-系统总线"><a class="markdownIt-Anchor" href="#第三章-系统总线"></a> 第三章 系统总线</h2>
+<blockquote>
+<p>总线带宽需要会计算，每秒钟传送字节的个数，总线标准的概念了解，总线结构不要求会设计，但是要知道有什么优缺点。<br />
+总线判优，通信方式</p>
+</blockquote>
+<p>我们已经对计算机的结构有了一个初步的了解，接下来我们从总线部分开始入手，先从计算机的各个部件直接如何通信讲起。</p>
+<h3 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h3>
+<p>什么是总线？</p>
+<p>总线是连接各个部件的信息传输线，是各个部件共享的传输介质。CPU通过总线来与其他部件进行通信。</p>
+<h3 id="分类"><a class="markdownIt-Anchor" href="#分类"></a> 分类</h3>
+<p>总线分为<strong>片内总线</strong>、<strong>系统总线</strong>和<strong>通信总线</strong>。</p>
+<p>片内总线指芯片内部的总线，例如CPU内部各部件进行通信的总线。</p>
+<p>系统总线则是计算机各部件之间的信息传输线</p>
+<ul>
+<li>数据总线，双向，与机器字长、存储字长有关。宽度代表CPU一次能传输数据的大小。</li>
+<li>地址总线，单向，与存储地址、I/O地址有关。宽度代表CPU能寻址的范围大小。</li>
+<li>控制总线，有出有入。宽度代表CPU能进行指令调控的能力大小。比如存储器读写指令、终端确认、总线允许等。</li>
+</ul>
+<p>通信总线指计算机系统之间或计算机系统与其他系统之间的通信，比如USB数据线，鼠标线等。</p>
+<h3 id="性能指标"><a class="markdownIt-Anchor" href="#性能指标"></a> 性能指标</h3>
+<p>总线的性能指标有许多，这里只介绍比较重要的几个：</p>
+<ol>
+<li>总线宽度：数据线的根数</li>
+<li>总线带宽：每秒传输的最大<strong>字节</strong>数（MBps）</li>
+</ol>
+<blockquote>
+<p>例题：总线工作频率为33MHz，总线宽度为32位，求总线带宽</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>33</mn><mo>×</mo><mo stretchy="false">(</mo><mn>32</mn><mo>÷</mo><mn>8</mn><mo stretchy="false">)</mo><mo>=</mo><mn>132</mn><mi>M</mi><mi>B</mi><mi>p</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">33×(32÷8)=132MBps</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">3</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">÷</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">8</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">3</span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal">p</span><span class="mord mathnormal">s</span></span></span></span></p>
+<p>总线宽度为32位，对应32/8=4个字节。工作频率为33MHz，即一秒内工作33M次，则每秒传输最大字节数为4Byte*33M=132MBps</p>
+<p>细节：注意单位是MBps，即 <em>Million Byte per second</em>，每秒传输字节数（带宽）。</p>
+</blockquote>
+<h3 id="总线标准"><a class="markdownIt-Anchor" href="#总线标准"></a> 总线标准</h3>
+<p>总线标准是指在计算机系统中用于数据传输的一组规范和协议，这些规范定义了数据如何在不同的硬件组件之间传输。这些协议对双方都是透明的，只要一方的设备按照标准实现了相应的接口，另一方就可以实现对接口的调用，而无须关系对方设备的具体细节（有点类似Go的接口哈）。</p>
+<p>常见的总线标准有：PCI（现代计算机最常用的总线之一）、USB、SATA等。</p>
+<p>更详细的内容就不介绍了，内容太多，请读者自行查阅资料扩展。</p>
+<h3 id="总线结构"><a class="markdownIt-Anchor" href="#总线结构"></a> 总线结构</h3>
+<p>这一节比较重要，虽然不要求设计，但是要掌握各个结构有什么优缺点。</p>
+<h4 id="单总线结构"><a class="markdownIt-Anchor" href="#单总线结构"></a> 单总线结构</h4>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616151609261.png" alt="image-20240616151609261" style="zoom:50%;" />
+<p>所有组件通过单一的总线连接，数据、地址和控制信号都通过这个总线传输。</p>
+<ul>
+<li>优点：设计简单，成本较低，适用于小型或简单的系统。</li>
+<li>缺点：由于所有组件共享同一总线，因此<strong>数据传输速率受限</strong>，不适合高速或高容量的系统。</li>
+</ul>
+<h4 id="双总线结构"><a class="markdownIt-Anchor" href="#双总线结构"></a> 双总线结构</h4>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616151918355.png" alt="image-20240616151918355" style="zoom:50%;" />
+<p>将速度较低的设备从总线上剥离下来，形成两个总线I/O设备种类很多，功能差距很大，速度差距也很大，CPU将一部分功能下放给通道，由通道对I/O统一管理。系统中存在两条总线，通常一条是主存总线（连接CPU和内存），另一条是I/O总线（连接外设）。</p>
+<ul>
+<li>优点：将CPU与内存的高速通信和I/O设备的通信分离，减少了总线争用，提高了整体性能。</li>
+<li>缺点：需要桥接器或控制器在两个总线之间进行数据传输。</li>
+</ul>
+<h4 id="三总线结构"><a class="markdownIt-Anchor" href="#三总线结构"></a> 三总线结构</h4>
+<p>三总线结构有两种形式，第一种：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616153302977.png" alt="image-20240616153302977" style="zoom:50%;" />
+<p>特点是有一条主存总线用于CPU和主存的传输；I/O总线连接CPU和各种外设交换信息；DMA总线用于高速I/O设备（磁盘、磁带等）与主存交换信息。</p>
+<ul>
+<li>优点：比单总线结构来说加快了效率</li>
+<li>缺点：在三总线结构中任一时刻只能使用一条总线，效率瓶颈</li>
+</ul>
+<p>第二种结构：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616154443499.png" alt="image-20240616154443499" style="zoom:50%;" />
+<p>CPU和Cache（高速缓冲存储器）利用局部总线相连，Cache控制器将Cache连接到局部总线和系统总线上。主存通过Cache和CPU间接传递数据</p>
+<p>主存与I/O设备传输不需要经过CPU，扩展总线将各个接口部件连接起来，每个接口又可以连一堆设备，扩展总线利用扩展总线接口与系统总线相连。</p>
+<ul>
+<li>优点：工作效率明显提高</li>
+<li>缺点：设计更加复杂</li>
+</ul>
+<h4 id="四总线结构"><a class="markdownIt-Anchor" href="#四总线结构"></a> 四总线结构</h4>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616155838820.png" alt="image-20240616155838820" style="zoom:50%;" />
+<p>增加一条高速总线。各个外设速度也并不相同，高速总线桥不用经过系统总线，使得这些高速设备与CPU关系更密切。</p>
+<ul>
+<li>优点：对高速设备而言，自身的工作可以更少依赖CPU，同时又比拓展总线上的低速设备更加靠近CPU，对于高性能设备和CPU来说，各自的效率将获得更大的提高。</li>
+<li>缺点：实现更加复杂</li>
+</ul>
+<p>以下是关于单总线、双总线、三总线和四总线结构的总结表格：</p>
+<table>
+<thead>
+<tr>
+<th>总线结构</th>
+<th>描述</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>单总线结构</strong></td>
+<td><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616151609261.png" alt="单总线结构" style="zoom:50%;" /></td>
+<td>- 设计简单<br>- 成本较低<br>- 适用于小型或简单的系统</td>
+<td>- 数据传输速率受限<br>- 不适合高速或高容量的系统</td>
+</tr>
+<tr>
+<td><strong>双总线结构</strong></td>
+<td><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616151918355.png" alt="双总线结构" style="zoom:50%;" /></td>
+<td>- 将CPU与内存的高速通信和I/O设备的通信分离<br>- 减少总线争用，提高整体性能</td>
+<td>- 需要桥接器或控制器在两个总线之间进行数据传输</td>
+</tr>
+<tr>
+<td><strong>三总线结构（第一种）</strong></td>
+<td><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616153302977.png" alt="三总线结构第一种" style="zoom:50%;" /></td>
+<td>- 比单总线结构加快效率</td>
+<td>- 在任一时刻只能使用一条总线，效率瓶颈</td>
+</tr>
+<tr>
+<td><strong>三总线结构（第二种）</strong></td>
+<td><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616154443499.png" alt="三总线结构第二种" style="zoom:50%;" /></td>
+<td>- 工作效率明显提高</td>
+<td>- 设计更加复杂</td>
+</tr>
+<tr>
+<td><strong>四总线结构</strong></td>
+<td><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616155838820.png" alt="四总线结构" style="zoom:50%;" /></td>
+<td>- 高速设备与CPU关系更密切，效率更高<br>- 高性能设备和CPU的效率获得更大的提高</td>
+<td>- 实现更加复杂</td>
+</tr>
+</tbody>
+</table>
+<h3 id="总线控制"><a class="markdownIt-Anchor" href="#总线控制"></a> 总线控制</h3>
+<p>设备分有<strong>主设备</strong>和<strong>从设备</strong>两种模块。主设备对总线有控制权，从设备响应从主设备发来的总线命令。要实现总线控制设备，就需要解决多个主设备发出请求时的总线仲裁权分配问题。总线仲裁的原则是：<strong>优先权、公平性</strong>。优先权高的设备优先使用设备，优先权同级别的设备则按照时间先后来公平分配。</p>
+<p>总线的判优控制分为两种，集中式和分布式。前者将逻辑控制集中在一处（比如CPU中），后者把逻辑控制分散在与总线相连的各个部件或设备上。</p>
+<p>集中式包括：</p>
+<ul>
+<li>链式查询</li>
+<li>计数器定时查询</li>
+<li>独立请求方式</li>
+</ul>
+<p>分布式的特点是：</p>
+<ul>
+<li>自我选择：大家都把标志号放在总线上</li>
+<li>碰撞检测：随便穿传，撞上了就重来，比如以太网</li>
+</ul>
+<h4 id="链式查询方式"><a class="markdownIt-Anchor" href="#链式查询方式"></a> 链式查询方式</h4>
+<p>链式查询的结构图如下：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616161557901.png" alt="image-20240616161557901" style="zoom:50%;" />
+<p>BR或实现，只要多于一个请求，BR就为1，但总线不在意哪个设备的请求。BG串行实现。BS总线忙，表示接口占用了总线。</p>
+<p>BG的总线同意请求从第一个I/O接口开始依次往下传，如果有一个I/O接口请求使用总线，那么BG信号就停止往下传输，并且建立BS总线忙信号，表示它占用了总线。在链式查询中，离总线控制部门最近的设备拥有最高的优先级。</p>
+<ul>
+<li>优点：简单。只要很少的几根线就能实现总线控制，且很容易实现设备扩充，对电路故障敏感。</li>
+<li>缺点：优先级低的设备很难获得总线使用权。</li>
+</ul>
+<h4 id="计数器定时查询方式"><a class="markdownIt-Anchor" href="#计数器定时查询方式"></a> 计数器定时查询方式</h4>
+<p>结构图如下：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616162129156.png" alt="image-20240616162129156" style="zoom:50%;" />
+<p>多了个设备地址线，少了总线同意线BG，当某个请求的接口的设备地址与计数器一致时，获得使用权。</p>
+<p>在接收到BR总线请求时，总线控制设备中的计数器开始计数，并通过设备地址线，向各设备发出一组地址信号。当某个请求占用总线的设备地址与计数值一致时，获得总线使用权，终止计数查询。特点是：计数终止后，可以选择归零重新计数，这样就按照设备的优先级来分配使用权；也可以选择从上一次断点继续开始计数，此时所有设备的优先级相同。计数器的初始值还可以由程序设置，故优先次序也可以改变，</p>
+<ul>
+<li>优点：可以改变优先次序，比链式查询更加灵活。</li>
+<li>缺点：实现更加复杂，对电路故障的敏感度不如链式查询。</li>
+</ul>
+<h4 id="独立请求方式"><a class="markdownIt-Anchor" href="#独立请求方式"></a> 独立请求方式</h4>
+<p>结构如下：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616163313158.png" alt="image-20240616163313158" style="zoom:50%;" />
+<p>独立请求即每个设备都有配套的BR请求线和BG同意线，总线控制部门内置一个排队电路，可以根据优先次序确定响应哪一台设备的请求。</p>
+<ul>
+<li>优点：响应速度快，优先次序控制更加灵活（可以用软件实现）</li>
+<li>缺点：总线控制更加复杂，控制线数量多。链式查询中仅用两根线确定总线使用权属于哪个设备，计数器查询中使用log<sub>2</sub>n根线，而独立请求中要2n根线，其中n是允许接纳的最大设备数。</li>
+</ul>
+<h3 id="通信控制"><a class="markdownIt-Anchor" href="#通信控制"></a> 通信控制</h3>
+<p>我们定义一个总线传输周期为完成一次总线操作的时间，一共有四个阶段：</p>
+<ol>
+<li>申请分配阶段：主模块申请，总线仲裁决定</li>
+<li>寻址阶段：主模块向从模块给出地址和命令</li>
+<li>传数阶段：主模块和从模块交换数据</li>
+<li>结束阶段：主模块撤销有关信息，让出总线使用权</li>
+</ol>
+<p>解决了总线判优的逻辑后，接下来涉及到的就是具体的总线控制。通信控制主要解决双方如何获知传输开始和传输结束，以及双方如何协调配合。通常有四种方式：</p>
+<ul>
+<li>同步通信：由统一时标控制数据传送</li>
+<li>异步通信：采用应答方式，没有公共时钟标准</li>
+<li>半同步通信：同步和异步相结合</li>
+<li>分离式通信：充分挖掘系统总线每个瞬间的动力</li>
+</ul>
+<h4 id="同步通信"><a class="markdownIt-Anchor" href="#同步通信"></a> 同步通信</h4>
+<ul>
+<li>优点：实现简单</li>
+<li>缺点：
+<ol>
+<li>总线上所有设备必须按相同的时钟频率工作，导致设备必然使用速度最慢的部件来设计公共时钟，严重降低了总线的工作效率</li>
+<li>为防止时钟信号扭曲，高速工作时，总线距离必须足够短</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>例题：假设总线时钟频率为100MHz，总线传输周期为4个时钟周期，总线宽度位32位，求总线数据传输率。</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>一个时钟周期</mtext><mo>:</mo><mn>1</mn><mi mathvariant="normal">/</mi><mn>100</mn><mi>M</mi><mi>H</mi><mi>z</mi><mo>=</mo><mn>0.01</mn><mi>u</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">一个时钟周期:1/100MHz=0.01us</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">钟</span><span class="mord cjk_fallback">周</span><span class="mord cjk_fallback">期</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">1</span><span class="mord mathnormal">u</span><span class="mord mathnormal">s</span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>总线传输周期</mtext><mo>:</mo><mn>0.01</mn><mi>u</mi><mi>s</mi><mo>×</mo><mn>4</mn><mo>=</mo><mn>0.04</mn><mi>u</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">总线传输周期:0.01us×4=0.04us</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">总</span><span class="mord cjk_fallback">线</span><span class="mord cjk_fallback">传</span><span class="mord cjk_fallback">输</span><span class="mord cjk_fallback">周</span><span class="mord cjk_fallback">期</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">1</span><span class="mord mathnormal">u</span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">4</span><span class="mord mathnormal">u</span><span class="mord mathnormal">s</span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>总线数据传输率</mtext><mo>:</mo><mo stretchy="false">(</mo><mn>32</mn><mo>÷</mo><mn>8</mn><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mn>0.04</mn><mi>μ</mi><mi>s</mi><mo>=</mo><mn>100</mn><mi>M</mi><mi>B</mi><mi>p</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">总线数据传输率:(32÷8)/0.04μs=100MBps</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">总</span><span class="mord cjk_fallback">线</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">据</span><span class="mord cjk_fallback">传</span><span class="mord cjk_fallback">输</span><span class="mord cjk_fallback">率</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">3</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">÷</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">8</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">4</span><span class="mord mathnormal">μ</span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal">p</span><span class="mord mathnormal">s</span></span></span></span></p>
+</blockquote>
+<h4 id="异步通信"><a class="markdownIt-Anchor" href="#异步通信"></a> 异步通信</h4>
+<p>采用应答方式。在主、从模块间增加两条应答线，主模块发送请求信号时，等到从模块返回响应信号后完成握手，再开始通信。</p>
+<p>异步通信的应答方式又分为：不互锁、半互锁和全互锁三种：</p>
+<ul>
+<li>不互锁：请求过一段时间后，确认从模块已经收到请求信号，撤销请求信号，CPU先后将地址、写命令、数据全给出。向CPU主存写信息即这种方式</li>
+<li>半互锁：请求信号必须等到收到回答信号才能撤销，多CPU访问共享存储器，必须未被占用，才能执行后续操作。在多机系统中CPU访问某个共享存储器。</li>
+<li>全互锁：回答信号必须等到请求信号撤销后才能撤销。比如网络通信。</li>
+</ul>
+<blockquote>
+<p>例题：假设每秒传输120个数据帧，字符格式规定1个起始位，8个数据位，1个校验位，1个终止位</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240616194751115.png" alt="image-20240616194751115" style="zoom:67%;" />
+<p>波特率：单位时间信号（或波形）改变状态的次数，单位为Baud（波特）</p>
+<p>比特率：单位时间传递2进制数据的位数，单位为bps（位/秒）</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>一帧包含</mtext><mn>1</mn><mo>+</mo><mn>8</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>11</mn><mtext>位</mtext></mrow><annotation encoding="application/x-tex">一帧包含1+8+1+1=11位</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">帧</span><span class="mord cjk_fallback">包</span><span class="mord cjk_fallback">含</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mord cjk_fallback">位</span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>波特率：</mtext><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mn>8</mn><mo>+</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mo>×</mo><mn>120</mn><mo>=</mo><mn>1320</mn><mi>B</mi><mi>a</mi><mi>u</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">波特率：(1+8+1+1)×120=1320Baud</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord cjk_fallback">波</span><span class="mord cjk_fallback">特</span><span class="mord cjk_fallback">率</span><span class="mord cjk_fallback">：</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">3</span><span class="mord">2</span><span class="mord">0</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal">a</span><span class="mord mathnormal">u</span><span class="mord mathnormal">d</span></span></span></span></p>
+<p>一帧包含11位，其中有效数据位为8位</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>比特率：</mtext><mn>8</mn><mo>×</mo><mn>120</mn><mo>=</mo><mn>960</mn><mi>b</mi><mi>p</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">比特率：8×120=960bps</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord cjk_fallback">比</span><span class="mord cjk_fallback">特</span><span class="mord cjk_fallback">率</span><span class="mord cjk_fallback">：</span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">9</span><span class="mord">6</span><span class="mord">0</span><span class="mord mathnormal">b</span><span class="mord mathnormal">p</span><span class="mord mathnormal">s</span></span></span></span></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>比特率：</mtext><mfrac><mn>8</mn><mn>11</mn></mfrac><mo>×</mo><mn>1320</mn><mi>B</mi><mi>a</mi><mi>u</mi><mi>d</mi><mo>=</mo><mn>960</mn><mi>b</mi><mi>p</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">比特率：\frac{8}{11}×1320Baud=960bps</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord cjk_fallback">比</span><span class="mord cjk_fallback">特</span><span class="mord cjk_fallback">率</span><span class="mord cjk_fallback">：</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">3</span><span class="mord">2</span><span class="mord">0</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal">a</span><span class="mord mathnormal">u</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">9</span><span class="mord">6</span><span class="mord">0</span><span class="mord mathnormal">b</span><span class="mord mathnormal">p</span><span class="mord mathnormal">s</span></span></span></span></p>
+</blockquote>
+<h4 id="半同步通信"><a class="markdownIt-Anchor" href="#半同步通信"></a> 半同步通信</h4>
+<p>半同步通信是同步和异步相结合。</p>
+<p>同步方面：发送方用系统时钟前沿发送信号，接收方用系统时钟后延判断与识别。</p>
+<p>异步方面：允许不同速度模块的和谐工作，增加了一条“等待”响应信号<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mrow><mi>W</mi><mi>A</mi><mi>I</mi><mi>T</mi></mrow><mo stretchy="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\overline{WAIT}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8833300000000001em;vertical-align:0em;"></span><span class="mord overline"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8833300000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span></span></span><span style="top:-3.80333em;"><span class="pstrut" style="height:3em;"></span><span class="overline-line" style="border-bottom-width:0.04em;"></span></span></span></span></span></span></span></span></span>。</p>
+<p>小结一下</p>
+<p>以上三种通信方式都有几个共同点，在一个总线传输周期内：</p>
+<ul>
+<li>主模块发送地址和命令，占用总线</li>
+<li>从模块准备数据，总线空闲</li>
+<li>从模块向主模块发送数据，占用总线</li>
+</ul>
+<p>说明还有空闲，没有充分挖掘出总线每个时间的潜力。</p>
+<h4 id="分离式通信"><a class="markdownIt-Anchor" href="#分离式通信"></a> 分离式通信</h4>
+<p>分离式通信能实现总线利用的效率最大化，它把一个时钟周期拆成两部分。</p>
+<ul>
+<li>子周期1：主模块将地址、命令、主模块号放到系统总线上，一旦发送完，立即放弃总线使用权</li>
+<li>子周期2：经选择、译码、读取一系列内部操作后，将A模块编号，B模块地址，所需数据放到总线上</li>
+</ul>
+<p>两个传输周期都是单方向的，每个模块都变成了主模块</p>
+<p>特点是：</p>
+<ol>
+<li>各模块有权申请占用总线</li>
+<li>采用同步方式通信，不等对方回答</li>
+<li>各模块准备数据时，不占用总线</li>
+<li>总线被占用时，无空闲</li>
+</ol>
+<p>……</p>
+<p>……</p>
+<p>第一部分暂时结束，敬请阅读第二部分^^</p>
+<hr />
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/60e6e4dec743523c13ccc9fcabd56171.png" alt="60e6e4dec743523c13ccc9fcabd56171" /></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Adam Ben</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/posts/89bd5abd9854/">http://example.com/posts/89bd5abd9854/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Adam8enの8log</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a><a class="post-meta__tags" href="/tags/%E6%A6%82%E8%AE%BA/">概论</a><a class="post-meta__tags" href="/tags/%E7%B3%BB%E7%BB%9F%E6%80%BB%E7%BA%BF/">系统总线</a></div><div class="post_share"><div class="social-share" data-image="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/60e6e4dec743523c13ccc9fcabd56171.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/df375e9fefb4/" title="计算机组成指北（二）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/121455066_p0.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">计算机组成指北（二）</div></div></a></div><div class="next-post pull-right"><a href="/posts/b55416ea8e21/" title="6月总结·2024"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/116493728_p0.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">6月总结·2024</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/df375e9fefb4/" title="计算机组成指北（二）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/121455066_p0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-27</div><div class="title">计算机组成指北（二）</div></div></a></div><div><a href="/posts/1da683a19632/" title="计算机组成指北（三）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/118769966_p0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-27</div><div class="title">计算机组成指北（三）</div></div></a></div><div><a href="/posts/4ddedbf342f8/" title="计算机组成指北（六）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/612FFB2DEDE35B9C77545DB9ADF1C8BF.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-27</div><div class="title">计算机组成指北（六）</div></div></a></div><div><a href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/B457C9EC79F0421BB773651E8FFE5F05.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-27</div><div class="title">计算机组成指北（四）</div></div></a></div><div><a href="/posts/159e2ded72f9/" title="计算机组成指北（五）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/105468887_p0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-27</div><div class="title">计算机组成指北（五）</div></div></a></div><div><a href="/posts/1c2342ee510b/" title="计算机组成指北（七）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/C10AD1752A521C3C297E7D81400952F1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-27</div><div class="title">计算机组成指北（七）</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Adam Ben</div><div class="author-info__description">你的孤独与月为伴，你的深情与星同归</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adam8en"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Adam8en" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:adamben@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/Adam_Ben?type=blog" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=2813879949&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不知道说什么好,放个表情包在这里好了,⁽˙³˙⁾◟(๑•́ ₃ •̀๑)◞⁽˙³˙⁾</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E9%80%9F%E6%88%90%E7%89%88"><span class="toc-number">1.</span> <span class="toc-text"> 计算机组成原理速成版</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80-%E4%BA%8C%E7%AB%A0-%E6%A6%82%E8%AE%BA"><span class="toc-number">1.1.</span> <span class="toc-text"> 第一、二章 概论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 基础知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%84%E6%88%90"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 存储器的基本组成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%B3%BB%E7%BB%9F%E6%80%BB%E7%BA%BF"><span class="toc-number">1.2.</span> <span class="toc-text"> 第三章 系统总线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 性能指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E6%A0%87%E5%87%86"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 总线标准</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.5.</span> <span class="toc-text"> 总线结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.5.1.</span> <span class="toc-text"> 单总线结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8C%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.5.2.</span> <span class="toc-text"> 双总线结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.5.3.</span> <span class="toc-text"> 三总线结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.5.4.</span> <span class="toc-text"> 四总线结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E6%8E%A7%E5%88%B6"><span class="toc-number">1.2.6.</span> <span class="toc-text"> 总线控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%93%BE%E5%BC%8F%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.6.1.</span> <span class="toc-text"> 链式查询方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A1%E6%95%B0%E5%99%A8%E5%AE%9A%E6%97%B6%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.6.2.</span> <span class="toc-text"> 计数器定时查询方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8B%AC%E7%AB%8B%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.6.3.</span> <span class="toc-text"> 独立请求方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E6%8E%A7%E5%88%B6"><span class="toc-number">1.2.7.</span> <span class="toc-text"> 通信控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E9%80%9A%E4%BF%A1"><span class="toc-number">1.2.7.1.</span> <span class="toc-text"> 同步通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E9%80%9A%E4%BF%A1"><span class="toc-number">1.2.7.2.</span> <span class="toc-text"> 异步通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5%E9%80%9A%E4%BF%A1"><span class="toc-number">1.2.7.3.</span> <span class="toc-text"> 半同步通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%A6%BB%E5%BC%8F%E9%80%9A%E4%BF%A1"><span class="toc-number">1.2.7.4.</span> <span class="toc-text"> 分离式通信</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1c2342ee510b/" title="计算机组成指北（七）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/C10AD1752A521C3C297E7D81400952F1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（七）"/></a><div class="content"><a class="title" href="/posts/1c2342ee510b/" title="计算机组成指北（七）">计算机组成指北（七）</a><time datetime="2024-09-27T03:43:26.000Z" title="发表于 2024-09-27 11:43:26">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4ddedbf342f8/" title="计算机组成指北（六）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/612FFB2DEDE35B9C77545DB9ADF1C8BF.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（六）"/></a><div class="content"><a class="title" href="/posts/4ddedbf342f8/" title="计算机组成指北（六）">计算机组成指北（六）</a><time datetime="2024-09-27T03:43:17.000Z" title="发表于 2024-09-27 11:43:17">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/159e2ded72f9/" title="计算机组成指北（五）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/105468887_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（五）"/></a><div class="content"><a class="title" href="/posts/159e2ded72f9/" title="计算机组成指北（五）">计算机组成指北（五）</a><time datetime="2024-09-27T03:43:08.000Z" title="发表于 2024-09-27 11:43:08">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/B457C9EC79F0421BB773651E8FFE5F05.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（四）"/></a><div class="content"><a class="title" href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）">计算机组成指北（四）</a><time datetime="2024-09-27T03:42:55.000Z" title="发表于 2024-09-27 11:42:55">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1da683a19632/" title="计算机组成指北（三）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/118769966_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（三）"/></a><div class="content"><a class="title" href="/posts/1da683a19632/" title="计算机组成指北（三）">计算机组成指北（三）</a><time datetime="2024-09-27T03:42:38.000Z" title="发表于 2024-09-27 11:42:38">2024-09-27</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/60e6e4dec743523c13ccc9fcabd56171.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Adam Ben</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '07g7RVgbp0tb6j6gBjcZCTKv-gzGzoHsz',
+      appKey: '4w4tpzByVtxnDriO8BFDKLBt',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

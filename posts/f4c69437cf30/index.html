@@ -1,0 +1,417 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>算法笔记之复杂性理论 | Adam8enの8log</title><meta name="author" content="Adam Ben"><meta name="copyright" content="Adam Ben"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="介绍了算法中的复杂性理论，作为概念需要了解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法笔记之复杂性理论">
+<meta property="og:url" content="http://example.com/posts/f4c69437cf30/index.html">
+<meta property="og:site_name" content="Adam8enの8log">
+<meta property="og:description" content="介绍了算法中的复杂性理论，作为概念需要了解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/100852589_p0.jpg">
+<meta property="article:published_time" content="2024-06-22T16:31:46.000Z">
+<meta property="article:modified_time" content="2024-06-22T16:31:46.000Z">
+<meta property="article:author" content="Adam Ben">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="复杂性理论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/100852589_p0.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/posts/f4c69437cf30/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '算法笔记之复杂性理论',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-23 00:31:46'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/transparency.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Adam8enの8log" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/100852589_p0.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Adam8enの8log"><span class="site-name">Adam8enの8log</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">算法笔记之复杂性理论</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-22T16:31:46.000Z" title="发表于 2024-06-23 00:31:46">2024-06-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-22T16:31:46.000Z" title="更新于 2024-06-23 00:31:46">2024-06-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">算法笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="算法笔记之复杂性理论"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>在前面的章节中，我们解决了不同复杂性的问题。一些算法具有较低的增长率，而另一些具有较高的增长率。增长率低的问题被称为简单问题(或易于解决的问题)，而增长率高的问题被称为难题(或难以解决的问题)。这种分类是根据算法解决问题的运行时间(或内存)来进行的。</p>
+<table>
+<thead>
+<tr>
+<th>时间复杂度</th>
+<th>数量级</th>
+<th>例子</th>
+<th>问题类别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></td>
+<td>常数阶</td>
+<td>将元素插入链表头部</td>
+<td>易于解决的问题</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(logn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+<td>对数阶</td>
+<td>在二叉搜索树中搜索元素</td>
+<td>易于解决的问题</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+<td>线性阶</td>
+<td>在无序数组中查找元素</td>
+<td>易于解决的问题</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+<td>线性对数阶</td>
+<td>归并排序</td>
+<td>易于解决的问题</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></td>
+<td>平方阶</td>
+<td>图中两个顶点的最短路径</td>
+<td>易于解决的问题</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>3</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></td>
+<td>立方阶</td>
+<td>矩阵相乘</td>
+<td>易于解决的问题</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mn>2</mn><mi>n</mi></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(2^n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></td>
+<td>指数阶</td>
+<td>汉诺塔问题</td>
+<td>难以解决的问题</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">!</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n!)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">!</span><span class="mclose">)</span></span></span></span></td>
+<td>阶乘阶</td>
+<td>字符串排列</td>
+<td>难以解决的问题</td>
+</tr>
+</tbody>
+</table>
+<p>有许多我们并不知道如何求解的问题。到目前为止，我们所看到的所有问题都是那些可以通过计算机在确定性时间内解决的问题。在开始本章的讨论之前，让我们看看本章中需要使用到的基本术语。</p>
+<p>在计算机科学中，为了理解不存在解决方案的问题，将问题分为不同的类，我们称之为复杂性类(complexity class)。在复杂性理论中，复杂性类是一组与复杂性有关的问题。它是计算理论的一个分支，主要研究为了求解一个给定问题的计算过程中所需的资源。</p>
+<p>最常见的资源有时间(算法需要花费多少时间代价来解决问题)和空间(算法需要花费多少内存代价来解决问题)。</p>
+<h2 id="复杂性类的类型"><a class="markdownIt-Anchor" href="#复杂性类的类型"></a> 复杂性类的类型</h2>
+<h3 id="p类"><a class="markdownIt-Anchor" href="#p类"></a> P类</h3>
+<p>P类问题是可以用多项式时间求解的确定性机器来求解的一组判定性问题（P代表多项式时间）。P类问题是一组容易找到解决方案的问题。</p>
+<p>代表：排序、图的连通性、最短路径等问题。</p>
+<h3 id="np类"><a class="markdownIt-Anchor" href="#np类"></a> NP类</h3>
+<p>NP（代表非确定性多项式时间）类问题是可以通过多项式时间的非确定性机器求解的一组判定性问题。NP类问题是指一组难以找到解决方案但易于验证的问题。这意味着，如果有人解决了NP类问题，我们可以在多项式时间内告诉他这个问题是否正确。</p>
+<p>代表：旅行商问题（TSP）、布尔可满足性问题（SAT）等。</p>
+<h3 id="co-np类问题"><a class="markdownIt-Anchor" href="#co-np类问题"></a> Co-NP类问题</h3>
+<p>Co-NP问题是NP问题的补集，也就是与NP问题相反。如果Co-NP问题中的答案是否定的，那么这个事实就可以用多项式时间来检查。</p>
+<table>
+<thead>
+<tr>
+<th>P</th>
+<th>可以在多项式时间内求解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NP</td>
+<td><strong>是</strong>实例可以在多项式时间内验证</td>
+</tr>
+<tr>
+<td>Co-NP</td>
+<td><strong>否</strong>实例可以在多项式时间内验证</td>
+</tr>
+</tbody>
+</table>
+<p>代表：全称可满足性问题（TAUT，是否所有的布尔公式都为真）等。</p>
+<h3 id="p类-np类和co-np类的关系"><a class="markdownIt-Anchor" href="#p类-np类和co-np类的关系"></a> P类、NP类和Co-NP类的关系</h3>
+<p>P类问题也是NP类问题。如果一个问题是P类问题，那么我们可以在多项式时间内验证它的是实例。类似地，P类问题也是Co-NP类问题。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/NP%E4%B8%8EP.drawio.png" alt="NP与P.drawio" /></p>
+<p>计算机中一个很重要的开放性问题是证明是否P=NP。直观上P≠NP，但是没人知道怎么证明。另一个开放性问题是NP和Co-NP是否不同。即我们可以快速验证每个是实例，也不能认为我们同样可以快速验证某个否实例。一般认为NP≠Co-NP，但也没有人知道如何证明。</p>
+<h3 id="np难类"><a class="markdownIt-Anchor" href="#np难类"></a> NP难类</h3>
+<p>NP中的每个问题都可以<strong>归约</strong>（后续会介绍）为NP难（NP-hard）问题。由于NP难问题可能不在NP中（即，可能没有多项式时间解法的问题），因此需要很长的时间才能验证他们。如果有人给出了NP难问题的解，我们需要很长的时间来验证给出的解是否正确。</p>
+<p>如果K是NP难问题，那么蕴含着：如果K能够在多项式时间内被求解，则可证P=NP（因为所有的NP问题都可以被归结为NP难）。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/NP%E4%B8%8ENP%E9%9A%BE.png" alt="NP与NP难" /></p>
+<p>代表：包含很多的优化问题和决策问题，比如旅行商问题的优化版本、3-SAT等</p>
+<h3 id="np完全类"><a class="markdownIt-Anchor" href="#np完全类"></a> NP完全类</h3>
+<p>最后，如果一个问题既是NP难问题和NP问题，那么该问题是NP完全（NP-complete/NPC）问题。NP完全问题是NP中最难的问题。如果有人能发现一个NP完全问题的多项式时间算法，那么就可以找到每个NP完全问题的多项式时间算法。</p>
+<p>这意味着我们可以快速检查答案，并且NP中的每个问题都可以归约到该问题。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/NPC%E9%97%AE%E9%A2%98.png" alt="NPC问题" /></p>
+<p>代表：经典的NP完全问题包括3-SAT、顶点覆盖问题（Vertex Cover）、哈密顿回路问题（Hamiltonian Circuit）等。</p>
+<h3 id="npc和np难的关系"><a class="markdownIt-Anchor" href="#npc和np难的关系"></a> NPC和NP难的关系</h3>
+<ul>
+<li>NP难问题至少和NPC问题一样难。</li>
+<li>NPC问题肯定是NP难的，但是反之不一定</li>
+</ul>
+<p>因为NPC问题虽然目前无法在多项式时间内给出解法，但是可以在多项式时间内验证解的正确性；而NP难问题则可能无法保证能在多项式时间内验证解。</p>
+<h3 id="各类关系"><a class="markdownIt-Anchor" href="#各类关系"></a> 各类关系</h3>
+<p>我们可以总结出P类、NP类、Co-NP类、NP难类和NP完全类的关系，如图所示（请注意这些目前还只是一个假设）：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%90%84%E7%B1%BB%E5%85%B3%E7%B3%BB.png" alt="各类关系" /></p>
+<p>NP难问题是NP完全问题的严格超集(superset)。一些问题(如停机问题)是NP难问题，但不是NP问题。一般而言，NP难问题可能无法解决。我们可以给出NP难问题和NP完全问题困难性之间的不同，因为NP类包含了所有比“最棘手”问题更容易的事情——如果一个问题不在NP中，那么该问题比NP中的所有问题都要困难。</p>
+<h3 id="pnp吗"><a class="markdownIt-Anchor" href="#pnp吗"></a> P==NP吗？</h3>
+<blockquote>
+<p>美国麻省的Clay数学研究所于2000年5月24日在巴黎法兰西学院宣布：对七个“千年数学难题”中的每一个均悬赏100万美元，而问题NP =？P位列其首:</p>
+<ol>
+<li>P问题对NP问题</li>
+<li>霍奇猜想</li>
+<li>庞加莱猜想(2002.11-2003.7，俄罗斯数学家佩雷尔曼在3篇论文预印本中证明了几何化猜想，2006被授予菲尔兹奖)</li>
+<li>黎曼假设</li>
+<li>杨－米尔斯存在性和质量缺口</li>
+<li>纳维叶－斯托克斯方程的存在性与光滑性</li>
+<li>贝赫和斯维讷通－戴尔猜想</li>
+</ol>
+</blockquote>
+<p>如果P=NP，这意味着每个可以被快速验证的问题都可以被快速解决。</p>
+<p>这是一个世界性难题，目前没有人知道答案，因为现在没有人能证明P是否等于NP。许多NP完全问题至今还没有找到快速的解决方法。如果P=NP，那么就意味着有办法在多项式时间内解决这些NP完全问题。“快速”意味着解决这些问题不需要试错法。目前，求解这些问题可能需要数百万年，而未来的计算机可能将这数百万年的计算时间缩短到几分钟以内。</p>
+<h3 id="归约"><a class="markdownIt-Anchor" href="#归约"></a> 归约</h3>
+<p>假如我们想解问题X，但是X又非常复杂。这时候，我们想到有类似X的问题（假设为问题Y），那么我们可以尝试把X映射成Y，并通过解决Y来解决X。这个过程被称为<strong>归约</strong>。</p>
+<p>我们需要一些算法将问题X映射到问题Y，这可能需要花费线性或者更多的时间。基于这一点，解决问题X的成本可以表达如下：</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>解决</mtext><mi>X</mi><mtext>的成本</mtext><mo>=</mo><mtext>解决</mtext><mi>Y</mi><mtext>的成本</mtext><mo>+</mo><mtext>归约的时间</mtext></mrow><annotation encoding="application/x-tex">解决X的成本=解决Y的成本+归约的时间</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">解</span><span class="mord cjk_fallback">决</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">本</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord cjk_fallback">解</span><span class="mord cjk_fallback">决</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">本</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">归</span><span class="mord cjk_fallback">约</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">间</span></span></span></span></p>
+<p>有时候我们可能需要多次调用使用Y的算法去解决问题X，则此时X的成本可以表示为：</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>解决</mtext><mi>X</mi><mtext>的成本</mtext><mo>=</mo><mtext>调用次数</mtext><mo>×</mo><mtext>解决</mtext><mi>Y</mi><mtext>的成本</mtext><mo>+</mo><mtext>归约的时间</mtext></mrow><annotation encoding="application/x-tex">解决X的成本=调用次数\times 解决Y的成本 + 归约的时间</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">解</span><span class="mord cjk_fallback">决</span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">本</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord cjk_fallback">调</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">次</span><span class="mord cjk_fallback">数</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord cjk_fallback">解</span><span class="mord cjk_fallback">决</span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">本</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">归</span><span class="mord cjk_fallback">约</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">间</span></span></span></span></p>
+<p>NP完全问题涉及的主要问题就是归约。这意味着，我们可以将给定的NP完全问题归约为其他已知的归约完全问题。由于NP完全问题很难被解决，并且为了证明给定的NP完全问题是困难的，我们可以选择一个已知的难题（已经证明了难题的困难性），通过将给定问题映射到该难题上的方法证明给定问题的困难性。</p>
+<p>将给定难题归约到已知难题并不是强制的。有时候，我们也会将已知难题归约到给定难题。</p>
+<hr />
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/100852589_p0.jpg" alt="100852589_p0" /></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Adam Ben</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/posts/f4c69437cf30/">http://example.com/posts/f4c69437cf30/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Adam8enの8log</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E5%A4%8D%E6%9D%82%E6%80%A7%E7%90%86%E8%AE%BA/">复杂性理论</a></div><div class="post_share"><div class="social-share" data-image="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/100852589_p0.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/28dc7859a946/" title="浅谈古典密码"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/101268797_p0.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">浅谈古典密码</div></div></a></div><div class="next-post pull-right"><a href="/posts/6e1e8506b86f/" title="汇编味小饼干"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/106476729_p0.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">汇编味小饼干</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/1f3d16f9a7e2/" title="LeetCode经典面试150题题解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%7B930EB68A-6F85-4666-BA42-9333A5074315%7D.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-08</div><div class="title">LeetCode经典面试150题题解</div></div></a></div><div><a href="/posts/4524d9d2cf27/" title="算法笔记之动态规划"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/56475bad5af636d0f03dc7aac3b1d87d.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-21</div><div class="title">算法笔记之动态规划</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Adam Ben</div><div class="author-info__description">你的孤独与月为伴，你的深情与星同归</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adam8en"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Adam8en" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:adamben@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/Adam_Ben?type=blog" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=2813879949&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不知道说什么好,放个表情包在这里好了,⁽˙³˙⁾◟(๑•́ ₃ •̀๑)◞⁽˙³˙⁾</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text"> 引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E6%80%A7%E7%B1%BB%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text"> 复杂性类的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#p%E7%B1%BB"><span class="toc-number">2.1.</span> <span class="toc-text"> P类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#np%E7%B1%BB"><span class="toc-number">2.2.</span> <span class="toc-text"> NP类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#co-np%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="toc-number">2.3.</span> <span class="toc-text"> Co-NP类问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#p%E7%B1%BB-np%E7%B1%BB%E5%92%8Cco-np%E7%B1%BB%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.4.</span> <span class="toc-text"> P类、NP类和Co-NP类的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#np%E9%9A%BE%E7%B1%BB"><span class="toc-number">2.5.</span> <span class="toc-text"> NP难类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#np%E5%AE%8C%E5%85%A8%E7%B1%BB"><span class="toc-number">2.6.</span> <span class="toc-text"> NP完全类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#npc%E5%92%8Cnp%E9%9A%BE%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.7.</span> <span class="toc-text"> NPC和NP难的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E7%B1%BB%E5%85%B3%E7%B3%BB"><span class="toc-number">2.8.</span> <span class="toc-text"> 各类关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pnp%E5%90%97"><span class="toc-number">2.9.</span> <span class="toc-text"> P&#x3D;&#x3D;NP吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E7%BA%A6"><span class="toc-number">2.10.</span> <span class="toc-text"> 归约</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1c2342ee510b/" title="计算机组成指北（七）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/C10AD1752A521C3C297E7D81400952F1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（七）"/></a><div class="content"><a class="title" href="/posts/1c2342ee510b/" title="计算机组成指北（七）">计算机组成指北（七）</a><time datetime="2024-09-27T03:43:26.000Z" title="发表于 2024-09-27 11:43:26">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4ddedbf342f8/" title="计算机组成指北（六）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/612FFB2DEDE35B9C77545DB9ADF1C8BF.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（六）"/></a><div class="content"><a class="title" href="/posts/4ddedbf342f8/" title="计算机组成指北（六）">计算机组成指北（六）</a><time datetime="2024-09-27T03:43:17.000Z" title="发表于 2024-09-27 11:43:17">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/159e2ded72f9/" title="计算机组成指北（五）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/105468887_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（五）"/></a><div class="content"><a class="title" href="/posts/159e2ded72f9/" title="计算机组成指北（五）">计算机组成指北（五）</a><time datetime="2024-09-27T03:43:08.000Z" title="发表于 2024-09-27 11:43:08">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/B457C9EC79F0421BB773651E8FFE5F05.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（四）"/></a><div class="content"><a class="title" href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）">计算机组成指北（四）</a><time datetime="2024-09-27T03:42:55.000Z" title="发表于 2024-09-27 11:42:55">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1da683a19632/" title="计算机组成指北（三）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/118769966_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（三）"/></a><div class="content"><a class="title" href="/posts/1da683a19632/" title="计算机组成指北（三）">计算机组成指北（三）</a><time datetime="2024-09-27T03:42:38.000Z" title="发表于 2024-09-27 11:42:38">2024-09-27</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/100852589_p0.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Adam Ben</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '07g7RVgbp0tb6j6gBjcZCTKv-gzGzoHsz',
+      appKey: '4w4tpzByVtxnDriO8BFDKLBt',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CTFer的苦痛之路——SQL注入篇 | Adam8enの8log</title><meta name="author" content="Adam Ben"><meta name="copyright" content="Adam Ben"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="关于CTF的SQL的一些知识点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTFer的苦痛之路——SQL注入篇">
+<meta property="og:url" content="http://example.com/posts/e7a35b1664fc/index.html">
+<meta property="og:site_name" content="Adam8enの8log">
+<meta property="og:description" content="关于CTF的SQL的一些知识点">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png">
+<meta property="article:published_time" content="2023-09-18T08:33:20.000Z">
+<meta property="article:modified_time" content="2023-10-17T15:40:15.000Z">
+<meta property="article:author" content="Adam Ben">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="SQL注入">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/posts/e7a35b1664fc/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CTFer的苦痛之路——SQL注入篇',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-17 23:40:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/transparency.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Adam8enの8log" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Adam8enの8log"><span class="site-name">Adam8enの8log</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CTFer的苦痛之路——SQL注入篇</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-09-18T08:33:20.000Z" title="发表于 2023-09-18 16:33:20">2023-09-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-17T15:40:15.000Z" title="更新于 2023-10-17 23:40:15">2023-10-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF%E8%8B%A6%E7%97%9B%E4%B9%8B%E8%B7%AF/">CTF苦痛之路</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CTFer的苦痛之路——SQL注入篇"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>作为网安的学生，不系统的学习一下CTF比赛，真是有点愧对这个专业了。然而CTF这条路必定道阻且长，实践性极强而且门槛参差不齐，且缺乏系统的入门学习方法。过了一年了，从一开始的编程零基础到现在掌握了一些必要的编程技巧，终于打算仔细钻研一下CTF了。</p>
+<p>我用的书本是《从0到1 CTFer成长之路》，不用说，听书名就觉得这劲度不下与苦痛之路口牙。总之姑且就先这么开干了，也许后续还会参考一些其他比赛或者靶场的题目以及CTF Wiki。</p>
+<p>另外，由于个人原因，并不会按照书上的编排顺序进行学习。一是兴趣方向所需，二是有一些知识点暂时还理解不了……（比如git泄露我连git都还没学啊喂）（我是蒻笱）</p>
+<p>那么 <font color="red"  size="10px">CTF 启动！！！</font></p>
+<hr />
+<p>如上文提到的，关于CTF的知识学习由我个人兴趣决定。那么我们就先来试试SQL注入。</p>
+<p>SQL注入……理论上需要一定的PHP和MySQL基础，然而两个我都还没学（别骂了），所以注定是困难重重，学习效果如何也不敢保证。暑假的时候听了听学校夏令营，感觉有了点眉目，然而还是写不出来题目（SQL语句太长了记不住……）。无论如何，还是先开始吧。</p>
+<h2 id="sql注入基础"><a class="markdownIt-Anchor" href="#sql注入基础"></a> SQL注入基础</h2>
+<p>web应用开发中，为了内容快速更新，很多开发者把数据放在数据库中进行储存。但是由于开发者对用户数据传入的过滤不严格，可能将攻击载荷拼接到正常的SQL查询语句中，再将这些查询语句交由后端的数据库里执行，从而引发和预期功能不一致的语句，我们称之为<strong>SQL注入</strong>。这通常将导致数据库的信息泄露、篡改甚至删除。这里我们将介绍几种常见的SQL注入类型，包括<strong>数字型注入、UNION注入/联合注入、字符型注入、布尔盲注、时间注入、报错注入和堆叠注入</strong>。</p>
+<h3 id="数字型注入和union注入"><a class="markdownIt-Anchor" href="#数字型注入和union注入"></a> 数字型注入和UNION注入</h3>
+<p>借用书上的例题，我们先给出第一个例子的PHP代码。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//连接本地MySQL,数据库为test</span></span><br><span class="line"><span class="variable">$conn</span> = mysqli_ <span class="title function_ invoke__">connect</span>(<span class="string">&quot;127.0.0.1&quot;</span> <span class="string">&quot;root&quot;</span> , <span class="string">&quot;root&quot;</span> , <span class="string">&quot;test&quot;</span>);</span><br><span class="line"><span class="comment">//查询wp_news表的title、content字段，id为GET输入的值</span></span><br><span class="line"><span class="variable">$res</span> = mlysqli. <span class="title function_ invoke__">_query</span>(<span class="variable">$conn</span>, <span class="string">&quot;SELECT title, content FROM wp_news WHERE id=&quot;</span> .$. GET[<span class="string">&#x27;id&#x27;</span>]);</span><br><span class="line"><span class="comment">//说明:代码和命令对于SQL语句不区分大小写，书中为了让读者清晰表示，对于关键字采用大写形式</span></span><br><span class="line"><span class="comment">//将查询到的结果转化为数组</span></span><br><span class="line"><span class="variable">$row</span> = mysqli _fetch. <span class="keyword">array</span>(<span class="variable">$res</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;center&gt;&quot;</span>;</span><br><span class="line"><span class="comment">//输出结果中的title字段值</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;&quot;</span>. <span class="variable">$row</span>[<span class="string">&#x27;title&#x27;</span>]. <span class="string">&quot;&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line"><span class="comment">//输出结果中的content字段值</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;&quot;</span>. <span class="variable">$row</span>[ <span class="string">&#x27;content&#x27;</span>]. <span class="string">&quot;&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/center&gt;&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>数据库的表结构见图1-1，新闻表wp_news的内容见图1-2，用户wp_user的内容见图1-3。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918142004.png" alt="img" /></p>
+<center>图1-1</center>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918142133.png" alt="img" /></p>
+<center>图1-2</center>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231017233825699.png" alt="image-20231017233825699" /></p>
+<center>图1-3</center>
+<p>顺便给定一个目标网址<code>http://192.168.20.133/sql1.php</code>，然而这个网址是打不开的，我也不知道为什么。</p>
+<p>那么本节的目标就是通过HTTP的GET函数来获取输入的id值，将本应该查询新闻表的功能转变为查询admin（通常是管理员）的账号和密码（密码通常是hash值，这里为了演示就变成明文this_is_the_admin_password）。获取管理员账户和密码后，入侵者可以通过它登录网站后台，从而控制整个网站内容。</p>
+<p>首先我们访问<code>http://192.168.20.133/sql1.php?id=1</code>，结果如下图1-4。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918143049.png" alt="img" /></p>
+<center>图1-4</center>
+<p>这里运用到了GET请求发送了一个id为1的参数，最后得到的结果与新闻表wp_news中第一行id为1的结果一致。事实上，PHP将GET方法传入的<code>id=1</code>与前面的SQl语句进行了拼接，原查询语句如下。</p>
+<p><code>$res = mysqli _query($conn, &quot;SELECT title, content FROM wp_news WHERE id=&quot;.$_GET['id']);</code></p>
+<p>在收到<code>id=1</code>后，<code>.$_GET['id']</code>被赋值为1，最后传递给MySQL的查询语句如下。</p>
+<p><code>SELECT title, content FROM wp_news WHERE id = 1</code></p>
+<p>值得注意的是MySQL对大小写不敏感，这里将关键字大写是为了方便理解。</p>
+<p>下面开始通过用户输入id参数来进行SQL注入攻击。</p>
+<p>首先我们访问链接<code>http://192.168.20.133/sql1.php?id=2</code>，也就是传入<code>id=2</code>，得到结果如图1-5的id为2的记录，再传递参数<code>id=3-1</code>，仍然可以得到<code>id=2</code>的记录。说明MySQL对<code>3-1</code>的表达式进行了计算结果为2，然后查询id=2的记录。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918150132.png" alt="img" /></p>
+<center>图1-5</center>
+<p>这个行为基本可以判断该注入点为<strong>数字型注入</strong>，表现为<code>$_GET['id']</code>附近没有引号包裹。这时我们可以直接输入SQL查询语句来干扰正常的查询。</p>
+<p><code>SELECT title, content FROM wp_news WHERE id = 1 UNION SELECT user, pwd FROM wp_user</code></p>
+<p>这个SQL语句的作用是查询新闻表中id=1时对应行的title和content字段的数据，并且联合查询用户表中的user、pwd。union关键字会对两个结果集进行并行查询。</p>
+<p>我们通过网页访问时只需要输入id后面的内容，即访问链接<code>http://192.168.20.133/sql1.php?id=1 union select user, pwd from wp_user</code>。注意，在浏览器中空格会被转化为<code>%20</code>，这是空格的URL编码。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918153720.png" alt="img" /></p>
+<center>图1-6</center>
+<p>但是如图1-6所示，网页并没有按照预期显示用户和密码的内容，事实上MySQL确实查询出了两条记录，但因为PHP限制该页面只能显示一条内容，所以我们需要将账号密码的记录显示在查询结果第一行。有几种实现方式，比如在原有数据后加上<code>limit 1,1</code>参数（显示查询结果后的第二条记录）。又或者指定<code>id=-1</code>或者一个很大的值，第一行记录无法被查询到，这样结果就可以只显示第二条记录了。</p>
+<p>那么我们访问<code>http://192.168.20.133/sql1.php?id=-1 union select user, pwd from wp_user</code>成功得到了图1-7所示的用户表的账号和密码。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918155116.png" alt="img" /></p>
+<center>图1-7</center>
+<p>以上这种通过UNION语句将数据显示到页面上的注入方法为<strong>UNION注入/联合注入</strong>。是最为简单也是最基础的注入方法，因为该数据库没有设置任何关于数据的过滤方式。我们后续学习的注入方法大多也基于这种思路，不过要尝试绕过所设置的过滤（也许是吧）。</p>
+<p>但是以上的例子是默认我们已经知道了数据库结构，在测试情况下，我们要如何知道数据表的字段名pwd和表名wp_user呢？</p>
+<p>答案是information_schema。MySQL5.0版本后，默认自带一个数据库information_schema，储存着MySQL的所有数据库名、表名、字段名。虽然引入这个库是方便数据库信息的查询，但是客观上却大大方便了SQL注入（乐）。</p>
+<p>接下来演示实战的操作过程。</p>
+<p>假设我们并不知道数据库的相关信息，首先通过<code>id=2</code>和<code>id=3-1</code>回显一致判断这存在一个数字型注入，然后通过联合查询，查到本数据库和其他所有表名。访问<code>http://192.168.20.133/sql1.php?id=-1 union select 1,group_concat(table_name) from information_schema.tables where table_schema=database()</code>。结果见图1-8。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231017233946704.png" alt="image-20231017233946704" /></p>
+<center>图1-8</center>
+<p>让我们看看这么长一串玩意到底执行了个啥。information_schema包含了MySQL中所有的数据库名、表名、字段名，其中的table表就是储存数据库所有表名的一个表，而table_name是table表的表名字段，后面跟所有表的名字。table表中还包含数据库名字段table_schema，database()函数返回的内容是当前数据库的名称，group_concat()函数则是用“,”来联合多行记录的函数。</p>
+<p>也就是说，该语句可以查询数据库中所有表名并显示在一个字段中。如下图1-9所示。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231017233959278.png" alt="image-20231017233959278" /></p>
+<center>图1-9</center>
+<p>更详细的ChatGPT解释附在下方。</p>
+<blockquote>
+<p>当解释这条SQL语句中的关键字时，我会一一说明它们的作用：</p>
+<ol>
+<li><code>union</code>: 在SQL中，<code>UNION</code>操作符用于合并两个或多个<code>SELECT</code>语句的结果集。它将多个查询的结果合并在一起，并以一个单一的结果集返回。</li>
+<li><code>select</code>: <code>SELECT</code>关键字用于从数据库表中检索数据。在这种情况下，<code>SELECT</code>用于选择查询结果中需要显示的列。</li>
+<li><code>1</code>: 这是一个常量值，表示第一个查询结果集中的一列。在这种情况下，它用作占位符，因为<code>UNION</code>操作要求所有查询具有相同数量和类型的列。</li>
+<li><code>group_concat</code>: <code>GROUP_CONCAT</code>是MySQL中的聚合函数之一。它用于将多个行的某一列值连接成一个单独的字符串。在这里，它用于将<code>table_name</code>列中的表名连接成一个字符串。</li>
+<li><code>table_name</code>: <code>table_name</code>是<code>information_schema.tables</code>视图中的一个列名。该列包含了数据库中的表名信息。</li>
+<li><code>information_schema.tables</code>: <code>information_schema</code>是MySQL系统数据库之一，其中包含关于数据库、表、列和其他数据库对象的元数据信息。<code>tables</code>是<code>information_schema</code>中的一个表，包含有关数据库中表的信息。</li>
+<li><code>where</code>: <code>WHERE</code>关键字用于指定查询的条件。在这种情况下，<code>where table_schema=database()</code>用于过滤只返回当前数据库中的表。</li>
+</ol>
+<p>通过结合使用这些关键字和语句，攻击者可以利用注入漏洞执行恶意查询，并从<code>information_schema.tables</code>表中提取表名信息。</p>
+</blockquote>
+<p>同理，通过columns表中的column_name查询出的内容即为wp_user中的字段名，访问<code>http://192.168.20.133/sql1.php？id=-1 union select 1 ,group_concat (column_name) from information_schema.columns where table_name='wp_user'</code>，可以得到对应的字段名。见图1-10。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231017234009782.png" alt="image-20231017234009782" /></p>
+<center>图1-10</center>
+<p>至此，第一个例子结束。数字型注入的<strong>关键</strong>在于找到输入的参数点，然后通过加减乘除等运算判断参数附近有无引号包裹，再通过一些常见的攻击手段（比如联合注入，在此之前先尝试获得表名），获取数据库的敏感信息。</p>
+<h3 id="字符型注入和布尔盲注"><a class="markdownIt-Anchor" href="#字符型注入和布尔盲注"></a> 字符型注入和布尔盲注</h3>
+<hr />
+<p>（待更新……）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png" alt="复件 62841026_p0" /></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Adam Ben</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/posts/e7a35b1664fc/">http://example.com/posts/e7a35b1664fc/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Adam8enの8log</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF/">CTF</a><a class="post-meta__tags" href="/tags/Web/">Web</a><a class="post-meta__tags" href="/tags/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a></div><div class="post_share"><div class="social-share" data-image="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/b8cec82910c4/" title="数据结构什锦（二）——链表篇"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300470.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">数据结构什锦（二）——链表篇</div></div></a></div><div class="next-post pull-right"><a href="/posts/5ea7562fcf4c/" title="数据结构什锦（一）——绪论、递归与回溯.md"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300431.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数据结构什锦（一）——绪论、递归与回溯.md</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/4ecd645b2fe8/" title="easy_md5のWP——SQL下的弱类型比较"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/AceAttorneyArtGallery.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-20</div><div class="title">easy_md5のWP——SQL下的弱类型比较</div></div></a></div><div><a href="/posts/ceeb5ee39cd9/" title="2023XSCTF初赛部分WP"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300008.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-18</div><div class="title">2023XSCTF初赛部分WP</div></div></a></div><div><a href="/posts/5dc661771ecb/" title="PHP的RCE问题集锦"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/c74d52864acadc32631ab8b75a6cb15.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-04</div><div class="title">PHP的RCE问题集锦</div></div></a></div><div><a href="/posts/17f3e1f6f317/" title="一文弄清楚Flask框架下该如何计算PIN码"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300342.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-06</div><div class="title">一文弄清楚Flask框架下该如何计算PIN码</div></div></a></div><div><a href="/posts/6a364d742574/" title="2024XYCTFの部分wp详解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/83776a4079fc052d284173c78b0c838c.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-27</div><div class="title">2024XYCTFの部分wp详解</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Adam Ben</div><div class="author-info__description">你的孤独与月为伴，你的深情与星同归</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adam8en"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Adam8en" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:adamben@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/Adam_Ben?type=blog" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=2813879949&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不知道说什么好,放个表情包在这里好了,⁽˙³˙⁾◟(๑•́ ₃ •̀๑)◞⁽˙³˙⁾</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text"> SQL注入基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E5%9E%8B%E6%B3%A8%E5%85%A5%E5%92%8Cunion%E6%B3%A8%E5%85%A5"><span class="toc-number">1.1.</span> <span class="toc-text"> 数字型注入和UNION注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B%E6%B3%A8%E5%85%A5%E5%92%8C%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="toc-number">1.2.</span> <span class="toc-text"> 字符型注入和布尔盲注</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1c2342ee510b/" title="计算机组成指北（七）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/C10AD1752A521C3C297E7D81400952F1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（七）"/></a><div class="content"><a class="title" href="/posts/1c2342ee510b/" title="计算机组成指北（七）">计算机组成指北（七）</a><time datetime="2024-09-27T03:43:26.000Z" title="发表于 2024-09-27 11:43:26">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4ddedbf342f8/" title="计算机组成指北（六）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/612FFB2DEDE35B9C77545DB9ADF1C8BF.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（六）"/></a><div class="content"><a class="title" href="/posts/4ddedbf342f8/" title="计算机组成指北（六）">计算机组成指北（六）</a><time datetime="2024-09-27T03:43:17.000Z" title="发表于 2024-09-27 11:43:17">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/159e2ded72f9/" title="计算机组成指北（五）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/105468887_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（五）"/></a><div class="content"><a class="title" href="/posts/159e2ded72f9/" title="计算机组成指北（五）">计算机组成指北（五）</a><time datetime="2024-09-27T03:43:08.000Z" title="发表于 2024-09-27 11:43:08">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/B457C9EC79F0421BB773651E8FFE5F05.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（四）"/></a><div class="content"><a class="title" href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）">计算机组成指北（四）</a><time datetime="2024-09-27T03:42:55.000Z" title="发表于 2024-09-27 11:42:55">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1da683a19632/" title="计算机组成指北（三）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/118769966_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（三）"/></a><div class="content"><a class="title" href="/posts/1da683a19632/" title="计算机组成指北（三）">计算机组成指北（三）</a><time datetime="2024-09-27T03:42:38.000Z" title="发表于 2024-09-27 11:42:38">2024-09-27</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Adam Ben</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '07g7RVgbp0tb6j6gBjcZCTKv-gzGzoHsz',
+      appKey: '4w4tpzByVtxnDriO8BFDKLBt',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

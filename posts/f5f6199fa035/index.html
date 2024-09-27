@@ -1,0 +1,345 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>算法笔记之贪心算法 | Adam8enの8log</title><meta name="author" content="Adam Ben"><meta name="copyright" content="Adam Ben"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="简单的介绍了一下贪心算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法笔记之贪心算法">
+<meta property="og:url" content="http://example.com/posts/f5f6199fa035/index.html">
+<meta property="og:site_name" content="Adam8enの8log">
+<meta property="og:description" content="简单的介绍了一下贪心算法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/103835289_p3.jpg">
+<meta property="article:published_time" content="2024-04-22T03:56:43.000Z">
+<meta property="article:modified_time" content="2024-04-22T03:56:43.000Z">
+<meta property="article:author" content="Adam Ben">
+<meta property="article:tag" content="贪心算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/103835289_p3.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/posts/f5f6199fa035/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '算法笔记之贪心算法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-22 11:56:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/transparency.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Adam8enの8log" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/103835289_p3.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Adam8enの8log"><span class="site-name">Adam8enの8log</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">算法笔记之贪心算法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-22T03:56:43.000Z" title="发表于 2024-04-22 11:56:43">2024-04-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-22T03:56:43.000Z" title="更新于 2024-04-22 11:56:43">2024-04-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">算法笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="算法笔记之贪心算法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="贪婪策略"><a class="markdownIt-Anchor" href="#贪婪策略"></a> 贪婪策略</h2>
+<p>贪心算法（Greedy Algorithm）是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是全局最好或最优的算法。贪心算法在有最优子结构的问题中尤为有效。最优子结构的意思是局部最优解能决定全局最优解（对有些问题这是显然的，如最小生成树（Minimum Spanning Tree），对其它问题却是非常不明显的，如单源最短路径（Single-Source Shortest Path））。</p>
+<p>贪心算法与动态规划的不同在于：贪心算法对每个子问题的解决方案都做出选择，不能回退。动态规划则会保存以前的运算结果，并根据以前的结果对当前进行选择，有回退功能。更详细的如下：</p>
+<ol>
+<li><strong>贪心算法是先做出选择再解决产生的子问题，而动态规划则是先解决子问题再做出选择</strong>。</li>
+<li>动态规划每一步可能会产生多个子问题，而贪心算法一般每一步只会产生一个子问题（且为非空）</li>
+<li>从特点上看，动态规划是<strong>自底向上</strong>解决问题，而贪心算法是<strong>自顶向下</strong>解决问题。</li>
+</ol>
+<p>贪心算法可以解决一些最优化问题，如：求图中的最小生成树、求哈夫曼编码等。然而对于工程和生活中的问题，贪心算法一般不能得到我们所要求的答案。因为贪心算法采取的是局部最优策略，这种策略并不保证能得到全局最优解，因为选择的只是局部最优，所以它不像动态规划那样能解决更加复杂的最优化问题。</p>
+<p>贪心算法的基本步骤：</p>
+<ol>
+<li>建立数学模型来描述问题。</li>
+<li>把求解的问题分成若干个子问题。</li>
+<li>对每一子问题求解，得到子问题的局部最优解。</li>
+<li>把子问题的局部最优解合成原来问题的一个解。</li>
+</ol>
+<h2 id="贪心算法的要素"><a class="markdownIt-Anchor" href="#贪心算法的要素"></a> 贪心算法的要素</h2>
+<p>贪心算法适用的前提是：局部最优策略能导致产生全局最优解。<strong>实际上，贪心算法适用的情况很少</strong>。工程中的问题很少能整除成满足这个特性的问题，所以在采用贪心算法前，必须对问题进行深入分析。</p>
+<p>判断一个问题能否用贪心算法解决，即局部最优解能否导致全局最优解，通常需要依赖问题本身的特性以及一些数学证明。这通常涉及到两个主要的概念：<strong>最优子结构和贪心选择性质</strong>。</p>
+<ol>
+<li>
+<p><strong>最优子结构</strong>：一个问题的最优解包含其子问题的最优解。简单来说，问题的最优解可以通过找到其子问题的最优解并选择最优的一种方案来构造。如果一个问题有最优子结构，一旦所有子问题都已解决，我们可以简单地通过在所有子问题中选择每个子问题的最优选择来找到全局最优解。</p>
+</li>
+<li>
+<p><strong>贪心选择性质</strong>：全局最优解可以通过局部最优选择来达到。也就是说，选择当前最优的解，也就是贪心选择，将会导致全局最优解。贪心选择性质是贪心算法可行的主要特性，它意味着我们可以做出一个局部最优选择，并且这个选择不会影响后续的选择，这样我们就可以保证最终的解是全局最优的。</p>
+</li>
+</ol>
+<p>对于许多问题，我们可以通过反证法或者归纳法来证明贪心策略的正确性。具体来说，我们可以假设存在一个不是由贪心策略得出的最优解，然后找出矛盾，或者我们可以证明问题的每一个步骤都可以应用贪心策略。</p>
+<p>然而，值得注意的是，尽管贪心算法在某些问题上很有效，但并不是所有问题都适合使用贪心算法。有些问题可能看起来像是可以应用贪心算法，但在深入分析后可能发现不能得到全局最优解。这就需要我们对问题有深入的理解和分析。</p>
+<h2 id="贪心算法的问题集"><a class="markdownIt-Anchor" href="#贪心算法的问题集"></a> 贪心算法的问题集</h2>
+<h3 id="哈夫曼树编码"><a class="markdownIt-Anchor" href="#哈夫曼树编码"></a> 哈夫曼树编码</h3>
+<p>哈夫曼编码（Huffman Coding）是一种广泛用于数据压缩的算法，特别是在文件压缩和通信编码中。哈夫曼编码是一种前缀编码，即在该编码中，任何字符的编码都不是其他字符编码的前缀，这使得编码的解码非常清晰，不会产生歧义。哈夫曼编码的一个关键特性是它是一种最优编码，即对于给定的字符频率，哈夫曼编码可以生成最短的平均编码长度。</p>
+<p>哈夫曼编码算法的基本步骤如下：</p>
+<ol>
+<li>创建一个节点列表，其中每个节点包含一个字符及其在数据中的频率。</li>
+<li>将节点列表按照频率从低到高排序。</li>
+<li>从列表中取出频率最低的两个节点，然后创建一个新的父节点，其频率是这两个节点频率的和。将这两个节点设置为新节点的左右子节点。</li>
+<li>将新的父节点添加到列表中，并从列表中移除已处理的两个节点。</li>
+<li>重复步骤3和4，直到列表中只剩下一个节点。这个节点就是哈夫曼树的根节点。</li>
+</ol>
+<p>在哈夫曼编码算法中，贪心算法的应用体现在每次都选择频率最低的两个节点来创建新的父节点。这是一个贪心的选择，因为我们总是选择当前能够立即达到的最小频率。这种选择保证了生成的哈夫曼树的平均编码长度最短，即最优。</p>
+<p>需要注意的是，虽然哈夫曼编码能够保证最短的平均编码长度，但它并不一定能够为每个字符生成最短的编码。实际的编码长度取决于字符的频率：频率高的字符会得到更短的编码，而频率低的字符可能会得到更长的编码。这样我们就能根据每个字母出现的频率最大程度的压缩信息。</p>
+<p>在编程中，代码也很容易实现。我们可以定义一个优先队列储存所有的哈夫曼节点，每个节点是带有编码和频率的字符节点。然后我们可以每次从优先队列中弹出两个最小节点，把它们作为一个新的父节点的左、右孩子，并把父节点的频率设置为左右两节点的频率之和，再把父节点添加入优先队列中。这样重复n次（共n个节点）后得到的优先队列就是一个哈夫曼树。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240422114230286.png" alt="image-20240422114230286" /></p>
+<p>伪代码实现如下。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">HuffmanCodingAlgorithm</span>(<span class="type">int</span> A[],<span class="type">int</span> n)&#123;</span><br><span class="line">    <span class="comment">//A是储存输入字符串的数组，n是A中的不重复元素个数</span></span><br><span class="line">    初始化一个优先队列PQ，使其包括A的n个元素</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">BinaryTreeNode</span>*temp;</span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">auto</span> temp = <span class="built_in">new</span> (BinaryTreeNode);</span><br><span class="line">        temp-&gt;left = Delete-<span class="built_in">Min</span>(PQ);</span><br><span class="line">        temp-&gt;right = Delete-<span class="built_in">Min</span>(PQ);</span><br><span class="line">        temp-&gt;data = temp-&gt;letf-&gt;data + temp-&gt;right-&gt;data;</span><br><span class="line">        Insert temp to PQ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> PQ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完整的c++代码实现如下。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">HuffmanNode</span> &#123;</span><br><span class="line">    <span class="type">char</span> ch; <span class="comment">// 字符</span></span><br><span class="line">    <span class="type">int</span> freq; <span class="comment">// 频率</span></span><br><span class="line">    shared_ptr&lt;HuffmanNode&gt; left;</span><br><span class="line">    shared_ptr&lt;HuffmanNode&gt; right;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Compare</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> shared_ptr&lt;HuffmanNode&gt;&amp; a, <span class="type">const</span> shared_ptr&lt;HuffmanNode&gt;&amp; b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a-&gt;freq &gt; b-&gt;freq;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">priority_queue&lt;shared_ptr&lt;HuffmanNode&gt;, vector&lt;shared_ptr&lt;HuffmanNode&gt;&gt;, Compare&gt; </span><br><span class="line"><span class="built_in">HuffmanCodingAlgorithm</span>(vector&lt;pair&lt;<span class="type">char</span>, <span class="type">int</span>&gt;&gt; A) &#123;</span><br><span class="line">    priority_queue&lt;shared_ptr&lt;HuffmanNode&gt;, vector&lt;shared_ptr&lt;HuffmanNode&gt;&gt;, Compare&gt; PQ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; pair : A) &#123;</span><br><span class="line">        PQ.<span class="built_in">push</span>(<span class="built_in">make_shared</span>&lt;HuffmanNode&gt;(pair.first, pair.second, <span class="literal">nullptr</span>, <span class="literal">nullptr</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (PQ.<span class="built_in">size</span>() &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">auto</span> left = PQ.<span class="built_in">top</span>(); PQ.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="keyword">auto</span> right = PQ.<span class="built_in">top</span>(); PQ.<span class="built_in">pop</span>();</span><br><span class="line">        PQ.<span class="built_in">push</span>(<span class="built_in">make_shared</span>&lt;HuffmanNode&gt;(<span class="string">&#x27;\0&#x27;</span>, left-&gt;freq + right-&gt;freq, left, right));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> PQ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>得到哈夫曼树后就可以根据哈夫曼树对信息压缩编码或解码了，要得到一个字符的编码，只需要遍历哈夫曼树查找该字符所在的节点，每经过一次左分支就标注0，经过一次右分支就标注1，最后得到的就是该字符的编码。解码操作也很简单，因为每个编码对应的节点唯一，所以只要根据01编码去定向寻找对应的节点，就可以找到对应的字符恢复数据。</p>
+<h3 id="最小生成树问题"><a class="markdownIt-Anchor" href="#最小生成树问题"></a> 最小生成树问题</h3>
+<p>这一部分在之前的数据结构——图论部分有过粗略的解释，但是当时并未附上源代码，现在我来详细的介绍一下求解最小生成树的两种算法：Prim算法和Kruskal算法。</p>
+<h4 id="prim算法"><a class="markdownIt-Anchor" href="#prim算法"></a> Prim算法</h4>
+<p>这部分可以参考<a target="_blank" rel="noopener" href="https://adam8en.github.io/2023/11/22/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%80%E9%94%A6%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%E8%B5%B0%E8%BF%91%E5%9B%BE%E8%AE%BA/">数据结构什锦（六）—— 走近图论| Adam8en の 8log</a>。</p>
+<p>具体的C++实现代码如下。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//分别储存所有的node、selected、minDist、parent</span></span><br><span class="line"><span class="comment">//初始化所有的node的selected为false，minDist为无穷大，parent为-1</span></span><br><span class="line"><span class="comment">//然后初始化第一个node的selected为true，minDist为0，parent为-1</span></span><br><span class="line"><span class="comment">//接着依次进行update-&gt;scan-&gt;add</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义图中的顶点</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Vertex</span> &#123;</span><br><span class="line">    <span class="type">int</span> id;</span><br><span class="line">    <span class="type">int</span> distance; <span class="comment">// 从起始位置到该顶点的最短距离</span></span><br><span class="line">    [[maybe_unused]] <span class="type">bool</span> selected; <span class="comment">// 该顶点是否已经访问过</span></span><br><span class="line">    vector&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt; neighbors; <span class="comment">// 该顶点的邻居（相邻顶点编号和边权重）</span></span><br><span class="line">    <span class="comment">//其中neighbor.first表示单项图中该顶点邻接的顶点的编号，neighbor.second表示边的权重</span></span><br><span class="line">    <span class="type">int</span> parent; <span class="comment">// 该顶点在最短路径树中的父节点</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Vertex</span><span class="params">(<span class="type">int</span> _id)</span> : id(_id), distance(INT_MAX), selected(false) , parent(<span class="number">-1</span>) &#123;</span>&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义图</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Graph</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;Vertex *&gt; vertices; <span class="comment">// 图中的所有顶点，对应邻接表中储存所有顶点的链表</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Graph</span><span class="params">(<span class="type">int</span> numVertices)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建图中的所有顶点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; numVertices; ++i) &#123;</span><br><span class="line">            vertices.<span class="built_in">push_back</span>(<span class="keyword">new</span> <span class="built_in">Vertex</span>(i));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">Graph</span>() &#123;<span class="comment">// 析构函数，释放所有顶点的内存</span></span><br><span class="line">        <span class="keyword">for</span> (Vertex* v : vertices) &#123;</span><br><span class="line">            <span class="keyword">delete</span> v;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加有向边</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addDirectedEdge</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to, <span class="type">int</span> weight)</span> </span>&#123;</span><br><span class="line">        vertices[from]-&gt;neighbors.<span class="built_in">emplace_back</span>(to, weight);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//添加无向边</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to, <span class="type">int</span> weight)</span> </span>&#123;</span><br><span class="line">        vertices[from]-&gt;neighbors.<span class="built_in">emplace_back</span>(to, weight);</span><br><span class="line">        vertices[to]-&gt;neighbors.<span class="built_in">emplace_back</span>(from, weight);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Prim算法</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">prim</span><span class="params">(<span class="type">int</span> start)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 初始化所有的node的selected为false，minDist为无穷大，parent为-1</span></span><br><span class="line">        <span class="keyword">for</span> (Vertex *v: vertices) &#123;</span><br><span class="line">            v-&gt;selected = <span class="literal">false</span>;</span><br><span class="line">            v-&gt;distance = INT_MAX;</span><br><span class="line">            v-&gt;parent = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 初始化第一个node的selected为true，minDist为0，parent为-1</span></span><br><span class="line">        vertices[start]-&gt;selected = <span class="literal">true</span>;</span><br><span class="line">        vertices[start]-&gt;distance = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 依次进行update-&gt;scan-&gt;add</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; vertices.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">            <span class="built_in">updateDistances</span>(start);</span><br><span class="line">            <span class="type">int</span> next = <span class="built_in">scan</span>();</span><br><span class="line">            start = next;</span><br><span class="line">            <span class="keyword">if</span> (next == <span class="number">-1</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="built_in">add</span>(next);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 检查是否所有顶点都已被选中</span></span><br><span class="line">        <span class="keyword">for</span> (Vertex *v: vertices) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!v-&gt;selected) &#123;</span><br><span class="line">                cout</span><br><span class="line">                        &lt;&lt; <span class="string">&quot;The graph is not connected. Cannot generate Minimum Spanning Tree.&quot;</span></span><br><span class="line">                        &lt;&lt; endl;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">updateDistances</span><span class="params">(<span class="type">int</span> start)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;neighbor: vertices[start]-&gt;neighbors) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!vertices[neighbor.first]-&gt;selected &amp;&amp;</span><br><span class="line">                neighbor.second &lt; vertices[neighbor.first]-&gt;distance) &#123;</span><br><span class="line">                vertices[neighbor.first]-&gt;distance = neighbor.second;</span><br><span class="line">                vertices[neighbor.first]-&gt;parent = start;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">scan</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> minDist = INT_MAX;</span><br><span class="line">        <span class="type">int</span> minVertex = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (Vertex *v: vertices) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!v-&gt;selected &amp;&amp; v-&gt;distance &lt; minDist) &#123;</span><br><span class="line">                minDist = v-&gt;distance;</span><br><span class="line">                minVertex = v-&gt;id;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> minVertex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> next)</span> </span>&#123;</span><br><span class="line">        vertices[next]-&gt;selected = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function">Graph <span class="title">g</span><span class="params">(<span class="number">6</span>)</span></span>;</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">6</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">0</span>, <span class="number">3</span>, <span class="number">5</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">3</span>, <span class="number">4</span>, <span class="number">7</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">4</span>, <span class="number">5</span>, <span class="number">1</span>);</span><br><span class="line">    g.<span class="built_in">prim</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (Vertex *v: g.vertices) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Vertex &quot;</span> &lt;&lt; v-&gt;id &lt;&lt; <span class="string">&quot; parent is &quot;</span> &lt;&lt; v-&gt;parent &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="kruskal算法"><a class="markdownIt-Anchor" href="#kruskal算法"></a> Kruskal算法</h4>
+<p>这一部分之前也有所提及，原理可以参考<a target="_blank" rel="noopener" href="https://adam8en.github.io/2023/11/22/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%80%E9%94%A6%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%E8%B5%B0%E8%BF%91%E5%9B%BE%E8%AE%BA/">数据结构什锦（六）—— 走近图论 | Adam8en の 8log</a>这篇文章中对克鲁斯卡尔算法的介绍。</p>
+<p>其实原理很简单，就是把每个无向边取出，按权重排序后依次添加进图中，当边数达到n-1时（假设一共有n个顶点），就生成了最小生成树。每放进去一条边都要进行一次判断是否成环，如果成环就丢掉这条边。</p>
+<p>这里唯一比较难搞的点就是判断新加入的边是否成环，这里可以用一种叫<strong>并查集</strong>的数据结构方便的实现这一目的。关于并查集，可以参考这篇文章<a target="_blank" rel="noopener" href="https://blog.csdn.net/w1085541827/article/details/52076481">并查集的一些个人观点 以及克鲁斯卡尔算法的详解_kruskal算法为什么用并查集-CSDN博客</a>。</p>
+<p>其实并查集也很简单，一言以概之，就是用一个数组去储存元素，下标代表元素的位置，数组的值代表元素的父节点。整体实现后代码也很简单，大概长这样：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (father[a] == a)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> father[a] = <span class="built_in">find</span>(father[a]);<span class="comment">//这里顺便压缩了路径</span></span><br><span class="line">    <span class="comment">//把每个路径上的节点的父节点都改成最 祖宗 的那一个（</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> tx = <span class="built_in">find</span>(x), ty = <span class="built_in">find</span>(y);</span><br><span class="line">    <span class="keyword">if</span> (tx != ty)</span><br><span class="line">    &#123;</span><br><span class="line">        father[tx] = ty;</span><br><span class="line">        <span class="comment">//判断，如果两个顶点的祖先不一样则进行合并操作</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么，根据并查集的思想，我们可以把每个顶点作为元素储存进一个数组中。初始化把每个顶点都赋值为它本身，代表每个顶点在开始时都是独立的根节点，然后每加入一条边就把两个顶点进行合并。如果遇到加入边导致顶点在一个集合内的情况，就说明会成环，就舍弃这条边跳过到下一条即可。</p>
+<p>那么最终实现的代码版本如下。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> from, to, weight;</span><br><span class="line">    <span class="built_in">Edge</span>(<span class="type">int</span> _from, <span class="type">int</span> _to, <span class="type">int</span> _weight) : <span class="built_in">from</span>(_from), <span class="built_in">to</span>(_to), <span class="built_in">weight</span>(_weight) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">compareEdges</span><span class="params">(<span class="type">const</span> Edge &amp;a, <span class="type">const</span> Edge &amp;b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.weight &lt; b.weight;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UnionFind</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; parent;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">UnionFind</span><span class="params">(<span class="type">int</span> n)</span> : parent(n) &#123;</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (parent[x] != x) &#123;</span><br><span class="line">            x = parent[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">unionSet</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">        parent[<span class="built_in">find</span>(x)] = <span class="built_in">find</span>(y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Graph</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;Edge&gt; edges;</span><br><span class="line">    <span class="type">int</span> numVertices;</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Graph</span><span class="params">(<span class="type">int</span> _numVertices)</span> : numVertices(_numVertices) &#123;</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> from, <span class="type">int</span> to, <span class="type">int</span> weight)</span> </span>&#123;</span><br><span class="line">        edges.<span class="built_in">emplace_back</span>(from, to, weight);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">kruskal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">sort</span>(edges.<span class="built_in">begin</span>(), edges.<span class="built_in">end</span>(), compareEdges);</span><br><span class="line">        <span class="function">UnionFind <span class="title">uf</span><span class="params">(numVertices)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">const</span> Edge &amp;edge : edges) &#123;</span><br><span class="line">            <span class="keyword">if</span> (uf.<span class="built_in">find</span>(edge.from) != uf.<span class="built_in">find</span>(edge.to)) &#123;</span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;Adding edge: &quot;</span> &lt;&lt; edge.from &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; edge.to &lt;&lt; <span class="string">&quot; weight: &quot;</span> &lt;&lt; edge.weight &lt;&lt; endl;</span><br><span class="line">                uf.<span class="built_in">unionSet</span>(edge.from, edge.to);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">Graph <span class="title">g</span><span class="params">(<span class="number">6</span>)</span></span>;</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">6</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">0</span>, <span class="number">3</span>, <span class="number">5</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">3</span>, <span class="number">4</span>, <span class="number">7</span>);</span><br><span class="line">    g.<span class="built_in">addEdge</span>(<span class="number">4</span>, <span class="number">5</span>, <span class="number">1</span>);</span><br><span class="line">    g.<span class="built_in">kruskal</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>最后得到的效果如下</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%9B%BE%E4%B8%8E%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91.drawio.png" alt="图与最小生成树.drawio" /></p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p>贪心算法的思想其实很简单，即使你没有学过这个名词，再解决一些OI题时你肯定也会有相同的做法。由局部最优导向全局最优的想法是简单粗暴的，是无师自通的，因此贪心比起动态规划来说要简单的多。</p>
+<p>当然，经典贪心算法的应用也远不止这些，我只是简单的介绍了一个例子，希望后续能多多益善？</p>
+<hr />
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/103835289_p3.jpg" alt="103835289_p3" /></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Adam Ben</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/posts/f5f6199fa035/">http://example.com/posts/f5f6199fa035/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Adam8enの8log</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">贪心算法</a></div><div class="post_share"><div class="social-share" data-image="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/103835289_p3.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/a280ef22aa55/" title="Go修炼手册——程序结构"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/1c3f280e740cecf4e83406e672b3525e.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Go修炼手册——程序结构</div></div></a></div><div class="next-post pull-right"><a href="/posts/97e7c5ac2148/" title="浅谈中国剩余定理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/3be1fbc5b0aaefdae08b32df0e361258.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">浅谈中国剩余定理</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Adam Ben</div><div class="author-info__description">你的孤独与月为伴，你的深情与星同归</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adam8en"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Adam8en" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:adamben@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/Adam_Ben?type=blog" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=2813879949&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不知道说什么好,放个表情包在这里好了,⁽˙³˙⁾◟(๑•́ ₃ •̀๑)◞⁽˙³˙⁾</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%AA%E5%A9%AA%E7%AD%96%E7%95%A5"><span class="toc-number">1.</span> <span class="toc-text"> 贪婪策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E7%9A%84%E8%A6%81%E7%B4%A0"><span class="toc-number">2.</span> <span class="toc-text"> 贪心算法的要素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98%E9%9B%86"><span class="toc-number">3.</span> <span class="toc-text"> 贪心算法的问题集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%BC%96%E7%A0%81"><span class="toc-number">3.1.</span> <span class="toc-text"> 哈夫曼树编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E9%97%AE%E9%A2%98"><span class="toc-number">3.2.</span> <span class="toc-text"> 最小生成树问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#prim%E7%AE%97%E6%B3%95"><span class="toc-number">3.2.1.</span> <span class="toc-text"> Prim算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#kruskal%E7%AE%97%E6%B3%95"><span class="toc-number">3.2.2.</span> <span class="toc-text"> Kruskal算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text"> 总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1c2342ee510b/" title="计算机组成指北（七）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/C10AD1752A521C3C297E7D81400952F1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（七）"/></a><div class="content"><a class="title" href="/posts/1c2342ee510b/" title="计算机组成指北（七）">计算机组成指北（七）</a><time datetime="2024-09-27T03:43:26.000Z" title="发表于 2024-09-27 11:43:26">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4ddedbf342f8/" title="计算机组成指北（六）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/612FFB2DEDE35B9C77545DB9ADF1C8BF.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（六）"/></a><div class="content"><a class="title" href="/posts/4ddedbf342f8/" title="计算机组成指北（六）">计算机组成指北（六）</a><time datetime="2024-09-27T03:43:17.000Z" title="发表于 2024-09-27 11:43:17">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/159e2ded72f9/" title="计算机组成指北（五）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/105468887_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（五）"/></a><div class="content"><a class="title" href="/posts/159e2ded72f9/" title="计算机组成指北（五）">计算机组成指北（五）</a><time datetime="2024-09-27T03:43:08.000Z" title="发表于 2024-09-27 11:43:08">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/B457C9EC79F0421BB773651E8FFE5F05.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（四）"/></a><div class="content"><a class="title" href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）">计算机组成指北（四）</a><time datetime="2024-09-27T03:42:55.000Z" title="发表于 2024-09-27 11:42:55">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1da683a19632/" title="计算机组成指北（三）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/118769966_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（三）"/></a><div class="content"><a class="title" href="/posts/1da683a19632/" title="计算机组成指北（三）">计算机组成指北（三）</a><time datetime="2024-09-27T03:42:38.000Z" title="发表于 2024-09-27 11:42:38">2024-09-27</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/103835289_p3.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Adam Ben</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '07g7RVgbp0tb6j6gBjcZCTKv-gzGzoHsz',
+      appKey: '4w4tpzByVtxnDriO8BFDKLBt',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

