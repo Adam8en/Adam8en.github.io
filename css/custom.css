@@ -52,3 +52,13 @@ img {
 [data-theme='light'] #universe {
   display: none;
 }
+
+@font-face{
+  font-family: 'WK' ;  /* 字体名自定义即可 */
+  src: url('../fonts/LXGW.ttf') format('truetype'); /* 字体文件路径 */
+  font-display : swap;
+}
+
+body{
+  font-family: 'WK', sans-serif; /* 字体名自定义即可 */
+}
