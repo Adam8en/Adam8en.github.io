@@ -327,7 +327,7 @@
 </blockquote>
 <p>SJF(Shortest Job First )算法，即最短作业优先调度法。是以进入系统的作业所要求的CPU时间为标准，对短作业或者短进程优先调度的算法，将每个进程与其估计运行时间进行关联，选取估计计算时间最短的作业投入运行。</p>
 <p>SJF调度算法是被证明了的最佳调度算法，这是因为对于给定的一组进程，SJF算法的平均周转时间最小。通过将短进程移到长进程之前，短进程等待时间的减少大于长进程等特时间的增加，因此，平均等待时间减少了。</p>
-<p>但在实际运用中，SJF算法是达不到理论上的最佳效果的。因为实现SJF调度算法需要知道作业所需运行时间，否则调度就没有依据，要精确知道一个作业的运行时间是办不到的。而且还会出现<span class="bubble-content">饥饿</span><span class="bubble-notation"><span class="bubble-item" style="background-color:使某个异步进程在可预测的时间内不能被激活 ;">进程饥饿，即为Starvation，指当等待时间给进程推进和响应带来明显影响称为进程饥饿。当饥饿到一定程度的进程在等待到即使完成也无实际意义的时候称为饥饿死亡。亦有定义为：由于别的并发的激活的进程持久占有所需资源</span></span>现象。</p>
+<p>但在实际运用中，SJF算法是达不到理论上的最佳效果的。因为实现SJF调度算法需要知道作业所需运行时间，否则调度就没有依据，要精确知道一个作业的运行时间是办不到的。而且还会出现<span class="bubble-content">饥饿</span><span class="bubble-notation"><span class="bubble-item" style="background-color:#ec5830;">进程饥饿，即为Starvation，指当等待时间给进程推进和响应带来明显影响称为进程饥饿。当饥饿到一定程度的进程在等待到即使完成也无实际意义的时候称为饥饿死亡。</span></span>现象。</p>
 <p>要模拟实现SFJ其实并不难。在现实情况中，由于进程的到达时间并不确定，所以是一个动态的排序算法。但是在模拟中实现，我们可以预先用随机数生成好进程的抵达时间、运行时间等各种信息，然后用排队器函数提前处理好。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">qsort(processes, NUM_PROCESSES, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> PCB), compare);</span><br></pre></td></tr></table></figure>
 <p>至于排队器函数的处理逻辑实现也很简单：根据进程的运行时间进行排序，运行时间短的优先级更高；如果运行时间相同，则比较哪个进程的抵达时间更早。</p>
