@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-10-12T07:14:46.000Z</updated>
+  <updated>2024-10-15T15:13:14.000Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Githubのcommit 规范</title>
+    <link href="http://example.com/posts/8d089fc2f201/"/>
+    <id>http://example.com/posts/8d089fc2f201/</id>
+    <published>2024-10-15T15:13:14.000Z</published>
+    <updated>2024-10-15T15:13:14.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>本文转载于<a href="https://gngtwhh.space/20248befcc09ef89/">Github提交规范 | WAHAHA’s blog (gngtwhh.space)</a></p></blockquote><h2 id="为什么要规定提交规范"><a class="markdownIt-Anchor" href="#为什么要规定提交规范"></a> 为什么要规定提交规范</h2><p>团队协作开发时，每个人提交都会编写自己的<code>commit message</code>。</p><p>如果不加以规范，最终项目就会杂乱不堪,难以管理。</p><p>一般的大厂，大型开源项目的<code>commit message</code>格式是非常一致的，便于管理，提高效率。</p><h2 id="git提交规范"><a class="markdownIt-Anchor" href="#git提交规范"></a> Git提交规范</h2><p>为了方便使用，我们避免了过于复杂的规定，格式较为简单且不限制中英文：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;<span class="built_in">type</span>&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="line">// 注意冒号 : 后有空格</span><br><span class="line">// 如 feat(miniprogram): 增加了小程序模板消息相关功能</span><br></pre></td></tr></table></figure><span class="bubble-content">scope</span><span class="bubble-notation"><span class="bubble-item" style="background-color:#868fd7;">选填 </span></span>表示commit的作用范围，如数据层、视图层，也可以是目录名称。<span class="bubble-content">subject</span><span class="bubble-notation"><span class="bubble-item" style="background-color:#868fd7;">必填 </span></span>用于对commit进行简短的描述。<span class="bubble-content">type</span><span class="bubble-notation"><span class="bubble-item" style="background-color:#868fd7;">必填 </span></span>表示提交类型，值有以下几种：<ul><li>feat - 新功能 feature</li><li>fix - 修复 bug</li><li>docs - 文档注释</li><li>style - 代码格式(不影响代码运行的变动)</li><li>refactor - 重构、优化(既不增加新功能，也不是修复bug)</li><li>perf - 性能优化</li><li>test - 增加测试</li><li>chore - 构建过程或辅助工具的变动</li><li>revert - 回退</li><li>build - 打包</li></ul><hr /><p><img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/4C04B4E3A66D79005E4BB402DFC0E397.jpg" alt="4C04B4E3A66D79005E4BB402DFC0E397" /></p>]]></content>
+    
+    
+    <summary type="html">简要的阐述了github中提交代码的格式规范</summary>
+    
+    
+    
+    <category term="杂谈" scheme="http://example.com/categories/%E6%9D%82%E8%B0%88/"/>
+    
+    
+    <category term="杂谈" scheme="http://example.com/tags/%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
   
   <entry>
     <title>Go修炼手册——接口</title>
@@ -468,27 +489,6 @@
     
     
     <category term="总结" scheme="http://example.com/tags/%E6%80%BB%E7%BB%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Go修炼手册——方法</title>
-    <link href="http://example.com/posts/87481f6e6c8c/"/>
-    <id>http://example.com/posts/87481f6e6c8c/</id>
-    <published>2024-05-26T11:32:09.000Z</published>
-    <updated>2024-05-26T11:32:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="方法"><a class="markdownIt-Anchor" href="#方法"></a> 方法</h2><p>方法是面向对象编程（OOP）的重要一环。从我们的理解来讲，一个对象其实也就是一个简单的值或者一个变量，在这个对象中会包含一些方法，而一个方法则是一个和特殊类型关联的函数。一个面向对象的程序会用方法来表达其属性和对应的操作，这样使用这个对象的用户就不需要直接去操作对象，而是借助方法来做这些事情。</p><p>本章会介绍OOP编程中的两个关键点：封装和组合。</p><h3 id="方法声明"><a class="markdownIt-Anchor" href="#方法声明"></a> 方法声明</h3><p>在函数声明时，在其名字之前放上一个变量，即是一个方法。这个附加的参数会将该函数附加到这种类型上，即相当于为这种类型定义了一个独占的方法。</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// traditional function</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Distance</span><span class="params">(p, q Point)</span></span> <span class="type">float64</span> &#123;</span><br><span class="line"> <span class="keyword">return</span> math.Hypot(q.X-p.X, q.Y-p.Y)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// same thing, but as a method of the Point type</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Point)</span></span> Distance(q Point) <span class="type">float64</span> &#123;</span><br><span class="line"> <span class="keyword">return</span> math.Hypot(q.X-p.X, q.Y-p.Y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在Go语言中，我们并不会像其它语言那样用this或者self作为接收器；我们可以任意的选择接收器的名字。</p><p>比如在Python中定义方法的话，首先得声明一个类。</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">P</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.x = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self</span>):</span><br><span class="line">        self.x += <span class="number">1</span></span><br></pre></td></tr></table></figure><h3 id="基于指针对象的方法"><a class="markdownIt-Anchor" href="#基于指针对象的方法"></a> 基于指针对象的方法</h3><p>当调用一个函数时，会对其每一个参数值进行拷贝，如果一个函数需要更新一个变量，或者函数的其中一个参数实在太大我们希望能够避免进行这种默认的拷贝，这种情况下我们就需要用到指针了。对应到我们这里用来更新接收器的对象的方法，当这个接受者变量本身比较大时，我们就可以用其指针而不是对象来声明方法。</p><p>比如：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Point)</span></span> ScaleBy(factor <span class="type">float64</span>) &#123;</span><br><span class="line"> p.X *= factor</span><br><span class="line"> p.Y *= factor</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在调用这个方法时，可以通过以下的方式：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">r := &amp;Point&#123;<span class="number">1</span>,<span class="number">2</span>&#125;</span><br><span class="line">r.ScaleBy(<span class="number">2</span>)</span><br><span class="line">fmt.Println(*r) <span class="comment">// &quot;&#123;2, 4&#125;&quot;</span></span><br><span class="line"><span class="comment">//----</span></span><br><span class="line">p := Point&#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line">pptr := &amp;p</span><br><span class="line">pptr.ScaleBy(<span class="number">2</span>)</span><br><span class="line">fmt.Println(p) <span class="comment">// &quot;&#123;2, 4&#125;&quot;</span></span><br><span class="line"><span class="comment">//----</span></span><br><span class="line">p := Point&#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line">(&amp;p).ScaleBy(<span class="number">2</span>)</span><br><span class="line">fmt.Println(p) <span class="comment">// &quot;&#123;2, 4&#125;&quot;</span></span><br><span class="line"><span class="comment">//----</span></span><br></pre></td></tr></table></figure><p>后两种方法有些笨拙，但实际上我们可以简化这个步骤。Go语言的编译器会隐式的帮你去转换类型。比如一个类型为Point的p变量，如果方法的接收器要求是一个Point指针，可以用简短写法如下：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">P.ScaleBy(<span class="number">2</span>)</span><br><span class="line"><span class="comment">//等价于(&amp;P).ScaleBy</span></span><br></pre></td></tr></table></figure><p>同样的，对于指针类型的变量调用接收器为类型本身的方法时编译器也会做自动的类型转换。</p><p>只有类型（Point）和指向他们的指针 (*Point) ，才可能是出现在接收器声明里的两种接收器。此外，为了避免歧义，在声明方法时，如果一个类型名本身是一个指针的话，是不允许其出现在接收器中的。</p><p>可以总结为如下两点：</p><blockquote><ol><li><p>不管你的method的receiver是指针类型还是非指针类型，都是可以通过指针/非指针类型进行调用的，编译器会帮你做类型转换。</p></li><li><p>在声明一个method的receiver该是指针还是非指针类型时，你需要考虑两方面的因素，第一方面是这个对象本身是不是特别大，如果声明为非指针变量时，调用会产生一次拷贝；第二方面是如果你用指针类型作为receiver，那么你一定要注意，这种指针类型指向的始终是一块内存地址，就算你对其进行了拷贝。熟悉C或者C++的人这里应该很快能明白。</p></li></ol></blockquote><h3 id="通过嵌入结构体来扩展类型"><a class="markdownIt-Anchor" href="#通过嵌入结构体来扩展类型"></a> 通过嵌入结构体来扩展类型</h3><p>假如我们拥有如下代码：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;image/color&quot;</span></span><br><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span>&#123; X, Y <span class="type">float64</span> &#125;</span><br><span class="line"><span class="keyword">type</span> ColoredPoint <span class="keyword">struct</span> &#123;</span><br><span class="line"> Point</span><br><span class="line">  Color color.RGBA</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在这段代码中，我们定义了一个内嵌结构体<code>ColoredPoint</code>，它包含<code>Point</code>类型的一切字段，并且自己又定义了一些额外的成员。</p><p>在<code>ColoredPoint</code>类型中，我们可以直接使用<code>Point</code>类型的方法，而无需指出<code>Point</code>。即使在<code>ColoredPoint</code>没有声明这样的方法。</p><p>用这种方式，内嵌可以使我们定义字段特别多的复杂类型，我们可以将字段先按小类型分组，然后定义小类型的方法，之后再把它们<strong>组合</strong>起来。</p><blockquote><p>读者如果对基于类来实现面向对象的语言比较熟悉的话，可能会倾向于将Point看作一个基类，而ColoredPoint看作其子类或者继承类，或者将ColoredPoint看作&quot;is a&quot; Point类型。但这是错误的理解。请注意上面例子中对Distance方法的调用。Distance有一个参数是Point类型，但q并不是一个Point类，所以尽管q有着Point这个内嵌类型，我们也必须要显式地选择它。</p></blockquote><p>也即你需要在调用<code>Point</code>类的方法前显示的指定<code>Point</code>。</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">p.Distance(q) <span class="comment">// error</span></span><br><span class="line">p.Point.Distance(q)<span class="comment">// right</span></span><br></pre></td></tr></table></figure><p>当Point.Distance被第一个包装方法调用时，它的接收器值是p.Point，而不是p。</p><p>在类型中内嵌的匿名字段也可能是一个命名类型的指针，这种情况下字段和方法会被间接地引入到当前的类型中。这种间接关系允许我们共享通用的结构。</p><p>一个struct类型也可能会有多个匿名字段。这样他就获得了匿名字段中定义的所有方法。</p><h3 id="方法值和方法表达式"><a class="markdownIt-Anchor" href="#方法值和方法表达式"></a> 方法值和方法表达式</h3><p>我们经常选择一个方法，并且在同一个表达式里执行，比如常见的p.Distance()形式，实际上将其分成两步来执行也是可能的。</p><blockquote><p>p.Distance叫作“选择器”，选择器会返回一个方法“值”-&gt;一个将方法（Point.Distance）绑定到特定接收器变量的函数。这个函数可以不通过指定其接收器即可被调用；即调用时不需要指定接收器（译注：因为已经在前文中指定过了），只要传入函数的参数即可</p></blockquote><p>也就是可以通过下面这种方法来调用方法，来分离其与变量本身。</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">scaleP := p.ScaleBy <span class="comment">// method value</span></span><br><span class="line">scaleP(<span class="number">2</span>) <span class="comment">// p becomes (2, 4)</span></span><br><span class="line"><span class="comment">//等价于下面这种用法</span></span><br><span class="line">res=p.ScaleBy(<span class="number">2</span>)</span><br></pre></td></tr></table></figure><p>在一个包的API需要一个函数值、且调用方希望操作的是某一个绑定了对象的方法的话，方法“值”会非常实用.</p><p>其实就是把一个方法作为“值”去传递，这与C语言中传递函数指针的概念类似，但Go语言的方法值提供了类型安全和更简洁的语法。</p><h3 id="封装"><a class="markdownIt-Anchor" href="#封装"></a> 封装</h3><p>一个对象的变量或者方法如果对调用方是不可见的话，一般就被定义为“封装”。封装有时候也被叫做信息隐藏，同时也是面向对象编程最关键的一个方面。</p><p>Go语言只有一种控制可见性的手段：大写首字母的标识符会从定义它们的包中被导出，小写字母的则不会。这种限制包内成员的方式同样适用于struct或者一个类型的方法。因而如果我们想要封装一个对象，我们必须将其定义为一个struct</p><p>这种基于名字的手段使得在语言中最小的封装单元是package，而不是像其它语言一样的类型。一个struct类型的字段对同一个包的所有代码都有可见性，无论你的代码是写在一个函数还是一个方法里</p><p>封装提供了三方面的优点。首先，因为调用方不能直接修改对象的变量值，其只需要关注少量的语句并且只要弄懂少量变量的可能的值即可。</p><p>第二，隐藏实现的细节，可以防止调用方依赖那些可能变化的具体实现，这样使设计包的程序员在不破坏对外的api情况下能得到更大的自由</p><p>封装的第三个优点也是最重要的优点，是阻止了外部调用方对对象内部的值任意地进行修改。因为对象内部变量只可以被同一个包内的函数修改，所以包的作者可以让这些函数确保对象内部的一些值的不变性。</p><blockquote><p>只用来访问或修改内部变量的函数被称为setter或者getter，例子如下，比如log包里的Logger类型对应的一些函数。在命名一个getter方法时，我们通常会省略掉前面的Get前缀。这种简洁上的偏好也可以推广到各种类型的前缀比如Fetch，Find或者Lookup。</p></blockquote><p>Go的编码风格不禁止直接导出字段。当然，一旦进行了导出，就没有办法在保证API兼容的情况下去除对其的导出，所以在一开始的选择一定要经过深思熟虑并且要考虑到包内部的一些不变量的保证，未来可能的变化，以及调用方的代码质量是否会因为包的一点修改而变差。</p><p>所以最好还是用setter或者getter等专门的方法去获取变量，方便维护。</p><p>封装并不总是理想的。 虽然封装在有些情况是必要的，但有时候我们也需要暴露一些内部内容，比如：time.Duration将其表现暴露为一个int64数字的纳秒，使得我们可以用一般的数值操作来对时间进行对比，甚至可以定义这种类型的常量</p><h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3><p>在这章中，我们学到了如何将方法与命名类型进行组合，并且知道了如何调用这些方法。尽管方法对于OOP编程来说至关重要，但他们只是OOP编程里的半边天。为了完成OOP，我们还需要接口。Go里的接口会在下一章中介绍。</p><hr /><p><img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2c28c545aca49c9b356d3b8ae2f935cf.jpeg" alt="" /></p>]]></content>
-    
-    
-    <summary type="html">介绍了Go语言中方法的特性，OOP编程完成度1/2！</summary>
-    
-    
-    
-    <category term="Go!Go!Go!" scheme="http://example.com/categories/Go-Go-Go/"/>
-    
-    
-    <category term="Go" scheme="http://example.com/tags/Go/"/>
     
   </entry>
   
