@@ -341,7 +341,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <p>对于<code>Sequantial()</code>函数，有：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sequential</span>(<span class="params">x</span>):</span><br><span class="line">    a1 = dense(x,W1,b1)</span><br><span class="line">    a2 = dense(a1,W2,b2)</span><br><span class="line">    a2 = dense(a2,W3,b3)</span><br><span class="line">    a2 = dense(a3,W4,b4)</span><br><span class="line">    f_x = a4</span><br><span class="line">    <span class="keyword">return</span> f_x</span><br></pre></td></tr></table></figure>
 <p>这就是Python中的底层实现逻辑，其实对于资深的Pythoner来说，看到代码就应该能对底层实现架构猜的八九不离十。不过为了清晰起见，这里还是把底层的代码明确地给了出来，方便理解。</p>
-<div class="note info simple"><p>事实上，对于<code>Dense()</code>函数，还有进一步的优化方法。之所以我们约定在W权重矩阵中，是列向量而非行向量代表原先的权重向量，就是为了这一刻——用向量化计算代替循环。如果你有线性代数基础，直到矩阵的乘法，那么你可以对下方的代码感到十分的心领神会：</p>
+<div class="note info simple"><p>事实上，对于<code>Dense()</code>函数，还有进一步的优化方法。之所以我们约定在W权重矩阵中，是列向量而非行向量代表原先的权重向量，就是为了这一刻——用向量化计算代替循环。如果你有线性代数基础，知道矩阵的乘法，那么你可以对下方的代码感到十分的心领神会：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dense</span>(<span class="params">a_in,W,b</span>):</span><br><span class="line">    z = np.matmul(a_in,W) + b <span class="comment"># a_in与W进行矩阵乘法</span></span><br><span class="line">    a_out = g(z)</span><br><span class="line">    <span class="keyword">return</span> a_out</span><br></pre></td></tr></table></figure>
 </div>
 <h3 id="is-there-a-path-to-agi"><a class="markdownIt-Anchor" href="#is-there-a-path-to-agi"></a> Is There a Path to AGI?</h3>
