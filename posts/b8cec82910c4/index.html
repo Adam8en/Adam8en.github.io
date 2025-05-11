@@ -1,0 +1,449 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>数据结构什锦（二）——链表篇 | Adam8enの8log</title><meta name="author" content="Adam Ben"><meta name="copyright" content="Adam Ben"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="关于链表的知识笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构什锦（二）——链表篇">
+<meta property="og:url" content="http://example.com/posts/b8cec82910c4/index.html">
+<meta property="og:site_name" content="Adam8enの8log">
+<meta property="og:description" content="关于链表的知识笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300470.jpg">
+<meta property="article:published_time" content="2023-09-20T07:49:55.000Z">
+<meta property="article:modified_time" content="2023-10-25T12:45:57.000Z">
+<meta property="article:author" content="Adam Ben">
+<meta property="article:tag" content="链表">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300470.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/posts/b8cec82910c4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数据结构什锦（二）——链表篇',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-25 20:45:57'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@1.0.17/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Adam8enの8log" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">89</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw far fa-comment"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fas fa-tv"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300470.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Adam8enの8log"><span class="site-name">Adam8enの8log</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw far fa-comment"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fas fa-tv"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数据结构什锦（二）——链表篇</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-09-20T07:49:55.000Z" title="发表于 2023-09-20 15:49:55">2023-09-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-25T12:45:57.000Z" title="更新于 2023-10-25 20:45:57">2023-10-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0/">数据结构学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数据结构什锦（二）——链表篇"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img gist" style="background-image: url(https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300470.jpg)"></div><article class="post-content" id="article-container"><p>我们继续讲链表……(‘-ωก̀ )</p>
+<h2 id="链表"><a class="markdownIt-Anchor" href="#链表"></a> 链表</h2>
+<p>链表是一种用来储存元素集合的数据结构，它具有以下特性：</p>
+<ul>
+<li>节点由两部分组成，我称之为数据域和指针域，数据域存放你想通过链表储存的数据，而指针域存放指针</li>
+<li>元素通过指针依次相连，即通过指针来指向其他元素</li>
+<li>最后一个元素的指针为空（NULL）</li>
+<li>在执行过程中，链表的长度可以自由伸缩</li>
+<li>链表的长度可以是要求的任意长度，除非系统内存耗尽</li>
+<li>它不会浪费内存空间（相对于开辟数组来说），但是需要额外的空间存放指针。</li>
+</ul>
+<h3 id="链表的抽象数据类型adt"><a class="markdownIt-Anchor" href="#链表的抽象数据类型adt"></a> 链表的抽象数据类型/ADT</h3>
+<p>主要的操作：</p>
+<ul>
+<li>插入（Insert）：将一个元素插入链表中</li>
+<li>删除（Delete）：删除并返回链表中指定位置上的元素</li>
+</ul>
+<p>辅助的操作：</p>
+<ul>
+<li>撤销链表（Delete List）：删除链表中的所有元素</li>
+<li>计数（Count）：返回链表的元素个数（即链表长度）</li>
+<li>查找（Search)：从链表的表尾开始查找第n个节点</li>
+</ul>
+<h3 id="为什么需要链表"><a class="markdownIt-Anchor" href="#为什么需要链表"></a> 为什么需要链表？</h3>
+<p>在学习链表之前，我们一般使用数组来储存数据集合，那么，为什么我们需要链表呢？</p>
+<p>我们首先来回顾一下数组。</p>
+<h4 id="数组"><a class="markdownIt-Anchor" href="#数组"></a> 数组</h4>
+<p>数组是指一片连续的内存块被分配给用户以储存数组元素，即数组是在内存中占据一组连续地址的储存单元。通过输入数组的下标，我们可以快速的访问数组中的任何元素。其时间复杂度为常数O(1)。</p>
+<p>为了访问数组元素，元素的储存地址通常以相对其起始地址的偏移量计算得到，而这个计算需要通过一个乘法运算，即根据数据类型确定一个元素的大小乘以其被访问元素的下标以得到其偏移量，最后将偏移量与起始地址相加。整个过程包括一个乘法计算和加法计算，故数组的访问只需要一个常数时间即可完成。</p>
+<h5 id="优势"><a class="markdownIt-Anchor" href="#优势"></a> 优势</h5>
+<ul>
+<li>简单、易使用。直接声明即可创建数组</li>
+<li>访问元素速度快</li>
+</ul>
+<h5 id="缺点"><a class="markdownIt-Anchor" href="#缺点"></a> 缺点</h5>
+<ul>
+<li>固定大小：数组是静态的，在使用数组前就需要给它分配一个固定的大小</li>
+<li>占据一个连续的储存空间，有时候可能无法获得一个足够大的连续内存去储存创建的数组</li>
+<li>复杂的定位插入运算：在数组中插入或删除元素的操作十分麻烦，需要把在插入位置后的所有元素都向后移动一位，最坏的结果时间复杂度达到了O(n)。</li>
+</ul>
+<h4 id="链表的优势"><a class="markdownIt-Anchor" href="#链表的优势"></a> 链表的优势</h4>
+<p>链表的最大优势是在常数时间内实现扩张。如果使用数组，有时候会出现内存不够的情况，这个时候你可以一开始分配一个内存很大的数组，但是如果你没有把数组全部塞满就会造成内存的浪费。所以这时候我们引入链表，我们首先为一个元素分配储存空间，然后轻松添加新元素。</p>
+<h4 id="链表的缺点"><a class="markdownIt-Anchor" href="#链表的缺点"></a> 链表的缺点</h4>
+<p>链表的主要缺点是单个元素的访问时间。</p>
+<p>数组具有随机性，可以实现随机访问，访问每个数组元素所花费的时间相同。但是链表只能实现顺序访问，最坏的情况下访问链表中一个元素要花费O(n)的时间。尽管动态分配的储存分配是链表的一个强大优势，但与此伴随的是<strong>高储存开销</strong>。</p>
+<p>最后链表还需要额外储存指针参数，浪费了储存空间。</p>
+<h3 id="单链表"><a class="markdownIt-Anchor" href="#单链表"></a> 单链表</h3>
+<p>我们常说的链表是指<strong>单链表</strong>。单链表包括一组节点，一个头节点和一个指向NULL的尾节点，每个节点有一个数据域和指针域。</p>
+<p>下面我们声明一个简单的整形链表。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span>* <span class="title">next</span>;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="链表的基本操作"><a class="markdownIt-Anchor" href="#链表的基本操作"></a> 链表的基本操作</h4>
+<p>主要有：</p>
+<ul>
+<li>遍历链表</li>
+<li>在链表中插入一个元素</li>
+<li>在链表中删除一个元素</li>
+</ul>
+<p>下面我们来依次介绍对应的操作要怎么实现。</p>
+<h5 id="遍历"><a class="markdownIt-Anchor" href="#遍历"></a> 遍历</h5>
+<p>遍历涉及的操作很简单，我不多介绍了。遍历的作用主要就是用来计算数组长度或者依次显示数据，进而可以用来查找特定的节点。当遍历的节点指向的下一个节点为NULL时，遍历结束。</p>
+<p>以下是代码的实现。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">ListLength</span><span class="params">(<span class="keyword">struct</span> ListNode*head)</span>&#123;</span><br><span class="line">    <span class="comment">//这里新定义了一个指针指向头节点，是为了不改变头节点的值，相当于拷贝了一份头节点的副本</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span>*<span class="title">current</span>=</span>head;</span><br><span class="line">    <span class="type">int</span> count=<span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(current!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        count++;</span><br><span class="line">        current=current-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>扫描大小为n的列表，时间复杂度是O(n)。只创建了两个临时变量，空间复杂度为O(1)。</p>
+<h5 id="插入"><a class="markdownIt-Anchor" href="#插入"></a> 插入</h5>
+<p>对于单链表的插入有三种情况。</p>
+<ul>
+<li>在链表首元节点前插入一个新节点</li>
+<li>在链表尾元节点后插入一个新节点</li>
+<li>在链表中间部分插入一个新节点</li>
+</ul>
+<h6 id="在头部插入节点"><a class="markdownIt-Anchor" href="#在头部插入节点"></a> 在头部插入节点</h6>
+<p>这时只需要更新一个节点的指针域，即申请一个新节点并修改其指针域指向原头结点，然后更新头指针指向新首元节点皆可以了。</p>
+<h6 id="在尾部插入节点"><a class="markdownIt-Anchor" href="#在尾部插入节点"></a> 在尾部插入节点</h6>
+<p>这个时候我们需要修改两个节点的指针域。</p>
+<p>首先申请一个新节点，将其指针域的指针修改为NULL，然后修改原尾元节点使其指针指向新节点即可。</p>
+<p>假如给定了我们一个想要插入节点的位置，我们仍然只需要修改两个指针的指针域。</p>
+<ul>
+<li>如果我们想要在第3个节点前插入新节点，那么我们首先要找到第2个节点。这意味着我们需要遍历两个节点后才能进行插入操作。为了便于描述，我们将第2个节点称为位置节点。新节点的指针域指向位置节点的下一个节点（即目标节点）</li>
+<li>首先创建一个新节点，使新创立的节点指针域指向目标节点。</li>
+<li>然后修改位置节点的指针域，使其指向新节点，这样我们便完成了中间节点的插入。</li>
+</ul>
+<p>下面我们根据以上三种情况编写代码。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> InsertInLinkedList&#123;<span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span>**<span class="title">head</span>, <span class="title">int</span> <span class="title">data</span>, <span class="title">int</span> <span class="title">position</span>&#125;&#123;</span></span><br><span class="line">    <span class="comment">//这里用到了指针的指针，是为了更改头指针指向的节点</span></span><br><span class="line">    <span class="type">int</span> k=<span class="number">1</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span>*<span class="title">p</span>,*<span class="title">q</span>,*<span class="title">newNode</span>;</span></span><br><span class="line">    newNode=(ListNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> ListNode));</span><br><span class="line">    <span class="keyword">if</span>(!newNode)&#123;</span><br><span class="line">        <span class="comment">//如果新节点申请失败则报错，检查合法性，增强健壮性</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Memory Error!&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    newNode-&gt;data=data;</span><br><span class="line">    p=*head;<span class="comment">//p设置为头指针</span></span><br><span class="line">    <span class="comment">//在头部插入节点</span></span><br><span class="line">    <span class="keyword">if</span>(position==<span class="number">1</span>)&#123;</span><br><span class="line">        newNode-&gt;next=p;</span><br><span class="line">        *head=newNode;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//遍历链表直到达到我们想要插入的位置为止</span></span><br><span class="line">        <span class="keyword">while</span>((p!=<span class="literal">NULL</span>)&amp;&amp;(k&lt;position))&#123;</span><br><span class="line">            k++;</span><br><span class="line">            q=p;</span><br><span class="line">            p=p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        q-&gt;next=newNode;<span class="comment">//这里有更好的方法实现这一点</span></span><br><span class="line">        newNode-&gt;next=p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然，我们也可以根据三种不同的情况实现三种不同的函数。</p>
+<h5 id="删除"><a class="markdownIt-Anchor" href="#删除"></a> 删除</h5>
+<p>与插入类似，链表的删除也有三种情况。</p>
+<ul>
+<li>删除首元节点</li>
+<li>删除尾元节点</li>
+<li>删除中间部分的一个节点</li>
+</ul>
+<p>现在我们三种情况来讨论。</p>
+<h6 id="删除头节点"><a class="markdownIt-Anchor" href="#删除头节点"></a> 删除头节点</h6>
+<p>删除头节点一共需要两步。</p>
+<ul>
+<li>创建一个临时变量指向要删除的头节点。</li>
+<li>修改头指针指向下一个节点，然后撤销临时指针变量指向的首元节点（free操作）。</li>
+</ul>
+<h6 id="删除尾节点"><a class="markdownIt-Anchor" href="#删除尾节点"></a> 删除尾节点</h6>
+<p>同样的，我们删除尾节点时需要找到它的前驱节点。其实现分为三步。</p>
+<ul>
+<li>遍历列表找到前驱节点地址。我们需要两个指针变量指向尾元节点和尾元节点的直接前驱节点。</li>
+<li>更新前驱节点的指针域，将其置为NULL。</li>
+<li>撤销尾节点。</li>
+</ul>
+<h6 id="删除中间节点"><a class="markdownIt-Anchor" href="#删除中间节点"></a> 删除中间节点</h6>
+<p>删除中间节点和前面的步骤类似，具体体现为更新前驱节点的指针域为待删除节点所指向的下一个节点，其余步骤相同。</p>
+<p>现在我们用代码来实现删除节点。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">DeleteNodeFromLinkedList</span><span class="params">(<span class="keyword">struct</span> LinkNode**head, <span class="type">int</span> position)</span>&#123;</span><br><span class="line">    <span class="type">int</span> k=<span class="number">1</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span>*<span class="title">p</span>,*<span class="title">q</span>;</span></span><br><span class="line">    <span class="keyword">if</span>(*head==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="comment">//检查链表是否为空链表，此时仅一个节点</span></span><br><span class="line">        print(<span class="string">&quot;List Empty&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    p=*head;</span><br><span class="line">    <span class="comment">//删除首元节点</span></span><br><span class="line">    <span class="keyword">if</span>(position==<span class="number">1</span>)&#123;</span><br><span class="line">        *head=(*head)-&gt;next;</span><br><span class="line">        <span class="built_in">free</span>(p);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//遍历链表直到找到我们要删除的节点为止</span></span><br><span class="line">        <span class="keyword">while</span> ((p!=<span class="literal">NULL</span>)&amp;&amp;(k&lt;position))&#123;</span><br><span class="line">            k++;</span><br><span class="line">            q=p;</span><br><span class="line">            p=p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(p==<span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="comment">//到达表尾</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Position does not exist.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//被删除的元素位于表中</span></span><br><span class="line">            q-&gt;next=p-&gt;next;</span><br><span class="line">            <span class="built_in">free</span>(p);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上算法的时间复杂度为O(n)，空间复杂度为O(1)。</p>
+<p>以上是单链表的介绍。</p>
+<h4 id="双链表"><a class="markdownIt-Anchor" href="#双链表"></a> 双链表</h4>
+<p>双链表是指指针域上包含两个分别指向左右两边的前后驱节点指针的链表。相比单链表，双链表拥有更多优势。我们只需要得到双链表的一个节点，就可以访问整条链表上的所有元素。比如在单链表中得到一个节点，我们无法删除这个单个节点，因为这需要单节点的前驱节点才可以操作。而双链表则不然，我们可以通过元素的左指针找到它的直接前驱。</p>
+<p>双链表也存在不足，主要体现在：</p>
+<ul>
+<li>每个节点都要求增加一个指针域，即需要更多的空间资源。</li>
+<li>插入和删除节点需要花费的时间更长（因为新增了一个另一个方向的指针）</li>
+</ul>
+<p>除此之外，双链表的操作基本和单链表类似。如果掌握了单链表的操作，双链表也不是什么难事。</p>
+<p>下面我们来创建一个简单的双链表模板。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DLLNode</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">DLLNode</span>*<span class="title">next</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">DLLNode</span>*<span class="title">prev</span>;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="双链表的插入"><a class="markdownIt-Anchor" href="#双链表的插入"></a> 双链表的插入</h5>
+<p>双链表的插入操作与单链表一样可分为三种，即在头部、尾部和中间分别插入新节点。</p>
+<h6 id="在头部插入节点-2"><a class="markdownIt-Anchor" href="#在头部插入节点-2"></a> 在头部插入节点</h6>
+<p>双链表插入的步骤与单链表大致相同，唯一不同的地方就是此时多了一个左指针。我们也可以将插入步骤分为两步。</p>
+<ul>
+<li>申请一个新节点，把新节点的左指针置为NULL，右指针指向原头结点。</li>
+<li>修改原首元节点使其左指针指向新节点，并把头指针指向新节点即可。</li>
+</ul>
+<h6 id="在尾部插入节点-2"><a class="markdownIt-Anchor" href="#在尾部插入节点-2"></a> 在尾部插入节点</h6>
+<p>同上，也可分为两个步骤。</p>
+<ul>
+<li>申请新节点并遍历至链表尾元节点，修改新节点的左指针指向原尾元节点，右指针置为NULL。</li>
+<li>修改原尾节点的右指针指向新节点即可。</li>
+</ul>
+<h6 id="在中间插入节点"><a class="markdownIt-Anchor" href="#在中间插入节点"></a> 在中间插入节点</h6>
+<p>在中间插入节点可能有些复杂，因为要涉及到三个节点和四个指针，这里我们举例来说明更好理解。</p>
+<p>假设有中间相邻节点a和b，现在要在b节点前插入p节点，伪代码示例如下。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">p.prev=a;<span class="comment">//设置p的左右节点指向a，b</span></span><br><span class="line">p.next=b;</span><br><span class="line"></span><br><span class="line">a.next.prev=p;<span class="comment">//设置b的左指针指向p</span></span><br><span class="line">b.prev.next=p;<span class="comment">//设置a的右指针指向p</span></span><br></pre></td></tr></table></figure>
+<p>现在我们来编写代码来实现这三种情况的插入。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">DLLInsert</span><span class="params">(<span class="keyword">struct</span> DLLNode**head, <span class="type">int</span> data, <span class="type">int</span> position)</span>&#123;</span><br><span class="line">    <span class="type">int</span> k=<span class="number">1</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">DLLNode</span>*<span class="title">temp</span>,*<span class="title">newNode</span>;</span><span class="comment">//这里多了一个临时变量</span></span><br><span class="line">    <span class="keyword">if</span>(!newNode)&#123;</span><br><span class="line">        <span class="comment">//如果内存判断错误就退出</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Memory Error&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    newNode-&gt;data=data;<span class="comment">//装填数据</span></span><br><span class="line">    <span class="keyword">if</span>(position==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">//在头部插入节点</span></span><br><span class="line">        newNode-&gt;prev=<span class="literal">NULL</span>;</span><br><span class="line">        newNode-&gt;next=*head;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(*head)</span><br><span class="line">            (*head)-&gt;prev=newNode;<span class="comment">//如果头节点存在，增强健壮性</span></span><br><span class="line">        </span><br><span class="line">        *head=newNode;<span class="comment">//修改头指针指向新节点</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    temp=*head;</span><br><span class="line">    <span class="keyword">while</span>((k&lt;position<span class="number">-1</span>)&amp;&amp;temp-&gt;next!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="comment">//这里没有使用else语句，因为如果触发了if判断将在if块内就进行返回</span></span><br><span class="line">        <span class="comment">//所以没有必要再加else</span></span><br><span class="line">        <span class="comment">//这里遍历到了要操作的节点，注意这里循环结束的条件是position-1</span></span><br><span class="line">        temp=temp-&gt;next;</span><br><span class="line">        k++;<span class="comment">//k为位置节点序号</span></span><br><span class="line">        <span class="comment">//此时temp即为待操作元素</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(k!=position<span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Desired position does not exist.\n&quot;</span>);</span><br><span class="line">    &#125;<span class="comment">//如果在k到达position-1之前就退出循环，说明已经遍历到了表尾，所以不存在</span></span><br><span class="line">    newNode-&gt;next=temp-&gt;next;<span class="comment">//</span></span><br><span class="line">    newNode-&gt;prev=temp;</span><br><span class="line">    <span class="keyword">if</span> (temp-&gt;next)</span><br><span class="line">        <span class="comment">//如果temp的右指针不为空，也就是不是尾节点的话</span></span><br><span class="line">        temp-&gt;next-&gt;prev=newNode;</span><br><span class="line">    </span><br><span class="line">    temp-&gt;next=newNode;<span class="comment">//实际上是在temp及其后驱节点间插入了元素</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="双链表的删除"><a class="markdownIt-Anchor" href="#双链表的删除"></a> 双链表的删除</h5>
+<p>删除的操作也分为三种情况：</p>
+<ul>
+<li>删除头节点</li>
+<li>删除尾节点</li>
+<li>删除中间节点</li>
+</ul>
+<h6 id="在头部删除节点"><a class="markdownIt-Anchor" href="#在头部删除节点"></a> 在头部删除节点</h6>
+<p>删除头部节点，我们主要分为两步。</p>
+<ul>
+<li>创建一个临时声明的指针变量，指向当前头节点。</li>
+<li>然后使头节点指针向后移动一位，并置头节点的左指针域为空，最后撤销临时变量指向的节点。</li>
+</ul>
+<h6 id="在尾部删除节点"><a class="markdownIt-Anchor" href="#在尾部删除节点"></a> 在尾部删除节点</h6>
+<p>删除尾元节点，比删除首元节点稍微复杂一点，具体分为三步。</p>
+<ul>
+<li>遍历链表，直到找到尾元节点。注意在这个过程中需要始终保持当前所指结点和其前驱节点的地址。也就是说，我们需要定义两个临时变量来储存地址。</li>
+<li>置尾元节点的前驱节点右指针域为空。</li>
+<li>删除当前所指结点/尾元节点。</li>
+</ul>
+<h6 id="在中间删除节点"><a class="markdownIt-Anchor" href="#在中间删除节点"></a> 在中间删除节点</h6>
+<p>我们一样分为两步。</p>
+<ul>
+<li>与删除尾元节点类似，在遍历期间始终保存当前节点的前驱节点地址。一旦找到了需要删除的节点，就通过修改其前驱节点的右指针使其指向所指结点的右指针域下一个节点，再修改所指结点的下一个指向元素左指针域使其指向被删除节点的前驱节点。</li>
+<li>释放所指结点</li>
+</ul>
+<p>下面是实现的代码。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DLLNode</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">DLLNode</span> *<span class="title">prev</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span>  <span class="title">DLLNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">void</span> <span class="title function_">DLLDelete</span><span class="params">(<span class="keyword">struct</span> DLLNode **head,<span class="type">int</span> position)</span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">DLLNode</span> *<span class="title">temp1</span>,*<span class="title">temp2</span>,*<span class="title">temp</span>=</span>*head;</span><br><span class="line">    <span class="type">int</span> k=<span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(*head==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;List is empty&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(position==<span class="number">1</span>)&#123;<span class="comment">//如果删除的是首节点</span></span><br><span class="line">        *head=(*head)-&gt;next;</span><br><span class="line">        <span class="keyword">if</span>(*head!=<span class="literal">NULL</span>)</span><br><span class="line">            (*head)-&gt;prev=<span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">free</span>(temp);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>((k&lt;position)&amp;&amp;temp-&gt;next!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        temp=temp-&gt;next;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(k!=position<span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Desired position does not exist.&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    temp2=temp-&gt;prev;</span><br><span class="line">    temp2-&gt;next=temp-&gt;next;</span><br><span class="line">    <span class="keyword">if</span>(temp-&gt;next)<span class="comment">//如果删除的是中间的一个点</span></span><br><span class="line">        temp-&gt;next-&gt;prev=temp2;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">free</span>(temp);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="循环链表"><a class="markdownIt-Anchor" href="#循环链表"></a> 循环链表</h4>
+<p>循环链表和前面的两种形式不同，它没有NULL指针域，即每个节点都有其后继节点。在循环链表中，头节点可以访问其所有链表。当几个进程正在轮流使用相同的计算机资源相同的时间时，我们必须确保在它们完成前没有其他进程访问该资源（轮询算法）。下面是一个循环链表的类型声明。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CLLNode</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">CLLNode</span>* <span class="title">Next</span>;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr />
+<p>（待更新……）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300470.jpg" alt="300470" /></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Adam Ben</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/posts/b8cec82910c4/">http://example.com/posts/b8cec82910c4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Adam8enの8log</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%93%BE%E8%A1%A8/">链表</a></div><div class="post_share"><div class="social-share" data-image="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300470.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/46809cdafd4d/" title="PHP碎碎念（一）——开始入门！"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300411.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">PHP碎碎念（一）——开始入门！</div></div></a></div><div class="next-post pull-right"><a href="/posts/e7a35b1664fc/" title="CTFer的苦痛之路——SQL注入篇"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CTFer的苦痛之路——SQL注入篇</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Adam Ben</div><div class="author-info__description">你的孤独与月为伴，你的深情与星同归</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">89</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adam8en"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Adam8en" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:adamben@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/Adam_Ben?type=blog" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=2813879949&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不知道说什么好,<br>放个表情包在这里好了,<br>⁽˙³˙⁾◟(๑•́ ₃ •̀๑)◞⁽˙³˙⁾,<br><br>如有疑问欢迎联系邮箱：<br>adamben@qq.com</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8"><span class="toc-number">1.</span> <span class="toc-text"> 链表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8Badt"><span class="toc-number">1.1.</span> <span class="toc-text"> 链表的抽象数据类型&#x2F;ADT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E9%93%BE%E8%A1%A8"><span class="toc-number">1.2.</span> <span class="toc-text"> 为什么需要链表？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 数组</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF"><span class="toc-number">1.2.1.1.</span> <span class="toc-text"> 优势</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">1.2.1.2.</span> <span class="toc-text"> 缺点</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 链表的优势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 链表的缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E9%93%BE%E8%A1%A8"><span class="toc-number">1.3.</span> <span class="toc-text"> 单链表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 链表的基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%81%8D%E5%8E%86"><span class="toc-number">1.3.1.1.</span> <span class="toc-text"> 遍历</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8F%92%E5%85%A5"><span class="toc-number">1.3.1.2.</span> <span class="toc-text"> 插入</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9C%A8%E5%A4%B4%E9%83%A8%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9"><span class="toc-number">1.3.1.2.1.</span> <span class="toc-text"> 在头部插入节点</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9C%A8%E5%B0%BE%E9%83%A8%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9"><span class="toc-number">1.3.1.2.2.</span> <span class="toc-text"> 在尾部插入节点</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A0%E9%99%A4"><span class="toc-number">1.3.1.3.</span> <span class="toc-text"> 删除</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%A4%B4%E8%8A%82%E7%82%B9"><span class="toc-number">1.3.1.3.1.</span> <span class="toc-text"> 删除头节点</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%B0%BE%E8%8A%82%E7%82%B9"><span class="toc-number">1.3.1.3.2.</span> <span class="toc-text"> 删除尾节点</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E4%B8%AD%E9%97%B4%E8%8A%82%E7%82%B9"><span class="toc-number">1.3.1.3.3.</span> <span class="toc-text"> 删除中间节点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8C%E9%93%BE%E8%A1%A8"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 双链表</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E6%8F%92%E5%85%A5"><span class="toc-number">1.3.2.1.</span> <span class="toc-text"> 双链表的插入</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9C%A8%E5%A4%B4%E9%83%A8%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9-2"><span class="toc-number">1.3.2.1.1.</span> <span class="toc-text"> 在头部插入节点</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9C%A8%E5%B0%BE%E9%83%A8%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9-2"><span class="toc-number">1.3.2.1.2.</span> <span class="toc-text"> 在尾部插入节点</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9C%A8%E4%B8%AD%E9%97%B4%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9"><span class="toc-number">1.3.2.1.3.</span> <span class="toc-text"> 在中间插入节点</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%88%A0%E9%99%A4"><span class="toc-number">1.3.2.2.</span> <span class="toc-text"> 双链表的删除</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9C%A8%E5%A4%B4%E9%83%A8%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9"><span class="toc-number">1.3.2.2.1.</span> <span class="toc-text"> 在头部删除节点</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9C%A8%E5%B0%BE%E9%83%A8%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9"><span class="toc-number">1.3.2.2.2.</span> <span class="toc-text"> 在尾部删除节点</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9C%A8%E4%B8%AD%E9%97%B4%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9"><span class="toc-number">1.3.2.2.3.</span> <span class="toc-text"> 在中间删除节点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 循环链表</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/8aa53a259f2b/" title="深入理解 Kitsune 模型"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511224410700.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入理解 Kitsune 模型"/></a><div class="content"><a class="title" href="/posts/8aa53a259f2b/" title="深入理解 Kitsune 模型">深入理解 Kitsune 模型</a><time datetime="2025-05-11T14:45:55.000Z" title="发表于 2025-05-11 22:45:55">2025-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/709e8bfc712b/" title="2024年度总结"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/58183995_p12.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024年度总结"/></a><div class="content"><a class="title" href="/posts/709e8bfc712b/" title="2024年度总结">2024年度总结</a><time datetime="2024-12-31T13:29:35.000Z" title="发表于 2024-12-31 21:29:35">2024-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c5de366d06a7/" title="Rolling Hashes：滚动哈希详解"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2404CBF21EC9ECF50FF185A745A075DE.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rolling Hashes：滚动哈希详解"/></a><div class="content"><a class="title" href="/posts/c5de366d06a7/" title="Rolling Hashes：滚动哈希详解">Rolling Hashes：滚动哈希详解</a><time datetime="2024-12-11T12:22:13.000Z" title="发表于 2024-12-11 20:22:13">2024-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/15adc5743338/" title="11月总结·2024"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/6b65aa1528d546543f3cd19e50aceb09.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="11月总结·2024"/></a><div class="content"><a class="title" href="/posts/15adc5743338/" title="11月总结·2024">11月总结·2024</a><time datetime="2024-11-30T12:40:37.000Z" title="发表于 2024-11-30 20:40:37">2024-11-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/282cf3400e09/" title="Coursera-ML-AndrewNg-Notes-Week5"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/D2C62FCE46B76B7B3305529FD6BBCE3D.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Coursera-ML-AndrewNg-Notes-Week5"/></a><div class="content"><a class="title" href="/posts/282cf3400e09/" title="Coursera-ML-AndrewNg-Notes-Week5">Coursera-ML-AndrewNg-Notes-Week5</a><time datetime="2024-11-14T07:31:56.000Z" title="发表于 2024-11-14 15:31:56">2024-11-14</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300470.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Adam Ben</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '07g7RVgbp0tb6j6gBjcZCTKv-gzGzoHsz',
+      appKey: '4w4tpzByVtxnDriO8BFDKLBt',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><script src="/js/sun_moon.js" async></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

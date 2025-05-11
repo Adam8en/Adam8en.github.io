@@ -1,0 +1,415 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>PHP碎碎念（三）——数组那些事 | Adam8enの8log</title><meta name="author" content="Adam Ben"><meta name="copyright" content="Adam Ben"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="这一章介绍了PHP的一些处理数组的有用函数，只节选了一部分，要阅读全部函数请翻阅PHP的在线手册。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP碎碎念（三）——数组那些事">
+<meta property="og:url" content="http://example.com/posts/ae92502954a3/index.html">
+<meta property="og:site_name" content="Adam8enの8log">
+<meta property="og:description" content="这一章介绍了PHP的一些处理数组的有用函数，只节选了一部分，要阅读全部函数请翻阅PHP的在线手册。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/57672472_p0.jpg">
+<meta property="article:published_time" content="2023-11-09T15:01:01.000Z">
+<meta property="article:modified_time" content="2023-11-09T15:03:24.000Z">
+<meta property="article:author" content="Adam Ben">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/57672472_p0.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/posts/ae92502954a3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PHP碎碎念（三）——数组那些事',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-09 23:03:24'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@1.0.17/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Adam8enの8log" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">89</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw far fa-comment"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fas fa-tv"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/57672472_p0.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Adam8enの8log"><span class="site-name">Adam8enの8log</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw far fa-comment"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fas fa-tv"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">PHP碎碎念（三）——数组那些事</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-11-09T15:01:01.000Z" title="发表于 2023-11-09 23:01:01">2023-11-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-11-09T15:03:24.000Z" title="更新于 2023-11-09 23:03:24">2023-11-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/PHP%E5%AD%A6%E4%B9%A0/">PHP学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="PHP碎碎念（三）——数组那些事"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img gist" style="background-image: url(https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/57672472_p0.jpg)"></div><article class="post-content" id="article-container"><p>和其他语言一样，PHP也有数组。但是不同于C语言，PHP的数组更加灵活而且方法更加多样化，这一点类似于Python中的字典。主要是因为PHP的数组可以不局限于数字索引，也就是说数组允许自定义索引。</p>
+<p>话不多说，进入正题。我们先从数字索引数组开始介绍，然后再讲自定义索引数组，最后介绍一些处理数组的方法。</p>
+<h2 id="数字索引数组"><a class="markdownIt-Anchor" href="#数字索引数组"></a> 数字索引数组</h2>
+<p>和大多数编程语言一样，在PHP中的数字数组索引也是从0开始的。当然，这一点可以更改。</p>
+<h3 id="初始化"><a class="markdownIt-Anchor" href="#初始化"></a> 初始化</h3>
+<p>PHP数组的初始化有以下几种方法</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$name</span>=<span class="keyword">array</span>(<span class="string">&#x27;Adam&#x27;</span>,<span class="string">&#x27;Ben&#x27;</span>,<span class="string">&#x27;JJG&#x27;</span>);</span><br><span class="line"><span class="variable">$name</span>=[<span class="string">&#x27;Adam&#x27;</span>,<span class="string">&#x27;Ben&#x27;</span>,<span class="string">&#x27;JJG&#x27;</span>];<span class="comment">//PHP5.4版本后支持</span></span><br><span class="line"><span class="variable">$name</span>=<span class="title function_ invoke__">range</span>(<span class="number">1</span>,<span class="number">10</span>);<span class="comment">//储存1到10的数字</span></span><br><span class="line"><span class="variable">$name</span>=<span class="title function_ invoke__">range</span>(<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;z&#x27;</span>);<span class="comment">//储存字符a到z</span></span><br><span class="line"><span class="variable">$name</span>=<span class="title function_ invoke__">file</span>(<span class="string">&quot;outputs.txt&quot;</span>);<span class="comment">//从文件导入数组，每一行作为一个元素</span></span><br></pre></td></tr></table></figure>
+<p>后面几种声明数组的方式看起来有点像Python中的列表，但是要注意这两者并不是完全相同。比如range()函数，在PHP中<code>range(1,10)</code>是输出1到10，而Python则是输出1到9,10的边界是一个开集。</p>
+<p>最后提到的从文件导入数组用到了第二章提到过的file()函数，详细内容可以回看一下第二章。</p>
+<p>另外，PHP支持数组间等号的重载，如果你想把一个数组中的数据保存在另一个数组中，直接使用等号就行。</p>
+<h3 id="访问数组"><a class="markdownIt-Anchor" href="#访问数组"></a> 访问数组</h3>
+<p>这部分和C等其他语言的规则大致相同，不多赘述。你可以使用<code>$name[0]</code>来访问第一个元素，但是PHP也允许你用{}大括号来代替中括号。</p>
+<p>另外，PHP的数组长度是动态的，和Python和C都不太一样。在C中你需要实现指定数组的长度，Python中添加元素需要调用列表的方法append()，但是在PHP中允许你直接声明一个新的元素。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$name</span>[<span class="number">4</span>]=<span class="string">&#x27;jjg&#x27;</span><span class="comment">//这行代码会直接为$name数组添加第四个元素</span></span><br></pre></td></tr></table></figure>
+<p>如果下标相同，等同于更改原索引对应的数组值。如果这个数组一开始并不存在，PHP会创建一个只包含一个元素的新的数组。</p>
+<h4 id="循环访问数组"><a class="markdownIt-Anchor" href="#循环访问数组"></a> 循环访问数组</h4>
+<p>我们之前提到了通过数组下标来访问数组，但是正如其他语言中一样，PHP也可以使用循环来访问数组，效率更高也更强大，下面介绍几个循环函数。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span>&lt;<span class="number">3</span>; <span class="variable">$i</span>++)&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$name</span>[<span class="variable">$i</span>].<span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;<span class="comment">//经典的for循环，和C语言一样的语法，但是不适用于自定义索引数组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$name</span> <span class="keyword">as</span> <span class="variable">$n</span>)&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$n</span>.<span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;<span class="comment">//foreach是PHP中的特性函数，允许$n表示数组中的每一个元素，减少了手工输入量，非常方便</span></span><br></pre></td></tr></table></figure>
+<h2 id="自定义索引数组"><a class="markdownIt-Anchor" href="#自定义索引数组"></a> 自定义索引数组</h2>
+<p>正如我们前文提到的那样，PHP可以自定义索引，其创建方法类似于Python中的字典，也就是包含一个键名和对应的值。下面是自定义索引数组的创建方法.</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$names</span>=<span class="keyword">array</span>(<span class="string">&#x27;fname&#x27;</span>=&gt;<span class="string">&#x27;Adam&#x27;</span>,<span class="string">&#x27;lname&#x27;</span>=&gt;<span class="string">&#x27;Ben&#x27;</span>,<span class="string">&#x27;nname&#x27;</span>=&gt;<span class="string">&#x27;jjg&#x27;</span>);</span><br><span class="line"><span class="variable">$names</span>[<span class="string">&#x27;nname&#x27;</span>]=<span class="string">&#x27;JJG&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>键和值之间的连接符号是<code>=&gt;</code>，有点奇怪，挺象形的只能说。</p>
+<p>由于数组的索引不再是整数，所以使用for循环访问数组元素的时候，就不能简单的使用经典的for循环，而要使用foreach循环或者each()和list()结构。</p>
+<p>形式如下。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(<span class="variable">$names</span> <span class="keyword">as</span> <span class="variable">$key</span>=&gt;<span class="variable">$value</span>)&#123;<span class="comment">//这里用$key和$value分别代表数组中一个元素的键名和值</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$key</span>.<span class="string">&quot; - &quot;</span>.<span class="variable">$value</span>.<span class="string">&quot;&lt;br /&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="variable">$e</span> = <span class="title function_ invoke__">each</span>(<span class="variable">$names</span>))&#123;<span class="comment">//each()函数会返回数组当前所指元素，然后指向下一个元素</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$e</span>[<span class="string">&#x27;key&#x27;</span>].<span class="string">&quot; - &quot;</span>.<span class="variable">$e</span>[<span class="string">&#x27;value&#x27;</span>];</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;br /&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">reset</span>(<span class="variable">$names</span>);<span class="comment">//数组会记得自己指向了哪个元素，如果想再次循环遍历该数组，需要使用reset()函数将数组指针重新指向首元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="keyword">list</span>(<span class="variable">$a</span>,<span class="variable">$b</span>)=<span class="title function_ invoke__">each</span>(<span class="variable">$names</span>))&#123;<span class="comment">//比上面的方式更好，list()会把元素分离成两部分并将其储存在两个新变量中</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$a</span>.<span class="string">&quot; - &quot;</span>.<span class="variable">$b</span>.<span class="string">&quot;&lt;br /&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="数组操作符"><a class="markdownIt-Anchor" href="#数组操作符"></a> 数组操作符</h2>
+<p>PHP有一组对数组的操作符，大多数这些操作符都有与之对应的标量操作符，将其整理如下。</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>名称</th>
+<th>实例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>联合</td>
+<td>$a+$b</td>
+<td>数组a、b联合。将数组b中的元素添加到数组a中。如果键名冲突该元素将不会被添加。</td>
+</tr>
+<tr>
+<td>==</td>
+<td>等价</td>
+<td>$a==$b</td>
+<td>如果数组a、b<strong>包含相同元素</strong>，返回true</td>
+</tr>
+<tr>
+<td>===</td>
+<td>恒等</td>
+<td>$a===$b</td>
+<td>如果数组a、b<strong>包含相同顺序和类型的元素</strong>，返回true</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不等价</td>
+<td>$a!=$b</td>
+<td>不包含相同元素</td>
+</tr>
+<tr>
+<td>&lt;&gt;</td>
+<td>不等价</td>
+<td>$a&lt;&gt;$b</td>
+<td>和!=相同</td>
+</tr>
+<tr>
+<td>!==</td>
+<td>不恒等</td>
+<td>$a!==$b</td>
+<td>不恒等</td>
+</tr>
+</tbody>
+</table>
+<p>这些操作符也可以拿来比较标量，一般来说数组和标量无法比较，会抛出一个false。利用这一点可以在某些CTF的PHP代码审计中绕过一些判定方法，比如传入一个数组和某个非数组值进行比较。</p>
+<h2 id="多维数组"><a class="markdownIt-Anchor" href="#多维数组"></a> 多维数组</h2>
+<p>关于多维数组的部分不过多展开，一来这部分比较晦涩复杂，平时最多用到二维数组，极少用到三维数组；二是多维数组的概念和C等语言类似，没必要多开篇幅介绍。在PHP中多维数组就是简单的数组嵌套，用多个array()函数嵌套即可声明一个多维数组。</p>
+<p>除了多维数组的概念，关于一些多维数组的操作（如排序）也将暂时跳过。</p>
+<h2 id="数组排序"><a class="markdownIt-Anchor" href="#数组排序"></a> 数组排序</h2>
+<p>在PHP中定义了许多有用的方法来对数组进行排序，而不用想C语言一样造轮子。</p>
+<h3 id="sort"><a class="markdownIt-Anchor" href="#sort"></a> sort()</h3>
+<p>sort()是一个功能强大的函数：无论是字符串数组还是数字数组，都将按照升序排列进行排序。其中字母排序区分字母大小写，大写字母永远在小写字母前面，即按照ASCII码进行排序。同理，数字永远排在字母前面。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$names</span>=[<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;1a&#x27;</span>,<span class="string">&#x27;2a&#x27;</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>];</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$names</span>);</span><br><span class="line"><span class="title function_ invoke__">sort</span>(<span class="variable">$names</span>);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$names</span>);</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231109220142615.png" alt="image-20231109220142615" /></p>
+<p>sort()函数的第二个参数是可选的。这些参数是SORT_REGULAR、SORT_NUMBERIC、SORT_STRING、SORT_LOCAL_STRING、SORT_NATURAL、SORT_FLAG_CASE。这些参数虽然很有用，但是实际上很少用到（至少在CTF从来没碰到过）。贴了一段别的大佬博客归纳。</p>
+<blockquote>
+<ol>
+<li>SORT_REGULAR：按照常规比较方式排序（不改变类型）</li>
+<li>SORT_NUMERIC：按照数值比较方式排序</li>
+<li>SORT_STRING：按照字符串比较方式排序</li>
+<li>SORT_LOCALE_STRING：按照本地化字符串比较方式排序</li>
+<li>SORT_NATURAL：按自然顺序对字符串进行排序(与SORT_STRING相同),同时不区分大小写</li>
+<li>SORT_FLAG_CASE：可以联合使用喜欢SORT_STRING或SORT_NATURAL，在进行字母的比较时不区分大小写</li>
+</ol>
+</blockquote>
+<p>要实现降序排序也很简单，使用rsort()函数即可将元素按照降序顺序排列。</p>
+<h3 id="asort和ksort"><a class="markdownIt-Anchor" href="#asort和ksort"></a> asort()和ksort()</h3>
+<p>这两个函数作用机理和sort()函数相同，只是作用对象为自定义索引数组。如果你想根据键名来排序，选择ksort()，否则选择asort()来按照元素的值进行排序。如果想要按照降序排序也一样可以使用arsort()或者krsort()函数。</p>
+<h3 id="usort"><a class="markdownIt-Anchor" href="#usort"></a> usort()</h3>
+<p>usort()中的‘u’代表‘user’，意味着这是个由用户自定义的排序函数。在使用这个函数时，首先要自定义一个比较函数，比如我需要按照一个数组的第三项去进行排序，我可以编写如下代码。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params"><span class="variable">$x</span>,<span class="variable">$y</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$x</span>[<span class="number">1</span>]==<span class="variable">$y</span>[<span class="number">1</span>])&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">elseif</span> (<span class="variable">$x</span>[<span class="number">1</span>]&lt;<span class="variable">$y</span>[<span class="number">1</span>])&#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_ invoke__">usort</span>(<span class="variable">$names</span>,<span class="string">&#x27;compare&#x27;</span>);<span class="comment">//传入待排序的数组和自定义比较函数名</span></span><br></pre></td></tr></table></figure>
+<p>调用usort()函数没有反向变体，但是你可以直接修改自定义比较函数的返回值达到反向排序的效果。</p>
+<h3 id="shuffle"><a class="markdownIt-Anchor" href="#shuffle"></a> shuffle()</h3>
+<p>向shuffle()函数传入数组，它会将数组元素顺序打乱随机排序。</p>
+<h3 id="array_reverse"><a class="markdownIt-Anchor" href="#array_reverse"></a> array_reverse()</h3>
+<p>array_reverse()函数会将数组按照与原来的排序相反的顺序进行排序，但是这个函数只返回排序后数组的副本，不会改变原数组。要改变原数组，将返回值赋予原数组就好。</p>
+<h2 id="其他数组操作"><a class="markdownIt-Anchor" href="#其他数组操作"></a> 其他数组操作</h2>
+<p>除了以上介绍的这些处理数组的函数，还有一些函数也很有用，这里就简要的介绍一下。</p>
+<h3 id="explode"><a class="markdownIt-Anchor" href="#explode"></a> explode()</h3>
+<p>向函数传递一个分隔符和字符串，可以将字符串根据分隔符分隔为不同的元素并作为数组返回。</p>
+<h3 id="each和next和current"><a class="markdownIt-Anchor" href="#each和next和current"></a> each()和next()和current()</h3>
+<p>在前文介绍了each()函数会返回数组当前所指值并指向下一个元素，而next()则是直接指向下一个元素再返回元素值。current()函数则是返回目前数组指向元素的值。</p>
+<h3 id="reset和end"><a class="markdownIt-Anchor" href="#reset和end"></a> reset()和end()</h3>
+<p>前文介绍过reset()函数会重置数组指针并返回第一个数组元素值，而end()函数则刚好相反：它直接指向最后一个元素并返回最后一个元素值。</p>
+<h3 id="prev和pos"><a class="markdownIt-Anchor" href="#prev和pos"></a> prev()和pos()</h3>
+<p>prev()函数和next()函数相反，它将指针回移一位并返回所指值。而pos()函数则是current()函数的别名。</p>
+<h3 id="countsizeof和array_count_values"><a class="markdownIt-Anchor" href="#countsizeof和array_count_values"></a> count()/sizeof()和array_count_values()</h3>
+<p>count()函数返回数组中元素的个数，sizeof()函数是它的一个别名。而array_count_values()则返回一个数组，内含传入数组元素的出现频率表，统计每个元素在该数组中出现的次数。</p>
+<h3 id="extract"><a class="markdownIt-Anchor" href="#extract"></a> extract()</h3>
+<p>这个函数很有意思，它会把数组中的关键字-值对转换成一系列标量变量。具体用法如下。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$names</span>=<span class="keyword">array</span>(<span class="string">&#x27;fname&#x27;</span>=&gt;<span class="string">&#x27;Adam&#x27;</span>,<span class="string">&#x27;lname&#x27;</span>=&gt;<span class="string">&#x27;Ben&#x27;</span>,<span class="string">&#x27;nname&#x27;</span>=&gt;<span class="string">&#x27;JJG&#x27;</span>);</span><br><span class="line"><span class="variable">$nname</span>=<span class="string">&#x27;jjg&#x27;</span>;</span><br><span class="line"><span class="title function_ invoke__">extract</span>(<span class="variable">$names</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$fname</span>.<span class="string">&quot;\n&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$lname</span>.<span class="string">&quot;\n&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$nname</span>.<span class="string">&quot;\n&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231109225232660.png" alt="image-20231109225232660" /></p>
+<p>值得注意的是，如果当前已经存在和数组关键字相同名称的变量，该变量值会被覆盖。也就是说通过extract()函数可以覆盖掉一些原本存在的变量值达到注入的效果。这一点在CTF的PHP代码审计中经常用到（划考点）。</p>
+<p>不过extract()函数将元素转换为变量的前提是该元素的关键字必须符合PHP变量命名规范，也就是说以数字开头和包含空格的关键字将被跳过。</p>
+<p>extract()函数还可以传递第二个参数extract_type，这里不多赘述，贴一段其他大佬的归纳总结。</p>
+<blockquote>
+<p><em>extract_type</em> - 可选项。<code>extract()</code>函数检查无效变量名称和与现有变量名称的冲突。 此参数指定如何处理无效和碰撞名称。可能的值 -</p>
+<ul>
+<li><em>EXTR_OVERWRITE</em> - 默认。 碰撞时，现有变量被覆盖。</li>
+<li><em>EXTR_SKIP</em> - 碰撞时，现有的变量不会被覆盖</li>
+<li><em>EXTR_PREFIX_SAME</em> - 碰撞时，变量名将被赋予一个前缀。</li>
+<li><em>EXTR_PREFIX_ALL</em> - 所有的变量名都会被赋予一个前缀。</li>
+<li><em>EXTR_PREFIX_INVALID</em> - 只有无效或数字变量名称才会被赋予前缀。</li>
+<li><em>EXTR_IF_EXISTS</em> - 只覆盖当前符号表中的现有变量，否则什么都不做。</li>
+<li><em>EXTR_PREFIX_IF_EXISTS</em> - 如果当前符号表中存在相同的变量，则只向变量添加前缀。</li>
+<li><em>EXTR_REFS</em> - 提取变量作为参考。导入的变量仍然引用数组参数的值</li>
+</ul>
+<p>//更多请阅读：<a target="_blank" rel="noopener" href="https://www.yiibai.com/php/php_function_extract.html">https://www.yiibai.com/php/php_function_extract.html</a></p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/57672472_p0.jpg" alt="57672472_p0" /></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Adam Ben</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/posts/ae92502954a3/">http://example.com/posts/ae92502954a3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Adam8enの8log</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/PHP/">PHP</a></div><div class="post_share"><div class="social-share" data-image="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/57672472_p0.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/c8939c4977d0/" title="数据结构什锦（六）——走近图论"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/River%20&amp;%20Faye.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">数据结构什锦（六）——走近图论</div></div></a></div><div class="next-post pull-right"><a href="/posts/4f880ad35e0e/" title="PHP碎碎念（二）——文件读取基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300483.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">PHP碎碎念（二）——文件读取基础</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/4f880ad35e0e/" title="PHP碎碎念（二）——文件读取基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300483.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-08</div><div class="title">PHP碎碎念（二）——文件读取基础</div></div></a></div><div><a href="/posts/46809cdafd4d/" title="PHP碎碎念（一）——开始入门！"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300411.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-09-22</div><div class="title">PHP碎碎念（一）——开始入门！</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Adam Ben</div><div class="author-info__description">你的孤独与月为伴，你的深情与星同归</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">89</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adam8en"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Adam8en" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:adamben@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/Adam_Ben?type=blog" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=2813879949&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不知道说什么好,<br>放个表情包在这里好了,<br>⁽˙³˙⁾◟(๑•́ ₃ •̀๑)◞⁽˙³˙⁾,<br><br>如有疑问欢迎联系邮箱：<br>adamben@qq.com</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%B4%A2%E5%BC%95%E6%95%B0%E7%BB%84"><span class="toc-number">1.</span> <span class="toc-text"> 数字索引数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.1.</span> <span class="toc-text"> 初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%95%B0%E7%BB%84"><span class="toc-number">1.2.</span> <span class="toc-text"> 访问数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E8%AE%BF%E9%97%AE%E6%95%B0%E7%BB%84"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 循环访问数组</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B4%A2%E5%BC%95%E6%95%B0%E7%BB%84"><span class="toc-number">2.</span> <span class="toc-text"> 自定义索引数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">3.</span> <span class="toc-text"> 数组操作符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-number">4.</span> <span class="toc-text"> 多维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F"><span class="toc-number">5.</span> <span class="toc-text"> 数组排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sort"><span class="toc-number">5.1.</span> <span class="toc-text"> sort()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#asort%E5%92%8Cksort"><span class="toc-number">5.2.</span> <span class="toc-text"> asort()和ksort()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#usort"><span class="toc-number">5.3.</span> <span class="toc-text"> usort()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shuffle"><span class="toc-number">5.4.</span> <span class="toc-text"> shuffle()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#array_reverse"><span class="toc-number">5.5.</span> <span class="toc-text"> array_reverse()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C"><span class="toc-number">6.</span> <span class="toc-text"> 其他数组操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#explode"><span class="toc-number">6.1.</span> <span class="toc-text"> explode()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#each%E5%92%8Cnext%E5%92%8Ccurrent"><span class="toc-number">6.2.</span> <span class="toc-text"> each()和next()和current()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reset%E5%92%8Cend"><span class="toc-number">6.3.</span> <span class="toc-text"> reset()和end()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#prev%E5%92%8Cpos"><span class="toc-number">6.4.</span> <span class="toc-text"> prev()和pos()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#countsizeof%E5%92%8Carray_count_values"><span class="toc-number">6.5.</span> <span class="toc-text"> count()&#x2F;sizeof()和array_count_values()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#extract"><span class="toc-number">6.6.</span> <span class="toc-text"> extract()</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/8aa53a259f2b/" title="深入理解 Kitsune 模型"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511224410700.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入理解 Kitsune 模型"/></a><div class="content"><a class="title" href="/posts/8aa53a259f2b/" title="深入理解 Kitsune 模型">深入理解 Kitsune 模型</a><time datetime="2025-05-11T14:45:55.000Z" title="发表于 2025-05-11 22:45:55">2025-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/709e8bfc712b/" title="2024年度总结"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/58183995_p12.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024年度总结"/></a><div class="content"><a class="title" href="/posts/709e8bfc712b/" title="2024年度总结">2024年度总结</a><time datetime="2024-12-31T13:29:35.000Z" title="发表于 2024-12-31 21:29:35">2024-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c5de366d06a7/" title="Rolling Hashes：滚动哈希详解"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2404CBF21EC9ECF50FF185A745A075DE.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rolling Hashes：滚动哈希详解"/></a><div class="content"><a class="title" href="/posts/c5de366d06a7/" title="Rolling Hashes：滚动哈希详解">Rolling Hashes：滚动哈希详解</a><time datetime="2024-12-11T12:22:13.000Z" title="发表于 2024-12-11 20:22:13">2024-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/15adc5743338/" title="11月总结·2024"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/6b65aa1528d546543f3cd19e50aceb09.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="11月总结·2024"/></a><div class="content"><a class="title" href="/posts/15adc5743338/" title="11月总结·2024">11月总结·2024</a><time datetime="2024-11-30T12:40:37.000Z" title="发表于 2024-11-30 20:40:37">2024-11-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/282cf3400e09/" title="Coursera-ML-AndrewNg-Notes-Week5"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/D2C62FCE46B76B7B3305529FD6BBCE3D.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Coursera-ML-AndrewNg-Notes-Week5"/></a><div class="content"><a class="title" href="/posts/282cf3400e09/" title="Coursera-ML-AndrewNg-Notes-Week5">Coursera-ML-AndrewNg-Notes-Week5</a><time datetime="2024-11-14T07:31:56.000Z" title="发表于 2024-11-14 15:31:56">2024-11-14</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/57672472_p0.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Adam Ben</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '07g7RVgbp0tb6j6gBjcZCTKv-gzGzoHsz',
+      appKey: '4w4tpzByVtxnDriO8BFDKLBt',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><script src="/js/sun_moon.js" async></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

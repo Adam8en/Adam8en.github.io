@@ -1,0 +1,369 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>关于移动群智感知中的隐私保护的一些理解 | Adam8enの8log</title><meta name="author" content="Adam Ben"><meta name="copyright" content="Adam Ben"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="关于MCS与地理位置保护的讨论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于移动群智感知中的隐私保护的一些理解">
+<meta property="og:url" content="http://example.com/posts/1616990c38e1/index.html">
+<meta property="og:site_name" content="Adam8enの8log">
+<meta property="og:description" content="关于MCS与地理位置保护的讨论">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110250.png">
+<meta property="article:published_time" content="2023-09-04T02:20:52.000Z">
+<meta property="article:modified_time" content="2023-10-17T15:52:13.000Z">
+<meta property="article:author" content="Adam Ben">
+<meta property="article:tag" content="DP">
+<meta property="article:tag" content="difference privacy">
+<meta property="article:tag" content="Mobile Crowdsourcing">
+<meta property="article:tag" content="Location-based service">
+<meta property="article:tag" content="k-anonymization">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110250.png"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/posts/1616990c38e1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '关于移动群智感知中的隐私保护的一些理解',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-17 23:52:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@1.0.17/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Adam8enの8log" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">89</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw far fa-comment"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fas fa-tv"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110250.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Adam8enの8log"><span class="site-name">Adam8enの8log</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw far fa-comment"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fas fa-tv"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">关于移动群智感知中的隐私保护的一些理解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-09-04T02:20:52.000Z" title="发表于 2023-09-04 10:20:52">2023-09-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-17T15:52:13.000Z" title="更新于 2023-10-17 23:52:13">2023-10-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E8%AE%A1%E7%AE%97/">隐私保护计算</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="关于移动群智感知中的隐私保护的一些理解"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img gist" style="background-image: url(https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110250.png)"></div><article class="post-content" id="article-container"><h4 id="众包的概念"><a class="markdownIt-Anchor" href="#众包的概念"></a> 众包的概念</h4>
+<p>某项任务交由个人或者集体难以完成或者成本过高，于是众包给大量未经过专业培训的普通人，以此来显著降低开销的一种方式。这一点与<strong>外包</strong>正好相反，后者是将任务交给某个专业的团队去完成。</p>
+<h4 id="移动众包mobile-crowdsourcingmcs的应用"><a class="markdownIt-Anchor" href="#移动众包mobile-crowdsourcingmcs的应用"></a> 移动众包（Mobile Crowdsourcing/MCS）的应用</h4>
+<p>比如天气信息，空气质量，电磁辐射，交通流量等。通过在使用者的移动设备上装置传感器，来达到实时监测使用者位置的数据的方式。近年来智能手机快速发展，提供了合适的装置，而5G和WIFI的出现也使得大规模移动数据传输成为可能。</p>
+<p>比如在百度地图中显示某段道路的客流量大小。传统做法是通过在路口设立摄像头等监控装置来监测客流量，但是这么做成本极高且需要长期保养，投入价值不菲。因而我们选择将这项服务交给<strong>移动众包</strong>来完成，即在每辆车的引擎上配置传感器，将车辆位置、速度等数据发送给MCS服务器，然后再根据算法计算客流量。</p>
+<h4 id="移动众包带来的隐私泄露隐患与隐私算法"><a class="markdownIt-Anchor" href="#移动众包带来的隐私泄露隐患与隐私算法"></a> 移动众包带来的隐私泄露隐患与隐私算法</h4>
+<p>由于基于地点的移动众包需要参与者的位置信息，人们不得不向服务器公开自己的具体位置，这导致了一些人认为这是在泄露他们的隐私。所以，基于地点的隐私保护算法，旨在对用户的地点信息进行加密保护，同时让服务器正常工作，以吸引更多用户参加MCS，从而逐步取缔传统的方法，极大的降低开销。</p>
+<p>隐私算法的本质是在让攻击者和服务器本身无法做到特定的调出某个用户的数据，同时让服务器正常应用数据组。但是应用隐私算法有几个难点：</p>
+<p>①算力开销。由于采用了加密算法去加密真实的地理位置，将会产生额外的算力开销。</p>
+<p>②数据可靠度降低。由于对数据采用了模糊的方式处理，会使得数据实用性降低。</p>
+<h4 id="移动众包隐私算法的几个数据模型mcs"><a class="markdownIt-Anchor" href="#移动众包隐私算法的几个数据模型mcs"></a> 移动众包隐私算法的几个数据模型/MCS</h4>
+<h5 id="隐匿模型anonymization"><a class="markdownIt-Anchor" href="#隐匿模型anonymization"></a> 隐匿模型/Anonymization</h5>
+<p>把用户的真实信息隐匿，或者设置一个分类组合并几个用户的数据集，让单独区分某个数据的过程变得极为困难。例如现在较流行的k-anonymization算法。</p>
+<h5 id="差分模型differential-privacy"><a class="markdownIt-Anchor" href="#差分模型differential-privacy"></a> 差分模型/Differential privacy</h5>
+<p>引入<strong>噪声</strong>，即加入干扰机制，使得攻击者无法获得拥有高可信度的数据。</p>
+<h4 id="基于地址服务的几个保护位置信息的隐私算法location-based-servicelbs"><a class="markdownIt-Anchor" href="#基于地址服务的几个保护位置信息的隐私算法location-based-servicelbs"></a> 基于地址服务的几个保护位置信息的隐私算法/Location-based service/LBS</h4>
+<h5 id="隐匿技术"><a class="markdownIt-Anchor" href="#隐匿技术"></a> 隐匿技术</h5>
+<p>假如一片地区内有多个用户，数量大于等于k，即可应用k-anonymization算法，计算出一个遮罩地区，代替用户的精确位置返回给服务器。</p>
+<h5 id="傻瓜技术"><a class="markdownIt-Anchor" href="#傻瓜技术"></a> 傻瓜技术（？）</h5>
+<p>在一个用户的周围随机的生成几个虚假的位置点返回给服务器，这样服务器就认不出哪一个是用户真实的具体位置。</p>
+<h5 id="混淆技术"><a class="markdownIt-Anchor" href="#混淆技术"></a> 混淆技术</h5>
+<p>基于一种权衡摄动大小和数据实用度的技术，在尽可能保持服务器正常工作的前提下对真实位置进行模糊，让攻击者无法获得高可信度的数据。</p>
+<h5 id="加密技术"><a class="markdownIt-Anchor" href="#加密技术"></a> 加密技术</h5>
+<p>直接对用户的位置信息进行加密，这样对于未授权的<strong>LBS</strong>服务器就无法获得用户的具体信息，从而保护用户隐私，但是会产生较大的算力开销。</p>
+<h4 id="移动众包中的地址隐私保护"><a class="markdownIt-Anchor" href="#移动众包中的地址隐私保护"></a> 移动众包中的地址隐私保护</h4>
+<p>移动众包中主要有三个组成部分：指令员，MCS服务提供者，工作者。</p>
+<ul>
+<li>服务提供者提供平台，他们负责接收指令员下发的工作指令，并把任务下发给合适的工作者，再把总结果打包返回给指令员。对于服务者来说，他们要完成的事有①把任务以低廉高效的方式发送给工作者②对每个工作者个体的地理位置信息进行加密③筛选出值得信赖有用的数据返回给指令员④激励并促使工作者更加积极地参与工作。</li>
+<li>指令员是提交任务的最终使用者，他们要求在某一个特定的地点完成特定的任务。他们可以是缺乏安装足够传感器的能力的个人或者集体，并且希望能使用MCS服务来降低成本。</li>
+<li>工作者是自愿参与MCS项目的个体，他们通过完成MCS平台上发布的任务来获得奖励。这些任务通常要求工作者公开他们的位置信息，因此产生了可能的隐私泄露问题，影响了工作者参与MCS项目的积极性且不利于更多人员假如MCS项目。</li>
+</ul>
+<p>根据移动众包中各种地址隐私保护技术的特征分类，主要有三种：MCS-TP, MCS-P2P, MCS-LOC</p>
+<ul>
+<li>TP即Trusted Party，一个信任的中间服务器，接收用户的真实地理信息，随后进行加密再提交给MCS平台进行处理。</li>
+<li>P2P即peer-to-peer communication，指工作者和MCS平台间不存在第三方服务器，直接进行通讯，加密在工作者的移动设备上直接完成，但是这种加密依赖于工作者之间的交流进行混淆加密。</li>
+<li>LOC即locally，工作者和MCS平台也是直接进行通讯，但是加密过程不依赖工作者之间的位置交流，也就是说加密过程必须在工作者的移动设备上完全本地化进行。</li>
+</ul>
+<p>目前，<strong>隐匿算法</strong>和<strong>DP算法</strong>是最流行的两种加密方式。早期的项目一般采用<strong>k-anonymization</strong>，而现在更多的人开始开发出各种各样的<strong>DP算法</strong>，甚至已经有人开始研究特定的<strong>加密算法</strong>来保护工作者的地址隐私。</p>
+<p>关于这三种技术的算力开销，TP模型开销相对较小，因为计算大都在第三方服务器上进行，P2P次之，而LOC的加密过程完全在工作者本地的移动设备上进行，所以算力开销最大。</p>
+<h4 id="数据实用性"><a class="markdownIt-Anchor" href="#数据实用性"></a> 数据实用性</h4>
+<p>对工作者的地址信息进行保护，提高了他们的隐私性，但是也影响了传感器的任务返回结果。我们需要在隐私保护和数据实用性之间进行权衡，这种问题永远存在。一般来说，决定这种权衡有两种方式，一种是把选择权交给用户自己决定，是降低他们的位置信息隐私程度来获取更加精确的服务还是提高隐私性；亦或者选择权完全交由MCS中心平台决定。</p>
+<h4 id="lbs和mcs在地址隐私保护中的比较"><a class="markdownIt-Anchor" href="#lbs和mcs在地址隐私保护中的比较"></a> LBS和MCS在地址隐私保护中的比较</h4>
+<ol>
+<li>LBS主要专注于对用户的地址信息隐私保护，但是MCS需要在隐私保护和数据有效性间进行权衡，它需要保证用户的数据隐私性并且以低廉高效的方式分配并完成任务。</li>
+<li>LBS接收用户的地址信息通常不包含敏感的数据。但是MCS发布的任务是基于位置的敏感信息，攻击者可以通过渗透用户的地址数据来找出那些敏感的任务地点。因此，MCS的任务结果和工作者位置信息都需要保护。</li>
+<li>LBS是一项以用户为中心的技术，他们的隐私保护程度可以由用户自己决定，但是MCS更多是以平台为中心的技术，数据的隐私保护程度受到平台的统一调配。</li>
+<li>LBS的目的是为用户提供地址服务，是建立在每个用户的单个位置基础上进行服务。而MCS正好相反，它旨在收集每个工作者个体的任务结果并把它统一反馈给指令员。也就是说，MCS是建立在大量的工作者位置信息之上的。因此，考虑所有参与者位置的整体视角显得至关重要。</li>
+</ol>
+<p>基于以上原因，为LBS设计的地址保护技术并不能直接应用在MCS中，必须进行改进或重新设计。</p>
+<h4 id="mcs中的位置隐私保护技术"><a class="markdownIt-Anchor" href="#mcs中的位置隐私保护技术"></a> MCS中的位置隐私保护技术</h4>
+<p>主要分为三类：基于空间隐身，基于DP的方法和基于加密的方法。</p>
+<h5 id="基于空间隐身"><a class="markdownIt-Anchor" href="#基于空间隐身"></a> 基于空间隐身</h5>
+<p>即向MCS平台报告粗略的信息，而不是详细的具体位置。</p>
+<h6 id="机制"><a class="markdownIt-Anchor" href="#机制"></a> 机制</h6>
+<p>AnonySense，第一个利用K-anonymity保护MCS中工作者的位置隐私的工作。生成一个镶嵌地图，将一个地理区域划分为一组瓷砖，每个瓷砖内有k名工作者。</p>
+<p>具体实现过程为，将WIFI接入点（ap）的位置映射为二维平面。然后构建Voronoi图。然后使用历史ap活动记录估计每个单元中的工作者数量。最后将Voronoi单元聚集在块中，使得每个块满足K-anonymity，进行保护。但是AnonySense需要一个可信方，因为镶嵌地图是根据工作者的实际位置构建的。</p>
+<p>实际运用中，有些瓷砖块有相当大的区域导致传感任务结果质量降低，有人提出了可变大小的最大距离平均向量算法（VMDAV）来解决。</p>
+<p>还有人提出了一种贪婪算法，保护工作者隐私的同时，最大化来自工作者的任务结果质量。</p>
+<p>……</p>
+<h6 id="讨论"><a class="markdownIt-Anchor" href="#讨论"></a> 讨论</h6>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904105752.png" alt="img" /></p>
+<h5 id="基于dp的方法"><a class="markdownIt-Anchor" href="#基于dp的方法"></a> 基于DP的方法</h5>
+<p>可进一步分为基于psd（私密空间分解）和基于geoind的方法。</p>
+<h6 id="讨论-2"><a class="markdownIt-Anchor" href="#讨论-2"></a> 讨论</h6>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904105839.png" alt="img" /></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110124.png" alt="img" /></p>
+<h5 id="基于加密的方法"><a class="markdownIt-Anchor" href="#基于加密的方法"></a> 基于加密的方法</h5>
+<p>可分为同态加密、基于属性加密和区块链</p>
+<p><strong>同态加密</strong>是基于对两条信息同时加密，这样对两条密文进行加法操作就会得到两条密文的密文和的基础。也就是说，把工作任务和工作者位置进行加密后传递给MCS平台，平台可以直接对两个加密的信息进行运算规划任务分配，而无须得到工作者真实的位置信息明文。</p>
+<p><strong>基于属性加密</strong>则是把任务区域划分成一个个网格，再给处于同一区域内的工作者一个相同的属性，可以是前缀或者相同秘钥，这样就能实现只有处于一个属性的实体才能解读明文，保护了工人的隐私。</p>
+<p><strong>区块链</strong>看不懂……</p>
+<h6 id="讨论-3"><a class="markdownIt-Anchor" href="#讨论-3"></a> 讨论</h6>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110141.png" alt="img" /></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110212.png" alt="img" /></p>
+<h4 id="主要类别方法的比较"><a class="markdownIt-Anchor" href="#主要类别方法的比较"></a> 主要类别方法的比较</h4>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110230.png" alt="img" /></p>
+<h4 id="目前mcs应用的现状"><a class="markdownIt-Anchor" href="#目前mcs应用的现状"></a> 目前MCS应用的现状</h4>
+<ol>
+<li>交通系统，地图软件，实时更新的导航地图app</li>
+<li>公民合作，公民向政府报告非紧急社区问题</li>
+<li>移动社交网络，分享当前位置的信息、签到</li>
+<li>其他应用程序，链接企业与愿意在附近地点执行任务赚钱的智能手机用户。</li>
+</ol>
+<h4 id="未来的研究方向"><a class="markdownIt-Anchor" href="#未来的研究方向"></a> 未来的研究方向</h4>
+<ul>
+<li>保护位置持续披露</li>
+<li>隐私-效用权衡</li>
+<li>算力开销/效率</li>
+</ul>
+<h4 id="结论"><a class="markdownIt-Anchor" href="#结论"></a> 结论</h4>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110250.png" alt="img" /></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Adam Ben</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/posts/1616990c38e1/">http://example.com/posts/1616990c38e1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Adam8enの8log</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/DP/">DP</a><a class="post-meta__tags" href="/tags/difference-privacy/">difference privacy</a><a class="post-meta__tags" href="/tags/Mobile-Crowdsourcing/">Mobile Crowdsourcing</a><a class="post-meta__tags" href="/tags/Location-based-service/">Location-based service</a><a class="post-meta__tags" href="/tags/k-anonymization/">k-anonymization</a></div><div class="post_share"><div class="social-share" data-image="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110250.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/posts/b4f4880c13ef/" title="从零开始学Python（一）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2082457624_p0.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">从零开始学Python（一）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/4524d9d2cf27/" title="算法笔记之动态规划"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/56475bad5af636d0f03dc7aac3b1d87d.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-21</div><div class="title">算法笔记之动态规划</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Adam Ben</div><div class="author-info__description">你的孤独与月为伴，你的深情与星同归</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">70</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">89</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adam8en"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Adam8en" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:adamben@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/Adam_Ben?type=blog" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=2813879949&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不知道说什么好,<br>放个表情包在这里好了,<br>⁽˙³˙⁾◟(๑•́ ₃ •̀๑)◞⁽˙³˙⁾,<br><br>如有疑问欢迎联系邮箱：<br>adamben@qq.com</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%97%E5%8C%85%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text"> 众包的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E4%BC%97%E5%8C%85mobile-crowdsourcingmcs%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text"> 移动众包（Mobile Crowdsourcing&#x2F;MCS）的应用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E4%BC%97%E5%8C%85%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%9A%90%E7%A7%81%E6%B3%84%E9%9C%B2%E9%9A%90%E6%82%A3%E4%B8%8E%E9%9A%90%E7%A7%81%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text"> 移动众包带来的隐私泄露隐患与隐私算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E4%BC%97%E5%8C%85%E9%9A%90%E7%A7%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%87%A0%E4%B8%AA%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8Bmcs"><span class="toc-number">4.</span> <span class="toc-text"> 移动众包隐私算法的几个数据模型&#x2F;MCS</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9A%90%E5%8C%BF%E6%A8%A1%E5%9E%8Banonymization"><span class="toc-number">4.1.</span> <span class="toc-text"> 隐匿模型&#x2F;Anonymization</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B7%AE%E5%88%86%E6%A8%A1%E5%9E%8Bdifferential-privacy"><span class="toc-number">4.2.</span> <span class="toc-text"> 差分模型&#x2F;Differential privacy</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%9C%B0%E5%9D%80%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%87%A0%E4%B8%AA%E4%BF%9D%E6%8A%A4%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E7%9A%84%E9%9A%90%E7%A7%81%E7%AE%97%E6%B3%95location-based-servicelbs"><span class="toc-number">5.</span> <span class="toc-text"> 基于地址服务的几个保护位置信息的隐私算法&#x2F;Location-based service&#x2F;LBS</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9A%90%E5%8C%BF%E6%8A%80%E6%9C%AF"><span class="toc-number">5.1.</span> <span class="toc-text"> 隐匿技术</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%82%BB%E7%93%9C%E6%8A%80%E6%9C%AF"><span class="toc-number">5.2.</span> <span class="toc-text"> 傻瓜技术（？）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B7%B7%E6%B7%86%E6%8A%80%E6%9C%AF"><span class="toc-number">5.3.</span> <span class="toc-text"> 混淆技术</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF"><span class="toc-number">5.4.</span> <span class="toc-text"> 加密技术</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E4%BC%97%E5%8C%85%E4%B8%AD%E7%9A%84%E5%9C%B0%E5%9D%80%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4"><span class="toc-number">6.</span> <span class="toc-text"> 移动众包中的地址隐私保护</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%9E%E7%94%A8%E6%80%A7"><span class="toc-number">7.</span> <span class="toc-text"> 数据实用性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lbs%E5%92%8Cmcs%E5%9C%A8%E5%9C%B0%E5%9D%80%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E4%B8%AD%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">8.</span> <span class="toc-text"> LBS和MCS在地址隐私保护中的比较</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mcs%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%8A%80%E6%9C%AF"><span class="toc-number">9.</span> <span class="toc-text"> MCS中的位置隐私保护技术</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%A9%BA%E9%97%B4%E9%9A%90%E8%BA%AB"><span class="toc-number">9.1.</span> <span class="toc-text"> 基于空间隐身</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9C%BA%E5%88%B6"><span class="toc-number">9.1.1.</span> <span class="toc-text"> 机制</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AE%A8%E8%AE%BA"><span class="toc-number">9.1.2.</span> <span class="toc-text"> 讨论</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Edp%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">9.2.</span> <span class="toc-text"> 基于DP的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AE%A8%E8%AE%BA-2"><span class="toc-number">9.2.1.</span> <span class="toc-text"> 讨论</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8A%A0%E5%AF%86%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">9.3.</span> <span class="toc-text"> 基于加密的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AE%A8%E8%AE%BA-3"><span class="toc-number">9.3.1.</span> <span class="toc-text"> 讨论</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%B1%BB%E5%88%AB%E6%96%B9%E6%B3%95%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">10.</span> <span class="toc-text"> 主要类别方法的比较</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E5%89%8Dmcs%E5%BA%94%E7%94%A8%E7%9A%84%E7%8E%B0%E7%8A%B6"><span class="toc-number">11.</span> <span class="toc-text"> 目前MCS应用的现状</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E7%9A%84%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91"><span class="toc-number">12.</span> <span class="toc-text"> 未来的研究方向</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">13.</span> <span class="toc-text"> 结论</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/8aa53a259f2b/" title="深入理解 Kitsune 模型"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511224410700.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深入理解 Kitsune 模型"/></a><div class="content"><a class="title" href="/posts/8aa53a259f2b/" title="深入理解 Kitsune 模型">深入理解 Kitsune 模型</a><time datetime="2025-05-11T14:45:55.000Z" title="发表于 2025-05-11 22:45:55">2025-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/709e8bfc712b/" title="2024年度总结"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/58183995_p12.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024年度总结"/></a><div class="content"><a class="title" href="/posts/709e8bfc712b/" title="2024年度总结">2024年度总结</a><time datetime="2024-12-31T13:29:35.000Z" title="发表于 2024-12-31 21:29:35">2024-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c5de366d06a7/" title="Rolling Hashes：滚动哈希详解"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2404CBF21EC9ECF50FF185A745A075DE.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rolling Hashes：滚动哈希详解"/></a><div class="content"><a class="title" href="/posts/c5de366d06a7/" title="Rolling Hashes：滚动哈希详解">Rolling Hashes：滚动哈希详解</a><time datetime="2024-12-11T12:22:13.000Z" title="发表于 2024-12-11 20:22:13">2024-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/15adc5743338/" title="11月总结·2024"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/6b65aa1528d546543f3cd19e50aceb09.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="11月总结·2024"/></a><div class="content"><a class="title" href="/posts/15adc5743338/" title="11月总结·2024">11月总结·2024</a><time datetime="2024-11-30T12:40:37.000Z" title="发表于 2024-11-30 20:40:37">2024-11-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/282cf3400e09/" title="Coursera-ML-AndrewNg-Notes-Week5"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/D2C62FCE46B76B7B3305529FD6BBCE3D.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Coursera-ML-AndrewNg-Notes-Week5"/></a><div class="content"><a class="title" href="/posts/282cf3400e09/" title="Coursera-ML-AndrewNg-Notes-Week5">Coursera-ML-AndrewNg-Notes-Week5</a><time datetime="2024-11-14T07:31:56.000Z" title="发表于 2024-11-14 15:31:56">2024-11-14</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110250.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Adam Ben</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '07g7RVgbp0tb6j6gBjcZCTKv-gzGzoHsz',
+      appKey: '4w4tpzByVtxnDriO8BFDKLBt',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><script src="/js/sun_moon.js" async></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
