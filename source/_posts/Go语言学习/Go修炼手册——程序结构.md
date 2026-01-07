@@ -226,4 +226,4 @@ func init() { /* ... */ }
 
 ---
 
-![1c3f280e740cecf4e83406e672b3525e](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/1c3f280e740cecf4e83406e672b3525e.jpeg)
+![1c3f280e740cecf4e83406e672b3525e](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/1c3f280e740cecf4e83406e672b3525e.jpeg?x-oss-process=style/blog)

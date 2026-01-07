@@ -130,7 +130,7 @@ sort($names);
 print_r($names);
 ```
 
-![image-20231109220142615](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231109220142615.png)
+![image-20231109220142615](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231109220142615.png?x-oss-process=style/blog)
 
 sort()函数的第二个参数是可选的。这些参数是SORT_REGULAR、SORT_NUMBERIC、SORT_STRING、SORT_LOCAL_STRING、SORT_NATURAL、SORT_FLAG_CASE。这些参数虽然很有用，但是实际上很少用到（至少在CTF从来没碰到过）。贴了一段别的大佬博客归纳。
 
@@ -212,7 +212,7 @@ echo $lname."\n";
 echo $nname."\n";
 ```
 
-![image-20231109225232660](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231109225232660.png)
+![image-20231109225232660](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231109225232660.png?x-oss-process=style/blog)
 
 值得注意的是，如果当前已经存在和数组关键字相同名称的变量，该变量值会被覆盖。也就是说通过extract()函数可以覆盖掉一些原本存在的变量值达到注入的效果。这一点在CTF的PHP代码审计中经常用到（划考点）。
 
@@ -233,4 +233,4 @@ extract()函数还可以传递第二个参数extract_type，这里不多赘述�
 >
 >//更多请阅读：https://www.yiibai.com/php/php_function_extract.html 
 
-![57672472_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/57672472_p0.jpg)
+![57672472_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/57672472_p0.jpg?x-oss-process=style/blog)

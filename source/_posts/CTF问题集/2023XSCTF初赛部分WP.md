@@ -23,45 +23,45 @@ updated: 2023-10-19 22:07:36
 
 ### Mommy_Kafka
 
-![image-20231014205025943](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205025943.png)
+![image-20231014205025943](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205025943.png?x-oss-process=style/blog)
 
 下载压缩包，解压。
 
-![image-20231014205105049](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205105049.png)
+![image-20231014205105049](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205105049.png?x-oss-process=style/blog)
 
 发现有密码，但是题目没有给出任何和密码的信息。
 
-![image-20231014205243055](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205243055.png)
+![image-20231014205243055](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205243055.png?x-oss-process=style/blog)
 
 压缩包内没有注释，于是考虑是伪加密。
 
 用010Editor打开。
 
-![image-20231014205505932](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205505932.png)
+![image-20231014205505932](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205505932.png?x-oss-process=style/blog)
 
 文件开头是PK，的确是一个压缩包，但是压缩文件数据区全局方式位标记为00 00，说明是没有加密的，那么本题一定是修改了压缩文件目录区的全局方式标记。搜索504B0102找到压缩文件目录区。
 
-![image-20231014205735170](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205735170.png)
+![image-20231014205735170](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205735170.png?x-oss-process=style/blog)
 
 果然被修改过，将09 00改为00 00。保存，重新解压压缩包。
 
-![image-20231014205844632](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205844632.png)
+![image-20231014205844632](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205844632.png?x-oss-process=style/blog)
 
 解压成功。
 
 查看图片
 
-![image-20231014205917775](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205917775.png)
+![image-20231014205917775](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014205917775.png?x-oss-process=style/blog)
 
 没有任何信息提示，考虑lsb隐写也没有找到有效信息。用010editor打开查看是否有其他信息隐藏在文件中。
 
-![image-20231014210045282](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014210045282.png)
+![image-20231014210045282](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014210045282.png?x-oss-process=style/blog)
 
 发现文件末尾有隐藏信息，疑似base64加密。
 
 丢进base解密脚本。
 
-![image-20231014210152273](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014210152273.png)
+![image-20231014210152273](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014210152273.png?x-oss-process=style/blog)
 
 得到hint，使用steghide。
 
@@ -69,49 +69,49 @@ steghide是一款图片隐写软件，也可以反向解密出图片隐藏的信
 
 这里使用stegseek，需要在linux系统上运行，工具地址：[RickdeJager/stegseek: :zap: Worlds fastest steghide cracker, chewing through millions of passwords per second :zap: (github.com)](https://github.com/RickdeJager/stegseek)
 
-![image-20231014210438034](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014210438034.png)
+![image-20231014210438034](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014210438034.png?x-oss-process=style/blog)
 
 爆破得到flag。
 
-![3dc0ddaedf89a8baebc5b0bee200832](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/3dc0ddaedf89a8baebc5b0bee200832.png)
+![3dc0ddaedf89a8baebc5b0bee200832](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/3dc0ddaedf89a8baebc5b0bee200832.png?x-oss-process=style/blog)
 
-![aae182042b7630f38d57cdfbef07933](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/aae182042b7630f38d57cdfbef07933.png)
+![aae182042b7630f38d57cdfbef07933](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/aae182042b7630f38d57cdfbef07933.png?x-oss-process=style/blog)
 
 flag为`XSCTF{M0mmy_L0v3_Me_th3_mo5t}`
 
 ### Oursecret_for_zero
 
-![image-20231015005909159](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015005909159.png)
+![image-20231015005909159](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015005909159.png?x-oss-process=style/blog)
 
 下载附件，打开得到一个图片和txt文本文件。
 
-![image-20231015005951989](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015005951989.png)
+![image-20231015005951989](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015005951989.png?x-oss-process=style/blog)
 
 图片看似是一张普通的图片，其实是后面我们会用到的神奇妙妙工具。先看password.txt。
 
-![image-20231015010124395](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015010124395.png)
+![image-20231015010124395](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015010124395.png?x-oss-process=style/blog)
 
 确实很奇怪，这时候结合题目hint和信息，搜索零宽隐写，得到一个解密网站[Unicode Steganography with Zero-Width Characters (330k.github.io)](https://330k.github.io/misc_tools/unicode_steganography.html)。放入信息解密。
 
-![image-20231015010531120](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015010531120.png)
+![image-20231015010531120](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015010531120.png?x-oss-process=style/blog)
 
 得到hint：`Here is your passwd:A_n3w_ste9_way`。明显是有一个需要密钥的图片隐写在里面。
 
 一开始我以为又是steghide，但是解析不出来，所以又回到题目。题目提示大写了OURSECRET，于是百度之。
 
-![image-20231015010709588](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015010709588.png)
+![image-20231015010709588](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015010709588.png?x-oss-process=style/blog)
 
 还真有这么个工具。于是下载好之后把图片拖进去输入密码后就可得到flag。
 
-![image-20231015010818291](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015010818291.png)
+![image-20231015010818291](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015010818291.png?x-oss-process=style/blog)
 
-![image-20231015010831232](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015010831232.png)
+![image-20231015010831232](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015010831232.png?x-oss-process=style/blog)
 
 flag为：`XSCTF{WeLc0m3_to_s7eg_w0rld}`。
 
 ### 0xf and 0xf
 
-![image-20231016133103503](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231016133103503.png)
+![image-20231016133103503](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231016133103503.png?x-oss-process=style/blog)
 
 下载附件，打开是一个加密编码的文本文件。
 
@@ -121,13 +121,13 @@ flag为：`XSCTF{WeLc0m3_to_s7eg_w0rld}`。
 
 搜索双十六进制解码
 
-![image-20231016133316939](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231016133316939.png)
+![image-20231016133316939](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231016133316939.png?x-oss-process=style/blog)
 
 进入解密网站[Twin-Hex Cypher encoder and decoder from CalcResult Universal Calculators](https://www.calcresult.com/misc/cyphers/twin-hex.html)解密两次得到flag。（藏得太深了，受不了）
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231016133552996.png" alt="image-20231016133552996" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231016133552996.png?x-oss-process=style/blog" alt="image-20231016133552996" style="zoom:50%;" />
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231016133605957.png" alt="image-20231016133605957" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231016133605957.png?x-oss-process=style/blog" alt="image-20231016133605957" style="zoom:50%;" />
 
 flag为`XSCTF{Cs3ome_13_pwn_k1ng}`。
 
@@ -135,61 +135,61 @@ flag为`XSCTF{Cs3ome_13_pwn_k1ng}`。
 
 ### Hacker
 
-![image-20231014210609801](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014210609801.png)
+![image-20231014210609801](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014210609801.png?x-oss-process=style/blog)
 
 进入网页
 
-![image-20231014210630674](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014210630674.png)
+![image-20231014210630674](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014210630674.png?x-oss-process=style/blog)
 
-![image-20231014210637117](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014210637117.png)
+![image-20231014210637117](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014210637117.png?x-oss-process=style/blog)
 
 查看页面源代码。
 
-![image-20231014211006246](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211006246.png)
+![image-20231014211006246](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211006246.png?x-oss-process=style/blog)
 
 发现flag`XSCTF{Y0u_can_no7_f1nd_m3_?}`。
 
 ### ezgame
 
-![image-20231014211056423](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211056423.png)
+![image-20231014211056423](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211056423.png?x-oss-process=style/blog)
 
 进入网站。
 
-![image-20231014211121346](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211121346.png)
+![image-20231014211121346](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211121346.png?x-oss-process=style/blog)
 
 是一个部署在前端的小游戏，所以不用抓包，一般使用开发者模式在本地修改JS代码来达到目的。
 
 总之先对JS代码进行审计，但是右键被禁用，应该是JS禁止了这个行为。所以用Ctrl+U打开页面源代码。
 
-![image-20231014211358956](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211358956.png)
+![image-20231014211358956](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211358956.png?x-oss-process=style/blog)
 
 对其中的JS文件进行审计，搜索敏感词score。
 
-![image-20231014211515918](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211515918.png)
+![image-20231014211515918](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211515918.png?x-oss-process=style/blog)
 
 太多了，搜索highscore。
 
-![image-20231014211549074](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211549074.png)
+![image-20231014211549074](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211549074.png?x-oss-process=style/blog)
 
 发现敏感代码，在最高分大于1000000时执行。查看decryptString函数。
 
-![image-20231014211631163](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211631163.png)
+![image-20231014211631163](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211631163.png?x-oss-process=style/blog)
 
 在Python中复现解密脚本，解出flag。
 
-![image-20231014211728402](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211728402.png)
+![image-20231014211728402](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211728402.png?x-oss-process=style/blog)
 
-![image-20231014211736172](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211736172.png)
+![image-20231014211736172](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211736172.png?x-oss-process=style/blog)
 
 flag为`flag{basju_D0G006706_iajdisaia}`。
 
 ### canyoupassit
 
-![image-20231014211826174](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211826174.png)
+![image-20231014211826174](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211826174.png?x-oss-process=style/blog)
 
 进入网站，发现是PHP审计。
 
-![image-20231014211904126](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211904126.png)
+![image-20231014211904126](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014211904126.png?x-oss-process=style/blog)
 
 主要考察的是PHP下md5函数的特性。
 
@@ -232,41 +232,41 @@ print(response.text)
 
 
 
-![image-20231014213426176](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014213426176.png)
+![image-20231014213426176](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014213426176.png?x-oss-process=style/blog)
 
 flag为`flag{y0v|nDeedReA11yk$nwAb0uTMD5!~_~^_^}`。
 
 ### reallyExpensive
 
-![image-20231014213532015](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014213532015.png)
+![image-20231014213532015](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014213532015.png?x-oss-process=style/blog)
 
 进入网址
 
-![image-20231014213556378](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014213556378.png)
+![image-20231014213556378](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014213556378.png?x-oss-process=style/blog)
 
 是一个简陋的登录页面，猜想sql注入或者弱口令，但是先稳一手注册。
 
-![image-20231014213651989](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014213651989.png)
+![image-20231014213651989](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014213651989.png?x-oss-process=style/blog)
 
-![image-20231014213704013](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014213704013.png)
+![image-20231014213704013](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014213704013.png?x-oss-process=style/blog)
 
 没想到直接进了。
 
 这里我要严重吐槽一下出题人，环境搭的有问题。本题容器在火狐上打开有bug。
 
-![2ffc2683318716e5b583bcdf84a3062](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2ffc2683318716e5b583bcdf84a3062.png)
+![2ffc2683318716e5b583bcdf84a3062](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2ffc2683318716e5b583bcdf84a3062.png?x-oss-process=style/blog)
 
 然后我偏偏hackbar和bp都配在火狐上，导致我死活进不去抓包，浪费了起码几个小时。最后用bp自带的浏览器打开，进入抓包。
 
-![image-20231014214206343](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014214206343.png)
+![image-20231014214206343](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014214206343.png?x-oss-process=style/blog)
 
-![image-20231014214226792](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014214226792.png)
+![image-20231014214226792](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014214226792.png?x-oss-process=style/blog)
 
 这里post了两个参数number和goodId，很容易联想到后端的计算方法应该是用金额数减去数量乘以价格来判断是否购买成功，于是修改number为负数，就可以购买flag5了。
 
-![image-20231014214350464](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014214350464.png)
+![image-20231014214350464](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014214350464.png?x-oss-process=style/blog)
 
-![image-20231014214424659](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014214424659.png)
+![image-20231014214424659](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014214424659.png?x-oss-process=style/blog)
 
 得到flag，且余额增加了999999999，验证了我之前的猜想。
 
@@ -274,41 +274,41 @@ flag为`flag{^==^Y0uG@t$(t]$[r)^u^(e)-F10g!^<>^}`。
 
 ### Badbad_filename
 
-![image-20231014214539599](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014214539599.png)
+![image-20231014214539599](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014214539599.png?x-oss-process=style/blog)
 
 进入容器
 
-![image-20231014215023822](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215023822.png)
+![image-20231014215023822](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215023822.png?x-oss-process=style/blog)
 
 题目暗示很明显，用get传参filename，然后后者会被文件包含，经典的文件包含漏洞题，联想到使用PHP伪协议，于是构造payload为`/?filename=php://filter/convert.base64-encode/resource=index.php`
 
-![image-20231014215306191](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215306191.png)
+![image-20231014215306191](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215306191.png?x-oss-process=style/blog)
 
 被过滤了，但是只是单纯的从语句中去掉了过滤词，使用双写绕过。
 
 构造payload`/?filename=pphphphpp://filtfilterer/convert.babasese64-encode/resource=index.pphphphpp`。
 
-![image-20231014215428340](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215428340.png)
+![image-20231014215428340](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215428340.png?x-oss-process=style/blog)
 
 payload有效，得到index.php的源代码，送进CyberChef解密。
 
-![image-20231014215521978](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215521978.png)
+![image-20231014215521978](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215521978.png?x-oss-process=style/blog)
 
 可以看到index文件开头执行了flag.php，于是构造payl为`pphphphpp://filtfilterer/convert.babasese64-encode/resource=flag.pphphphpp`直接查看flag，再解码即可。
 
-![image-20231014215636748](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215636748.png)
+![image-20231014215636748](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215636748.png?x-oss-process=style/blog)
 
-![image-20231014215701209](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215701209.png)
+![image-20231014215701209](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215701209.png?x-oss-process=style/blog)
 
 得到flag`XSCTF{d0ubLe_Wr1te_2_byPass}`。
 
 ### eval_eval_我的
 
-![image-20231014215750403](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215750403.png)
+![image-20231014215750403](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215750403.png?x-oss-process=style/blog)
 
 进入容器
 
-![image-20231014215810981](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215810981.png)
+![image-20231014215810981](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014215810981.png?x-oss-process=style/blog)
 
 又是一道PHP代码审计题
 
@@ -326,7 +326,7 @@ payload有效，得到index.php的源代码，送进CyberChef解密。
 
 因为过滤了空格，用`echo()`来绕过。同时用反引号\`\`，在PHP中会把echo反引号内的内容当做PHP代码执行，效果如下。
 
-![image-20231014220943778](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014220943778.png)
+![image-20231014220943778](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014220943778.png?x-oss-process=style/blog)
 
 无敏感文件，继续查看上一级目录。构造payload：
 
@@ -336,7 +336,7 @@ payload有效，得到index.php的源代码，送进CyberChef解密。
 
 用\\x20来绕过空格，\\x20在PHP中被解释为空格，得到以下结果。
 
-![image-20231014221507041](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014221507041.png)
+![image-20231014221507041](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014221507041.png?x-oss-process=style/blog)
 
 发现flag，查看文件。构造payload：
 
@@ -346,55 +346,55 @@ payload有效，得到index.php的源代码，送进CyberChef解密。
 
 使用双单引号绕过正则匹配，得到flag。
 
-![image-20231014221740959](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014221740959.png)
+![image-20231014221740959](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231014221740959.png?x-oss-process=style/blog)
 
 flag为`XSCTF{YoU_F1NalLy_EvaLLL_m3!!}`。
 
 ### upload_quick
 
-![image-20231015131246415](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131246415.png)
+![image-20231015131246415](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131246415.png?x-oss-process=style/blog)
 
 开启容器
 
-![image-20231015131312723](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131312723.png)
+![image-20231015131312723](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131312723.png?x-oss-process=style/blog)
 
 是一个登录界面，尝试输入账户密码登录。
 
-![image-20231015131347330](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131347330.png)
+![image-20231015131347330](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131347330.png?x-oss-process=style/blog)
 
 无论输入什么都会被弹窗打断，没有任何反应。同时发现右键被禁用，于是Ctrl+U查看源代码。
 
-![image-20231015131516279](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131516279.png)
+![image-20231015131516279](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131516279.png?x-oss-process=style/blog)
 
 大概的意思是，无论在登录框执行什么操作都会被打断。于是开始查看其他方面，同时发现四个可疑JS文件，查看之。
 
-![image-20231015131633889](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131633889.png)
+![image-20231015131633889](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131633889.png?x-oss-process=style/blog)
 
 其中EasePack.min.js很明显经过了混淆，使用在线工具网站[JS/HTML格式化 - 站长工具 (chinaz.com)](https://tool.chinaz.com/Tools/JsFormat.aspx)来反混淆。
 
-![image-20231015131750553](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131750553.png)
+![image-20231015131750553](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131750553.png?x-oss-process=style/blog)
 
 复制到本地查看。
 
-![image-20231015131835200](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131835200.png)
+![image-20231015131835200](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131835200.png?x-oss-process=style/blog)
 
 代码末尾发现hint，根据提示访问/Upl00000000ad.php。
 
-![image-20231015131944047](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131944047.png)
+![image-20231015131944047](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015131944047.png?x-oss-process=style/blog)
 
 发现是一个文件上传页面，从这里可以确定这道题其实是一个文件上传漏洞题。
 
 上传测试木马。
 
-![image-20231015132036657](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015132036657.png)
+![image-20231015132036657](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015132036657.png?x-oss-process=style/blog)
 
 木马被检测到，同时返回了一个文件上传的地址，访问。
 
-![image-20231015132156329](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015132156329.png)
+![image-20231015132156329](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015132156329.png?x-oss-process=style/blog)
 
 下载图片打开，发现内容并没有被更改。
 
-![image-20231015132346619](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015132346619.png)
+![image-20231015132346619](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015132346619.png?x-oss-process=style/blog)
 
 <div align=center >下载下来被火绒秒删……说明是我写的木马没错</div>
 
@@ -402,13 +402,13 @@ flag为`XSCTF{YoU_F1NalLy_EvaLLL_m3!!}`。
 
 既然php后缀被拦截，抓包修改文件名试试上传其他的文件后缀。
 
-![image-20231015132744364](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015132744364.png)
+![image-20231015132744364](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015132744364.png?x-oss-process=style/blog)
 
-![image-20231015132833820](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015132833820.png)
+![image-20231015132833820](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015132833820.png?x-oss-process=style/blog)
 
 经过实验，只有图片格式后缀不被拦截，确定拦截方式为白名单。尝试使用%00截断绕过。
 
-![image-20231015133056288](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015133056288.png)
+![image-20231015133056288](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015133056288.png?x-oss-process=style/blog)
 
 绕过失败。
 
@@ -435,15 +435,15 @@ fclose($myfile);
 
 接下来准备bp爆破，不断地向服务器上传木马文件，将上传文件的数据包抓包发送给intruder模块。
 
-![image-20231015134611264](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015134611264.png)
+![image-20231015134611264](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015134611264.png?x-oss-process=style/blog)
 
 尽管后面使用**Null payload**，但仍然需要**设定一个变量**。而且这个变量最好是空格作为变量。如果随意选取一个变量，他会把你的变量变成空。
 
-![image-20231015134740689](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015134740689.png)
+![image-20231015134740689](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015134740689.png?x-oss-process=style/blog)
 
 payload配置类型为**Null payload**，并无限重复发送。
 
-![image-20231015134801650](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015134801650.png)
+![image-20231015134801650](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015134801650.png?x-oss-process=style/blog)
 
 这里本来还应该开启多线程上传增加成功率，但是我的bp版本没有多线程的功能，所以我开启了两个bp同时上传文件，配置方法相同。
 
@@ -463,37 +463,37 @@ while True:
 
 万事俱备只欠东风，启动bp爆破和Python监听脚本。
 
-![image-20231015135140655](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015135140655.png)
+![image-20231015135140655](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015135140655.png?x-oss-process=style/blog)
 
-![image-20231015135231566](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015135231566.png)
+![image-20231015135231566](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015135231566.png?x-oss-process=style/blog)
 
 成功访问，此时用蚁剑尝试链接webshell。
 
-![image-20231015135347012](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015135347012.png)
+![image-20231015135347012](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015135347012.png?x-oss-process=style/blog)
 
 连接成功，翻看目录找到flag。
 
-![image-20231015135443813](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015135443813.png)
+![image-20231015135443813](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015135443813.png?x-oss-process=style/blog)
 
 flag为`XSCTF{1iL3_UP1oOOO0oOO4d_In7ereS7iNG_fe2accc0eed4}`。
 
 ### 你买车票没
 
-![image-20231015162100798](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015162100798.png)
+![image-20231015162100798](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015162100798.png?x-oss-process=style/blog)
 
 最mhy的一集……首先进入容器。
 
-![image-20231015162205624](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015162205624.png)
+![image-20231015162205624](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015162205624.png?x-oss-process=style/blog)
 
 一个简陋的登录页面，十分简陋，查看源代码也没有发现有价值的信息。尝试抓包，同样没有什么进展。不管输入什么，都会弹出窗口显示没有车票。
 
-![image-20231015162323357](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015162323357.png)
+![image-20231015162323357](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015162323357.png?x-oss-process=style/blog)
 
 尝试SQL注入，用sqlmap扫了两小时无果，于是考虑SSTI模板注入。
 
 传入参数{{7*7}}，返回49，说明改题存在SSTI注入漏洞，注入点为用户名/name。
 
-![image-20231015162511752](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015162511752.png)
+![image-20231015162511752](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015162511752.png?x-oss-process=style/blog)
 
 做题思路如下：
 
@@ -516,7 +516,7 @@ flag为`XSCTF{1iL3_UP1oOOO0oOO4d_In7ereS7iNG_fe2accc0eed4}`。
 ?name={{config.__class__}}
 ```
 
-![image-20231015163336358](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015163336358.png)
+![image-20231015163336358](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015163336358.png?x-oss-process=style/blog)
 
 这一坨乱码是HTML编码，我们暂时不用管它，不过为了方便阅读起见，我把解码后的文本丢在这里`<class 'flask.config.Config'>,`。
 
@@ -526,7 +526,7 @@ flag为`XSCTF{1iL3_UP1oOOO0oOO4d_In7ereS7iNG_fe2accc0eed4}`。
 ?name={{config.__class__.__mro__}}
 ```
 
-![image-20231015163540505](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015163540505.png)
+![image-20231015163540505](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015163540505.png?x-oss-process=style/blog)
 
 `(<class 'flask.config.Config'>, <class 'dict'>, <class 'object'>)`
 
@@ -538,7 +538,7 @@ flag为`XSCTF{1iL3_UP1oOOO0oOO4d_In7ereS7iNG_fe2accc0eed4}`。
 
 因为这里object在第三位，而python是从0开始计数的所以写2，为什么选择object，因为它是所有类的父类，默认所有的类都继承至Object类。
 
-![image-20231015163744611](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015163744611.png)
+![image-20231015163744611](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015163744611.png?x-oss-process=style/blog)
 
 得到的内容有亿点点多……
 
@@ -556,7 +556,7 @@ with open("ssti查找结果.txt","w") as p:
 
 然后去新的文本文件里查找要用的模块popen。
 
-![image-20231015164139328](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015164139328.png)
+![image-20231015164139328](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015164139328.png?x-oss-process=style/blog)
 
 第352个，减一就是第351个数组元素。
 
@@ -566,11 +566,11 @@ with open("ssti查找结果.txt","w") as p:
 ?name={{config.__class__.__mro__[2].__subclasses__()[351].__init__.__globals__['os'].popen('ls').read()}}
 ```
 
-![image-20231015164848512](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015164848512.png)
+![image-20231015164848512](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015164848512.png?x-oss-process=style/blog)
 
 回显直接不见了，好家伙，原来在源码里。
 
-![image-20231015164915434](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015164915434.png)
+![image-20231015164915434](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015164915434.png?x-oss-process=style/blog)
 
 发现flag，构造payload得到flag。
 
@@ -580,7 +580,7 @@ with open("ssti查找结果.txt","w") as p:
 
 如果是在name框里传参直接把`cat+flag`改成`cat flag`就好。
 
-![image-20231015165314336](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015165314336.png)
+![image-20231015165314336](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231015165314336.png?x-oss-process=style/blog)
 
 flag为`XSCTF{SsT1_MilKTea_m1LktEa!}`
 
@@ -588,4 +588,4 @@ flag为`XSCTF{SsT1_MilKTea_m1LktEa!}`
 
 完结线！撒花~✿✿ヽ(°▽°)ノ✿。
 
-![300008](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300008.jpg)
+![300008](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300008.jpg?x-oss-process=style/blog)

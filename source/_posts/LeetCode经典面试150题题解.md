@@ -693,7 +693,7 @@ func (this *RandomizedSet) GetRandom() int {
 3. 计算右侧乘积：从倒数第二个元素开始，更新答案数组，将每个元素与其右侧所有元素的乘积累加到对应的答案元素上。
 
 4. 注意：由于我们不能使用除法，所以我们不能简单地将左侧乘积除以当前元素来得到最终答案。相反，我们需要在计算右侧乘积时，将当前元素的右侧乘积与左侧乘积相乘。
-![image.png](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/1717129925-qEDSKo-image.png)
+![image.png](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/1717129925-qEDSKo-image.png?x-oss-process=style/blog)
 
 ## 复杂度
 
@@ -2535,5 +2535,5 @@ func wordPattern(pattern string, s string) bool {
 
 ---
 
-![{930EB68A-6F85-4666-BA42-9333A5074315}](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%7B930EB68A-6F85-4666-BA42-9333A5074315%7D.png)
+![{930EB68A-6F85-4666-BA42-9333A5074315}](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%7B930EB68A-6F85-4666-BA42-9333A5074315%7D.png?x-oss-process=style/blog)
 

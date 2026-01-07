@@ -85,4 +85,4 @@ $$\sum_{p \in P} p . w \geq \sum_{o \in O} o . w$$
 
 （待更新……）
 
-![300590](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300590.jpg)
+![300590](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300590.jpg?x-oss-process=style/blog)

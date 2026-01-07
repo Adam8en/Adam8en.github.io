@@ -15,25 +15,25 @@ updated: 2023-11-06 17:30:37
 
 事情的起因是XSCTF决赛的一道题。
 
-![image-20231106140751987](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106140751987.png)
+![image-20231106140751987](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106140751987.png?x-oss-process=style/blog)
 
 进入链接，查看题目。
 
-![image-20231106140832584](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106140832584.png)
+![image-20231106140832584](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106140832584.png?x-oss-process=style/blog)
 
 到这里提示已经很明显了，Flask和debugger（调试模式）。在开发Flask应用中，如果开发人员忘记关闭调试模式，就可能会导致严重的安全隐患。
 
 随便传递一个错误的参数，就可以看到页面报错的调试页面。点击红圈处，可以直观地观察到源码泄露。
 
-![image-20231106141318438](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106141318438.png)
+![image-20231106141318438](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106141318438.png?x-oss-process=style/blog)
 
-![image-20231106141334777](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106141334777.png)
+![image-20231106141334777](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106141334777.png?x-oss-process=style/blog)
 
 容易分析代码逻辑，这段Python代码将`filepath`和`textfile`拼合成一个文件路径并打开，读取该文件路径的内容。其中`filepath`的值为`./uploads/`,`textfile`参数可控。此时我们马上能想到目录穿越漏洞，导致文件任意读取。
 
 构造payload为`?file=../../../../etc/passwd`，成功读取到敏感文件`/etc/passwd`，内含登录系统的用户信息。
 
-![image-20231106142312396](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106142312396.png)
+![image-20231106142312396](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106142312396.png?x-oss-process=style/blog)
 
 关于`/etc/passwd`文件更详细的解释可以参考这篇博客[非常详细的/etc/passwd解释_etc/passwd文件的内容和含义-CSDN博客](https://blog.csdn.net/liukaitydn/article/details/83046083)。
 
@@ -81,7 +81,7 @@ username参数指的是当前运行这个程序的用户名。这个比较好做
 
 moddir是flask所在的路径，可以通过`getattr(mod, 'file', None)`来获得，题目中一般通过查看debug的报错信息获得，如下图。
 
-![image-20231106145402374](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106145402374.png)
+![image-20231106145402374](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106145402374.png?x-oss-process=style/blog)
 
 故本题中的路径为`/usr/local/lib/python3.7/site-packages/flask/app.py`。其实一般都是这个值，最多python版本可能会有差异。
 
@@ -91,7 +91,7 @@ moddir是flask所在的路径，可以通过`getattr(mod, 'file', None)`来获�
 
 本题构造payload为`?file=../../../../sys/class/net/eth0/address`，结果如下。
 
-![image-20231106145741537](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106145741537.png)
+![image-20231106145741537](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106145741537.png?x-oss-process=style/blog)
 
 例：02:42:ac:1e:00:02 => 2485378744322
 也可以直接跑print(int("02:42:ac:1e:00:02".replace(":",""),16))
@@ -104,7 +104,7 @@ moddir是flask所在的路径，可以通过`getattr(mod, 'file', None)`来获�
 
 构造payload`?file=../../../../usr/local/lib/python3.7/site-packages/werkzeug/debug/__init__.py`，找到该方法。
 
-![image-20231106150726655](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106150726655.png)
+![image-20231106150726655](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106150726655.png?x-oss-process=style/blog)
 
 重点关注这一段代码。
 
@@ -150,7 +150,7 @@ except OSError:
 
 这里的XSCTF题目中machine-id和boot-id都有值，而cgroup文件为空，故只需要取machine-id文件的内容作为machine-id的值。构造payload为`?file=../../../../etc/machine-id`，读取machine-id为`6e1d32ebf38c587c4a41089c0c744c83`。
 
-![image-20231106152333132](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106152333132.png)
+![image-20231106152333132](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106152333132.png?x-oss-process=style/blog)
 
 至此集齐了计算PIN码的所有条件。
 
@@ -261,11 +261,11 @@ python 计算PIN_2.py -u xsctf -p /usr/local/lib/python3.7/site-packages/flask/a
 
 计算结果如下，其中sha1的计算结果为：890-921-121
 
-![image-20231106153806563](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106153806563.png)
+![image-20231106153806563](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106153806563.png?x-oss-process=style/blog)
 
 进入控制台，可以访问`/console`或者点击报错调试页面右边的那个黑格子，输入PIN码。
 
-![image-20231106155043435](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106155043435.png)
+![image-20231106155043435](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231106155043435.png?x-oss-process=style/blog)
 
 登录成功，执行命令。
 
@@ -292,4 +292,4 @@ python 计算PIN_2.py -u xsctf -p /usr/local/lib/python3.7/site-packages/flask/a
 
 [Flask调试模式PIN值计算和利用 - 正汰的学习笔记 (hz2016.com)](https://blog.hz2016.com/2023/07/flask调试模式pin值计算和利用/)
 
-![300342](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300342.jpg)
+![300342](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300342.jpg?x-oss-process=style/blog)

@@ -53,11 +53,11 @@ description: 本文介绍了Kitsune，是一种用于在线网络入侵检测的
 
 {% bubble Kitsune,"基于人工神经网络的轻量级入侵检测系统","#ec5830" %}，是由以色列本古里安大学的 Yisroel Mirsky 博士等人提出，并于 2018 年发表在 NDSS（Network and Distributed System Security Symposium，网络与分布式系统安全会议）上的一项研究成果。该系统名字来源于日本神话中的“狐妖”，象征着多尾、善变、成长与进化的特性，恰好也暗示了 Kitsune 模型的结构与功能：由多个子神经网络构成，随着时间不断学习网络流量的特征，愈发强大。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/ChatGPT%20Image%202025%E5%B9%B45%E6%9C%8811%E6%97%A5%2018_57_15.png" alt="ChatGPT Image 2025年5月11日 18_57_15" style="zoom: 25%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/ChatGPT%20Image%202025%E5%B9%B45%E6%9C%8811%E6%97%A5%2018_57_15.png?x-oss-process=style/blog" alt="ChatGPT Image 2025年5月11日 18_57_15" style="zoom: 25%;" />
 
 Kitsune 的总体功能是构建一个在线、无监督、低资源消耗的入侵检测系统。与传统离线训练的大模型不同，Kitsune 只需要看到一条流量就能立即进行训练和判断，不依赖攻击流量、不依赖标签，也不需要高性能服务器。它通过Autoencoder不断学习“正常流量”的表现形式，一旦出现偏离这种“正常模式”的行为，就通过重建误差高低将其标记为异常。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511201331980.png" alt="image-20250511201331980" style="zoom: 67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511201331980.png?x-oss-process=style/blog" alt="image-20250511201331980" style="zoom: 67%;" />
 
 Kitsune 的设计目标非常明确：部署在现实中实际可用的设备上，尤其适用于物联网场景中的{% bubble 边缘设备,"如家庭路由器、小型防火墙、工业控制器等","#ec5830" %}。在这些资源有限、无法运行大模型的环境中，Kitsune 可以提供基本且实时的网络入侵检测能力。
 
@@ -74,7 +74,7 @@ Autoencoder，是一个最经典的无监督神经网络结构。它不需要任
 
 训练的目标很简单——最小化输入和输出之间的差距。差距越小，说明网络对输入理解得越好。
 
-![image-20250511201259173](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511201259173.png)
+![image-20250511201259173](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511201259173.png?x-oss-process=style/blog)
 
 以图像为例：如果你把一张猫的照片输入自编码器，它压缩再重建后还是一张猫，那说明它确实理解了“猫”的样子。可如果你给它一张它没见过的奇怪图，它就重建不出来，结果就会很模糊。
 
@@ -108,7 +108,7 @@ Kitsune 的整个检测流程可以用一句话概括：
 
 每一个环节都有它独特的功能。下面我们用一张图来表示 Kitsune 的结构：
 
-![image-20250511201242288](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511201242288.png)
+![image-20250511201242288](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511201242288.png?x-oss-process=style/blog)
 
 每来一个网络包，Kitsune 都会做以下几件事：
 
@@ -242,7 +242,7 @@ Feature Mapper 的输出是一个列表：
 
 它是一个“特征索引列表”，表示哪组特征归哪个 AE 管。这个映射在 **训练初期生成一次后就固定**，不会在之后动态调整，确保训练稳定性。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511201147358.png" alt="image-20250511201147358" style="zoom: 67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511201147358.png?x-oss-process=style/blog" alt="image-20250511201147358" style="zoom: 67%;" />
 
 总的来说，Kitsune 的 Feature Mapper 模块，让我们把高维输入“切块”，分发给多个小神经网络，从而实现了：
 
@@ -253,7 +253,7 @@ Feature Mapper 的输出是一个列表：
 
 这种“分组 + 小 AE”架构也就是我们即将讲到的核心组件：{% bubble KitNET,"Kit-sune NET-work，模块化自编码网络","#ec5830" %} 的基石。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511201028597.png" alt="image-20250511201028597" style="zoom: 80%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511201028597.png?x-oss-process=style/blog" alt="image-20250511201028597" style="zoom: 80%;" />
 
 ### KitNET 架构详解
 
@@ -469,7 +469,7 @@ BARS 是一种基于{% bubble 随机平滑,"Randomized Smoothing","#ec5830" %}�
 
 我们对 Kitsune 模型在 Mirai 攻击数据集上的表现进行了评估，得到如下图所示的结果：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/certified_accuracy_robustness_radius_curve.png" alt="certified_accuracy_robustness_radius_curve" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/certified_accuracy_robustness_radius_curve.png?x-oss-process=style/blog" alt="certified_accuracy_robustness_radius_curve" style="zoom:67%;" />
 
 图中横轴是扰动半径（即加入的噪声强度），纵轴是模型对这些扰动样本仍然保持判断一致的比例（认证准确率）。
 
@@ -518,4 +518,4 @@ Kitsune 的设计遵循三个核心原则：
 
 ---
 
-![image-20250511224410700](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511224410700.png)
+![image-20250511224410700](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511224410700.png?x-oss-process=style/blog)

@@ -286,4 +286,4 @@ PrintValue(true)     // 打印 true
 
 ---
 
-![d367a38091cb770dfa360d3dbf289740](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/d367a38091cb770dfa360d3dbf289740.png)
+![d367a38091cb770dfa360d3dbf289740](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/d367a38091cb770dfa360d3dbf289740.png?x-oss-process=style/blog)

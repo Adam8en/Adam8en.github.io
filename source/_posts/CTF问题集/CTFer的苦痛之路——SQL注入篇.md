@@ -54,15 +54,15 @@ echo "</center>";
 
 数据库的表结构见图1-1，新闻表wp_news的内容见图1-2，用户wp_user的内容见图1-3。
 
-![img](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918142004.png)
+![img](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918142004.png?x-oss-process=style/blog)
 
 <center>图1-1</center>
 
-![img](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918142133.png)
+![img](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918142133.png?x-oss-process=style/blog)
 
 <center>图1-2</center>
 
-![image-20231017233825699](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231017233825699.png)
+![image-20231017233825699](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231017233825699.png?x-oss-process=style/blog)
 
 <center>图1-3</center>
 
@@ -72,7 +72,7 @@ echo "</center>";
 
 首先我们访问`http://192.168.20.133/sql1.php?id=1`，结果如下图1-4。
 
-![img](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918143049.png)
+![img](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918143049.png?x-oss-process=style/blog)
 
 <center>图1-4</center>
 
@@ -90,7 +90,7 @@ echo "</center>";
 
 首先我们访问链接`http://192.168.20.133/sql1.php?id=2`，也就是传入`id=2`，得到结果如图1-5的id为2的记录，再传递参数`id=3-1`，仍然可以得到`id=2`的记录。说明MySQL对`3-1`的表达式进行了计算结果为2，然后查询id=2的记录。
 
-![img](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918150132.png)
+![img](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918150132.png?x-oss-process=style/blog)
 
 <center>图1-5</center>
 
@@ -102,7 +102,7 @@ echo "</center>";
 
 我们通过网页访问时只需要输入id后面的内容，即访问链接`http://192.168.20.133/sql1.php?id=1 union select user, pwd from wp_user`。注意，在浏览器中空格会被转化为`%20`，这是空格的URL编码。
 
-![img](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918153720.png)
+![img](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918153720.png?x-oss-process=style/blog)
 
 <center>图1-6</center>
 
@@ -110,7 +110,7 @@ echo "</center>";
 
 那么我们访问`http://192.168.20.133/sql1.php?id=-1 union select user, pwd from wp_user`成功得到了图1-7所示的用户表的账号和密码。
 
-![img](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918155116.png)
+![img](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230918155116.png?x-oss-process=style/blog)
 
 <center>图1-7</center>
 
@@ -124,7 +124,7 @@ echo "</center>";
 
 假设我们并不知道数据库的相关信息，首先通过`id=2`和`id=3-1`回显一致判断这存在一个数字型注入，然后通过联合查询，查到本数据库和其他所有表名。访问`http://192.168.20.133/sql1.php?id=-1 union select 1,group_concat(table_name) from information_schema.tables where table_schema=database()`。结果见图1-8。
 
-![image-20231017233946704](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231017233946704.png)
+![image-20231017233946704](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231017233946704.png?x-oss-process=style/blog)
 
 <center>图1-8</center>
 
@@ -132,7 +132,7 @@ echo "</center>";
 
 也就是说，该语句可以查询数据库中所有表名并显示在一个字段中。如下图1-9所示。
 
-![image-20231017233959278](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231017233959278.png)
+![image-20231017233959278](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231017233959278.png?x-oss-process=style/blog)
 
 <center>图1-9</center>
 
@@ -152,7 +152,7 @@ echo "</center>";
 
 同理，通过columns表中的column_name查询出的内容即为wp_user中的字段名，访问`http://192.168.20.133/sql1.php？id=-1 union select 1 ,group_concat (column_name) from information_schema.columns where table_name='wp_user'`，可以得到对应的字段名。见图1-10。
 
-![image-20231017234009782](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231017234009782.png)
+![image-20231017234009782](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231017234009782.png?x-oss-process=style/blog)
 
 <center>图1-10</center>
 
@@ -164,4 +164,4 @@ echo "</center>";
 
 （待更新……）
 
-![复件 62841026_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png)
+![复件 62841026_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png?x-oss-process=style/blog)

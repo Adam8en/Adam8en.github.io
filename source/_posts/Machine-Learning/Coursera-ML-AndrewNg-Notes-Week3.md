@@ -1,7 +1,7 @@
 ---
 title: Coursera-ML-AndrewNg-Notes-Week3
 date: 2024-11-07 10:54:12
-updated: 2024-11-07 10:54:12
+updated: 2026-01-07 15:56:22
 tags:
   - Logical Regression
   - Regularization
@@ -35,13 +35,13 @@ description: Learning logical regression and explaining how to use reularization
 
 给定数据集包含肿瘤的大小与检测结果键值对，检测结果作为因变量。因变量可能属于两个类：正向类或负向类。为了表示方便起见，我们用$0$表示负向类，$1$表示正向类，即$y\in 0,1$。如果使用线性回归方程进行模拟，得到的图像可能如下所示：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241104111149863.png" alt="image-20241104111149863" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241104111149863.png?x-oss-process=style/blog" alt="image-20241104111149863" style="zoom:50%;" />
 
 我们的输出只要求出现$0$或$1$两种情况，但线性回归方程是连续的，它可能会输出$0.7$，这时该怎么解释结果呢？也许我们可以通过设置一个决策边界来解决：定义模型输出大于$0.5$的结果为$1$，而输出小于$0.5$的结果为$0$。
 
 但是，这又会出现新的问题：假如此时出现了一个远远偏离于原回归直线方程的数据点。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241104113514713.png" alt="image-20241104113514713" style="zoom: 33%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241104113514713.png?x-oss-process=style/blog" alt="image-20241104113514713" style="zoom: 33%;" />
 
 那么，此时的回归直线方程将发生改变，导致决策边界产生**偏移**。在原来的情况，纵轴$0.5$可能对应于决策边界横轴的$x$cm，但加入一个新的数据点后，新的决策边界可能变为$x+a$cm。可以看到原来的恶性数据点在新的情况中将被模型错误地预测为良性，这是不可接受的。
 
@@ -59,7 +59,7 @@ description: Learning logical regression and explaining how to use reularization
 
 该函数的图像如下所示：
 
-![image-20241104115444634](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241104115444634.png)
+![image-20241104115444634](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241104115444634.png?x-oss-process=style/blog)
 
 不难发现，当$z$是一个很大的数时，输出将无限趋近于$1$；当$z$是一个很小的数时，结果相反。
 
@@ -96,13 +96,13 @@ $$
 
 为便于展示，我们假设有一个模型，它具有两个特征。此时$g(\theta X)=(\theta_0+\theta_1x_1+\theta_2x_2)$。假设$\theta=[-3,1,1]$，则当$\theta X=-3+x_1+x_2≥0$时，预测$y=1$。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106102132463.png" alt="image-20241106102132463" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106102132463.png?x-oss-process=style/blog" alt="image-20241106102132463" style="zoom:67%;" />
 
 做出方程$-3+x_1+x_2=0$所对应的直线，该直线就是决策边界。可以看到，决策边界划分了数据集，在直线上方（$\theta X=-3+x_1+x_2≥0$）的数据被预测为$y=1$，而在直线下方（$\theta X=-3+x_1+x_2<0$）的数据则被预测为$y=0$。
 
 需要注意的是，逻辑回归模型的决策边界通常是直线的，因为它通过一个线性函数（即 $\theta X$）来进行分类。但如果数据集分类长的像下图所示呢？
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106102958257.png" alt="image-20241106102958257" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106102958257.png?x-oss-process=style/blog" alt="image-20241106102958257" style="zoom:67%;" />
 
 可以通过特征变换引入二次项特征来拟合更复杂的模型边界。比如可以引入特征向量$X=[x_1,x_2,x_1^2,x_2^2,x_1x_2]$，设置模型参数为$\theta=[-1,0,0,1,1,0]$。此时$g(\theta X)=(x_1^2+x_2^2-1)$，决策边界为$x_1^2+x_2^2=1$，是一个半径为$1$的圆。
 
@@ -118,7 +118,7 @@ J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} \left( h_\theta(x^{(i)}) - y^{(i)} \righ
 $$
 从理论上来说，我们可以继续在逻辑回归中套用这个代价函数。但是当我们将$Sigmoid$函数带入到$h_{\theta}(x)$中时，得到的代价函数将是一个非凸函数，且图像将出现“震荡”。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106104123798.png" alt="image-20241106104123798" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106104123798.png?x-oss-process=style/blog" alt="image-20241106104123798" style="zoom:67%;" />
 
 这意味着此时$J(\theta)$将出现多个局部最小值，梯度下降函数将很难找到全局最小值来得到最优的参数$\theta$。这是因为由于$Sigmoid$函数输出的非线性性质，即使是输入小的变化，也可能导致输出较大的变化，从而使得误差的平方波动幅度增大。
 
@@ -154,7 +154,7 @@ $$
 
 这个函数很有意思，我们观察一下$\operatorname{L}(h_{\theta}(x), y)$和$h_{\theta}(x)$的图像。
 
-![image-20241106105525489](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106105525489.png)
+![image-20241106105525489](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106105525489.png?x-oss-process=style/blog)
 
 可以看到，新的代价函数意义在于：
 
@@ -171,7 +171,7 @@ J(\theta) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log(h_{\theta}(x^{(i)}))
 $$
 更重要的是，该函数是一个凸函数。如果计算该函数的二阶导数，可以证明其恒大于0。这意味着在优化过程中，任何局部最小值也是全局最小值，提供了更好的收敛性和稳定性。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106110510462.png" alt="image-20241106110510462" style="zoom: 67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106110510462.png?x-oss-process=style/blog" alt="image-20241106110510462" style="zoom: 67%;" />
 
 ### Gradient Descent
 
@@ -207,11 +207,11 @@ $$
 
 显而易见继续沿用二分类模型将无法解决问题，因为逻辑回归只存在正负（或者是0 1）两种预测状态。比较直观的理解是当你有两个特征时，决策边界是一条直线——它只能将数据集划分为两片区域，而多分类时你的数据集看起来将像这样。
 
-![image-20241106225506944](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106225506944.png)
+![image-20241106225506944](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106225506944.png?x-oss-process=style/blog)
 
 如何处理多分类问题？其实要处理起来也很简单，简单到用一句话就能概括：{% span red,运用多次二元分类  %}。更具体的说，当我们在处理三角形数据时，可以把叉叉元素和矩形元素视为同一种结果，即非三角形元素。同理，对剩下两个元素也可以进行类似的处理，{% span yellow,最终得到的效果等同于在数据集上画出三条决策边界 %}。
 
-![image-20241106230159172](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106230159172.png)
+![image-20241106230159172](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241106230159172.png?x-oss-process=style/blog)
 
 所以，我们的处理方法是：
 
@@ -226,7 +226,7 @@ $$
 
 现在我们来讨论过拟合（Overfitting）的问题，来看以下三幅图。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241107092519177.png" alt="image-20241107092519177" style="zoom: 50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241107092519177.png?x-oss-process=style/blog" alt="image-20241107092519177" style="zoom: 50%;" />
 
 第一幅图采取线性回归模型去拟合数据，可以看出来拟合效果并不是很好。有一些数据点距离回归直线的距离较远，意味着此时的代价函数仍然是比较大的。这种情况我们称之为{% span yellow,欠拟合（Underfit） %}，也就是说此时我们的模型不能很好的拟合训练集。
 
@@ -236,7 +236,7 @@ $$
 
 分类问题中也存在过拟合的问题，观察以下三幅图。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241107093441097.png" alt="image-20241107093441097" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241107093441097.png?x-oss-process=style/blog" alt="image-20241107093441097" style="zoom:50%;" />
 
 从多项式的角度来说可以总结如下：$x$的次数越高，拟合效果越好，但相应的可预测能力就会变差。问题在于，我们如何处理过拟合现象呢？这就是我们下半篇要讨论的问题，一般来说有三种办法：
 
@@ -264,7 +264,7 @@ J(\theta) = \frac{1}{2m} \left[ \sum_{i=1}^{m} \left( h_{\theta}(x^{(i)}) - y^{(
 $$
 其中$\lambda$代表正则化参数。依照惯例，不对$\theta_0$进行惩罚，因为$x_0$恒为$1$。经过正则化处理的模型图像可能如下：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241107100350929.png" alt="image-20241107100350929" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241107100350929.png?x-oss-process=style/blog" alt="image-20241107100350929" style="zoom:67%;" />
 
 蓝色的曲线很显然是一个过拟合的图像，应该对其使用正则化处理。然而，如果你的$\lambda$选择不当，可能会导致图像变成图中粉红色的直线。这是因为你的正则化参数$\lambda$太大了，代价函数最终对所有的系数惩罚力度太大，以至于几乎所有的系数都为0，最后的图像只剩下一个常数项。所以，要正确的选择正则化参数$\lambda$，才能得到较好的拟合效果。
 
@@ -314,4 +314,4 @@ $$
 
 ---
 
-![110028263_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/110028263_p0.jpg)
+![110028263_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/110028263_p0.jpg?x-oss-process=style/blog)

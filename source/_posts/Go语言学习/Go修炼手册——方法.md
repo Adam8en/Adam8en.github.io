@@ -174,4 +174,4 @@ Go的编码风格不禁止直接导出字段。当然，一旦进行了导出，
 
 
 
-![](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2c28c545aca49c9b356d3b8ae2f935cf.jpeg)
+![](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2c28c545aca49c9b356d3b8ae2f935cf.jpeg?x-oss-process=style/blog)

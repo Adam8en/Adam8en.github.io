@@ -1,7 +1,7 @@
 ---
 title: Coursera-ML-AndrewNg-Notes-Week2
 date: 2024-11-02 16:02:14
-updated: 2024-11-02 16:02:14
+updated: 2026-01-07 15:56:22
 tags:
   - Machine Learning
   -  Linear Regression with Multiple Variable
@@ -45,7 +45,7 @@ description: My notes of Coursera-ML-AndrewNg-Week2, introducing Linear Regressi
 
 比如有模型如下：
 
-![image-20241102140152298](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102140152298.png)
+![image-20241102140152298](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102140152298.png?x-oss-process=style/blog)
 
 那么此时$
 x^{(2)} = \begin{pmatrix}
@@ -101,11 +101,11 @@ def computeCost(X, y, theta):
 
 引入多个特征时，往往会出现一个问题，就是特征之间的尺度不一致：比如房屋的面积可能在100（m^2^）左右浮动，而房屋的层数可能只有2、3（层）。如果此时绘制出特征之间的图像，大概会长这样：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102142659666.png" alt="image-20241102142659666" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102142659666.png?x-oss-process=style/blog" alt="image-20241102142659666" style="zoom:67%;" />
 
 再看看代价函数$J(\theta)$的图像，我们会发现图像会很“扁”。
 
-![image-20241102142439837](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102142439837.png)
+![image-20241102142439837](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102142439837.png?x-oss-process=style/blog)
 
 这是理所当然的。当多特征方程中一个特征$x_0$的变化量显著大于其他变量$x$时，意味着沿着它下降的梯度会非常“陡峭”。然而我们的学习率$\alpha$是唯一的，这就导致学习率相对于这个变量对应的参数$\theta_0$来说可能过于大，而相对于其他参数来说又过于小。于是就会出现“反复横跳”的问题——梯度下降需要的迭代次数变多了。
 
@@ -116,7 +116,7 @@ def computeCost(X, y, theta):
 
 经过特征缩放处理后的代价函数图像将看起来更加圆润：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102143846751.png" alt="image-20241102143846751" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102143846751.png?x-oss-process=style/blog" alt="image-20241102143846751" style="zoom:50%;" />
 
 #### Learning Rate
 
@@ -124,7 +124,7 @@ def computeCost(X, y, theta):
 
 梯度下降算法收敛所需要的迭代次数根据模型的不同而不同，我们不能提前预知，我们可以绘制迭代次数和代价函数的图表来观测算法在何时趋于收敛。
 
-![image-20241102144043735](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102144043735.png)
+![image-20241102144043735](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102144043735.png?x-oss-process=style/blog)
 
 也有一些自动测试代价函数是否收敛的方法：比如设置一个阈值，当梯度下降的幅度小于这个阈值，我们就认为代价函数已经收敛完毕。但是通常，直接观察图表的方法更好。
 
@@ -150,7 +150,7 @@ Using intuition to design new features, by transforming or combining original fe
 
 这个时候再度绘制关于面积$x_3$的样本点数据图，我们假定它大概长这样：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102145307638.png" alt="image-20241102145307638" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102145307638.png?x-oss-process=style/blog" alt="image-20241102145307638" style="zoom:50%;" />
 
 很明显，此时线性回归将不再适用于我们的模型。为了更好的拟合图像，我们应该引入非线性回归方程，比如一个二次函数：
 $$
@@ -168,7 +168,7 @@ $$
 
 总之，我们应该先观察数据然后再决定准备尝试怎样的模型，而不是采用单一的线性回归。大多数更复杂的情况下，非线性回归模型会取得比线性回归模型更好的预测效果。
 
-![image-20241102151636564](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102151636564.png)
+![image-20241102151636564](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241102151636564.png?x-oss-process=style/blog)
 
 {% span yellow, 注：如果我们采用多项式回归模型，在运行梯度下降算法前，特征缩放非常有必要。 %}
 
@@ -208,4 +208,4 @@ Normal Equation，即正规方程。可以利用正规方程来一次计算出�
 
 ---
 
-![50140585_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/50140585_p0.jpg)
+![50140585_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/50140585_p0.jpg?x-oss-process=style/blog)

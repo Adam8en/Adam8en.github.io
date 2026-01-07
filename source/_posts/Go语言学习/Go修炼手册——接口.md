@@ -354,13 +354,13 @@ w = nil
 
 在Go语言中，变量总是被一个定义明确的值初始化，即使接口类型也不例外。对于一个接口的零值就是它的类型和值的部分都是nil。
 
-![image-20241011171355457](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241011171355457.png)
+![image-20241011171355457](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241011171355457.png?x-oss-process=style/blog)
 
 一个接口值基于{% bubble 它的动态类型被描述为空或非空,"即当且仅当动态类型为空才会被判定为空接口。若动态值为空而动态类型不为空，该接口仍不为空" ,"#868fd7" %}，所以这是一个空的接口值。你可以通过使用 w==nil或者w!=nil来判断接口值是否为空。调用一个空接口值上的任意方法都会产生{% bubble panic,"w.Write([]byte("hello")) // panic: nil pointer dereference" ,"#868fd7" %}。
 
 第二个语句`w = os.Stdout`将一个 `*os.File` 类型的值赋给变量w。这个接口值的动态类型被设为 *os.File 指针的类型描述符，它的动态值持有os.Stdout的拷贝。
 
-![image-20241011171553532](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241011171553532.png)
+![image-20241011171553532](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241011171553532.png?x-oss-process=style/blog)
 
 调用一个包含 `*os.File` 类型指针的接口值的`Write`方法，使得 `(*os.File).Write` 方法被调用。这个调用输出“hello”。
 
@@ -376,7 +376,7 @@ w.Write([]byte("hello")) // "hello"
 
 第三个语句`w = new(bytes.Buffer)`给接口值赋了一个`*bytes.Buffer`类型的值。现在动态类型是*bytes.Buffer并且动态值是一个指向新分配的缓冲区的指针。
 
-![image-20241011172349067](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241011172349067.png)
+![image-20241011172349067](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241011172349067.png?x-oss-process=style/blog)
 
 最后，第四个语句`w = nil`将nil赋给了接口值。这个重置将它所有的部分都设为nil值，把变量w恢复到和它之前定义时相同的状态。
 
@@ -692,4 +692,4 @@ func sqlQuote(x interface{}) string {
 
 ---
 
-![2FAA1B2C149C8C4BFF45431A929E653C](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2FAA1B2C149C8C4BFF45431A929E653C.jpg)
+![2FAA1B2C149C8C4BFF45431A929E653C](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2FAA1B2C149C8C4BFF45431A929E653C.jpg?x-oss-process=style/blog)

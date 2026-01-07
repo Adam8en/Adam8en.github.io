@@ -139,7 +139,7 @@ int main() {
 
 运行结果如下图所示：
 
-![image-20241010230224284](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241010230224284.png)
+![image-20241010230224284](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241010230224284.png?x-oss-process=style/blog)
 
 ### Q2
 
@@ -211,7 +211,7 @@ int main() {
 
 运行结果如下图所示：
 
-![image-20241010230244574](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241010230244574.png)
+![image-20241010230244574](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241010230244574.png?x-oss-process=style/blog)
 
 ### Q3
 
@@ -294,7 +294,7 @@ int main() {
 
 运行结果如下图所示：
 
-![image-20241010230257569](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241010230257569.png)
+![image-20241010230257569](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241010230257569.png?x-oss-process=style/blog)
 
 ## Lab02
 
@@ -598,7 +598,7 @@ int main() {
 
 运行结果如下：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241013143021163.png" alt="image-20241013143021163" style="zoom:80%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241013143021163.png?x-oss-process=style/blog" alt="image-20241013143021163" style="zoom:80%;" />
 
 ### Q2
 
@@ -793,7 +793,7 @@ int main() {
 
 运行结果如下：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241013143933424.png" alt="image-20241013143933424" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241013143933424.png?x-oss-process=style/blog" alt="image-20241013143933424" style="zoom:50%;" />
 
 思考：假如已经有两个或多个取款线程进入阻塞，然后存款线程调用`pthread_cond_broadcast`唤醒所有阻塞的线程。此时会不会出现竞争？哪个被唤醒的线程会获得锁？
 
@@ -940,7 +940,7 @@ int main() {
 
 运行结果如下：
 
-![image-20241014215208267](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241014215208267.png)
+![image-20241014215208267](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241014215208267.png?x-oss-process=style/blog)
 
 ### Q2
 
@@ -1085,7 +1085,7 @@ int main() {
 
 运行结果如下：
 
-![image-20241014215235225](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241014215235225.png)
+![image-20241014215235225](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241014215235225.png?x-oss-process=style/blog)
 
 ## Lab04
 
@@ -1585,9 +1585,9 @@ void DisplayQueue()
 
 运行部分结果如下：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241025162031480.png" alt="image-20241025162031480" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241025162031480.png?x-oss-process=style/blog" alt="image-20241025162031480" style="zoom:50%;" />
 
-![image-20241025162102590](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241025162102590.png)
+![image-20241025162102590](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241025162102590.png?x-oss-process=style/blog)
 
 ## Lab05
 
@@ -1683,7 +1683,7 @@ void DisplayQueue()
 
 事实上，题目只要求实现了安全型算法检验，但完整的银行家算法包含了安全型算法和资源请求算法。为了知识完整性，这里给出资源请求算法的拓展资料。
 
-![image-20241105194209274](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241105194209274.png)
+![image-20241105194209274](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241105194209274.png?x-oss-process=style/blog)
 
 完整的代码如下：
 
@@ -1873,13 +1873,13 @@ void banker(void){
 
 <!-- tab 输出安全序列 -->
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241105194812979.png" alt="image-20241105194812979" style="zoom:80%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241105194812979.png?x-oss-process=style/blog" alt="image-20241105194812979" style="zoom:80%;" />
 
 <!-- endtab -->
 
 <!-- tab 死锁 -->
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241105194837814.png" alt="image-20241105194837814" style="zoom:80%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241105194837814.png?x-oss-process=style/blog" alt="image-20241105194837814" style="zoom:80%;" />
 
 <!-- endtab -->
 
@@ -2583,13 +2583,13 @@ int main(void){
 
 <!-- tab 内存分配 -->
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241127102405420.png" alt="image-20241127102405420" style="zoom: 67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241127102405420.png?x-oss-process=style/blog" alt="image-20241127102405420" style="zoom: 67%;" />
 
 <!-- endtab -->
 
 <!-- tab 内存回收 -->
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241127102443532.png" alt="image-20241127102443532" style="zoom: 67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241127102443532.png?x-oss-process=style/blog" alt="image-20241127102443532" style="zoom: 67%;" />
 
 <!-- endtab -->
 
@@ -2631,7 +2631,7 @@ int main(void){
 
 伙伴系统概念图如下所示：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E4%BC%99%E4%BC%B4%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5%E5%9B%BE.drawio.png" alt="伙伴系统概念图.drawio" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E4%BC%99%E4%BC%B4%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5%E5%9B%BE.drawio.png?x-oss-process=style/blog" alt="伙伴系统概念图.drawio" style="zoom:67%;" />
 
 简单来说，可以把伙伴系统划分为两个过程：
 
@@ -3263,13 +3263,13 @@ int main(void){
 
  <!-- tab 内存分配 -->
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241127103017596.png" alt="image-20241127103017596" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241127103017596.png?x-oss-process=style/blog" alt="image-20241127103017596" style="zoom:67%;" />
 
 <!-- endtab -->
 
 <!-- tab 内存回收 -->
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241127103038317.png" alt="image-20241127103038317" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241127103038317.png?x-oss-process=style/blog" alt="image-20241127103038317" style="zoom:67%;" />
 
 <!-- endtab -->
 
@@ -3548,7 +3548,7 @@ int main(void){
 
 最终部分运行结果如下：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241127103137171.png" alt="image-20241127103137171" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241127103137171.png?x-oss-process=style/blog" alt="image-20241127103137171" style="zoom:67%;" />
 
 堂堂完结！撒花\~✿✿ヽ(°▽°)ノ✿
 
@@ -3556,4 +3556,4 @@ int main(void){
 
 ---
 
-![64495434_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/64495434_p0.jpg)
+![64495434_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/64495434_p0.jpg?x-oss-process=style/blog)

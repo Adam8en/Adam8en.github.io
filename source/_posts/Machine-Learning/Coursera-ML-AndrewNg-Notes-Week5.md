@@ -3,7 +3,7 @@ title: Coursera-ML-AndrewNg-Notes-Week5
 tags:
   - Neural Network
 date: 2024-11-14 15:31:56
-updated: 2024-11-14 15:31:56
+updated: 2026-01-07 15:56:22
 categories: Machine-Learning
 cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/D2C62FCE46B76B7B3305529FD6BBCE3D.jpg
 description: Learn more about neural network, introducing how to choose proper activation function and advanced optimization.
@@ -34,7 +34,7 @@ description: Learn more about neural network, introducing how to choose proper a
 
 我们把包含数字的灰度图作为输入数据，并搭建一个神经网络模型，它大概长的如下图所示：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241113134408233.png" alt="image-20241113134408233" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241113134408233.png?x-oss-process=style/blog" alt="image-20241113134408233" style="zoom:50%;" />
 
 可以看到，我们的模型包含三个层。第一个隐藏层有25个激活单元，第二个隐藏层有15个激活单元，第三个输出层只有一个激活单元，最后输出一个预测结果。那么，我们该如何把这个模型部署到代码中呢？
 
@@ -118,7 +118,7 @@ model.fit(X,Y,epochs=100) # 训练模型，epochs代表模型迭代训练轮数
 - Sigmoid，S型函数
 - ReLU，修正线性单元激活函数（名字很拗口，也不用特地去记）
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241113153416154.png" alt="image-20241113153416154" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241113153416154.png?x-oss-process=style/blog" alt="image-20241113153416154" style="zoom:50%;" />
 
 Linear Activation function是最简单的激活函数，如果你的输出层预测结果可正可负，那么就可以采用这个激活函数作为输出层的激活函数。对于隐藏层，当有很多人说他们“没有采用任何激活函数”时，实际上就是说采用了线性激活函数。因为$g(z)=z$，可以视为函数$g()$根本不存在。可以证明，{% span red,在神经网络的隐藏层中运用线性激活函数，将完全无法发挥神经网络的作用，效果等同于运用线性回归模型 %}。道理也很简单：线性函数的复合结果仍然是线性函数。所以一般不建议在神经网络的隐藏层中运用线性激活函数。
 
@@ -197,7 +197,7 @@ $$
 
 如果要在神经网络中引入Softmax作为输出层的激活函数，我们需要稍微修改一下我们的模型：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241113163726678.png" alt="image-20241113163726678" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241113163726678.png?x-oss-process=style/blog" alt="image-20241113163726678" style="zoom:50%;" />
 
 因为最终Softmax输出的激活向量将包含10个激活值，所以输出层中要有10个激活单元。
 
@@ -245,7 +245,7 @@ model.fit(X,Y,epochs=100)
 
 这里代码的处理流程实际上是先将输入经过神经网络处理，输出一个中间值$a_1$，然后再对$a_1$代入损失函数计算损失。这一步过程中会损失精度，我们要做的，就是去除掉这个中间值$a_1$。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241113165619027.png" alt="image-20241113165619027" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241113165619027.png?x-oss-process=style/blog" alt="image-20241113165619027" style="zoom:50%;" />
 
 比起直接传递$a_1$给损失函数，不如直接把激活函数代入损失函数的计算中。TensorFlow会自动排列计算项，从而使得损失计算更精确。这个损失平时很小，如果输出层的激活函数是Sigmoid倒也无所谓，但如果采用Softmax，这个损失就有点无法忽略了。
 
@@ -279,7 +279,7 @@ model.fit(X,Y,epochs=100)
 
 我们来介绍一种运用在神经网络中的高级优化算法：{% bubble Adam算法,"Adaptive Moment Estimation，自适应矩估计","#ec5830" %}。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241114131359896.png" alt="image-20241114131359896" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241114131359896.png?x-oss-process=style/blog" alt="image-20241114131359896" style="zoom:50%;" />
 
 简而言之，Adam算法的作用就是**自适应学习率**。在传统的机器学习算法中，如果学习率$\alpha$过小，那么梯度下降的速度将变得缓慢；如果学习率$\alpha$过大，又容易出现“反复横跳”的情况。Adam算法，能够对每个参数动态的调整它们的学习率从而一定程度上优化模型。
 
@@ -306,7 +306,7 @@ A：的确，在很多情况下，Adam 算法已经比传统的梯度下降方�
 
 卷积层，即Convolutional Layer，和全连接层的区别在于：卷积层对于前一层的数据是部分可见的。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241114134257634.png" alt="image-20241114134257634" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241114134257634.png?x-oss-process=style/blog" alt="image-20241114134257634" style="zoom:50%;" />
 
 为什么采用卷积层呢？主要有两个优点：
 
@@ -325,4 +325,4 @@ Coursera的这门课并没有对卷积神经网络及其他架构的神经层展
 
 ---
 
-![D2C62FCE46B76B7B3305529FD6BBCE3D](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/D2C62FCE46B76B7B3305529FD6BBCE3D.jpg)
+![D2C62FCE46B76B7B3305529FD6BBCE3D](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/D2C62FCE46B76B7B3305529FD6BBCE3D.jpg?x-oss-process=style/blog)

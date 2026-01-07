@@ -268,4 +268,4 @@ print(len(example))
 
 当触发索引错误时，最好用len函数确定一下列表长度。
 
-![复件 82457624_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2082457624_p0.png)
+![复件 82457624_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2082457624_p0.png?x-oss-process=style/blog)

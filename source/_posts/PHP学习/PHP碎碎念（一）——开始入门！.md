@@ -393,4 +393,4 @@ endif;
 
 再学一点PHP，直到能入门MySQL为止（勿忘初心）。
 
-![300411](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300411.jpg)
+![300411](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300411.jpg?x-oss-process=style/blog)

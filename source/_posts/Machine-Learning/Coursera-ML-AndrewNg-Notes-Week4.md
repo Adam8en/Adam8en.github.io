@@ -3,7 +3,7 @@ title: Coursera-ML-AndrewNg-Notes-Week4
 tags:
   - Neural Network
 date: 2024-11-12 21:18:13
-updated: 2024-11-12 21:18:13
+updated: 2026-01-07 15:56:22
 categories: Machine-Learning
 cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/123363067_p0.jpg
 description: Starting to learn about neural network of its architecture, with implementation in Python.
@@ -33,11 +33,11 @@ description: Starting to learn about neural network of its architecture, with im
 
 要理解神经网络模型的原理，我们得先讲讲大脑——毕竟，神经网络一开始就是为了模拟大脑而诞生的算法。大脑的神经元如图所示：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110192627351.png" alt="image-20241110192627351" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110192627351.png?x-oss-process=style/blog" alt="image-20241110192627351" style="zoom:67%;" />
 
 相信学过初中生物的人都不会对此感到陌生。神经元由树突接收信息，然后产生神经冲动，通过轴突传递给下一个神经元，这就是一个大大简化的神经元模型。让我们再来看看神经网络：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110193136096.png" alt="image-20241110193136096" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110193136096.png?x-oss-process=style/blog" alt="image-20241110193136096" style="zoom:67%;" />
 
 同样的，神经网络的工作原理也是接收一个输入，然后由多个神经元（学习模型）对输入进行计算，产生一个或多个特征值，作为下一个神经元（学习模型）的输入，这样经过迭代计算后得到的结果就是神经网络的输出。同样的，这也是一个经过大大简化的神经网络模型。
 
@@ -49,7 +49,7 @@ description: Starting to learn about neural network of its architecture, with im
 
 绘制出训练集的二维图像如下：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110194035621.png" style="zoom:67%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110194035621.png?x-oss-process=style/blog" style="zoom:67%;" />
 
 对于是否畅销这种输出明显带有0/1特征的二元分类问题，一般使用逻辑回归中的$Sigmoid$函数进行拟合。此时，我们有：
 $$
@@ -58,13 +58,13 @@ a=f(x)=\frac{1}{1+e^{\theta x}}
 $$
 这里的$a$在神经网络中有一个专门的名称，叫做**activation**激活值，代表一个神经元向下游的其他神经元发送高输出的程度，在这里$a$就是$f(x)$。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110194925174.png" alt="image-20241110194925174" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110194925174.png?x-oss-process=style/blog" alt="image-20241110194925174" style="zoom:50%;" />
 
 这里，输入价格$x$进入神经元中，使得神经元输出一个$a$，代表该成品为畅销品的概率。这里的神经元可以视为一个学习模型，或者一台微型计算机，它的工作内容就是对输入运行逻辑回归然后给出输出。真正的大脑神经元要完成的事情要复杂得多，这就是为什么神经网络是对人脑的极大简化模型。
 
 然而人脑中并不只有一个神经元，往往是多个神经元在一起进行工作。对应到本例题中，我们假设拥有四个特征：价格、运费、该类衬衫的营销量与材料质量，并依赖这四个特征来输出最终我们认为该产品是畅销品的概率。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110200224478.png" alt="image-20241110200224478" style="zoom: 50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110200224478.png?x-oss-process=style/blog" alt="image-20241110200224478" style="zoom: 50%;" />
 
 为此，我们为四个输入组合成为三个新的特征：购买负担力、商品认识与感知质量，并用三个神经元（学习模型）来模拟计算这三个新的组合特征。最后，再根据这三个特征，计算出最终的输出概率。
 
@@ -78,7 +78,7 @@ $$
 
 但是在实际运用中，用人工选择组合特征实在是过于繁琐，事实上神经网络也根本不知道自己在隐藏层在计算的是购买负担力、商品认识与感知质量。现实情况下，{% span green,我们根本不需要手动为神经网络指定计算的组合特征，神经网络会自己学习自己的特征，从而输出一个更为可靠的结果 %}，这就是为什么神经网络是当今世界上最强的算法之一。为了让神经网络自己去学习数据集的特征，它需要访问到上一层的所有数据，这就是为什么我们要将图片修改如下：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110203207729.png" alt="image-20241110203207729" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110203207729.png?x-oss-process=style/blog" alt="image-20241110203207729" style="zoom:50%;" />
 
 这就是一个运用神经网络的例子。你也可以选择加入更多的隐藏层，或者在隐藏层中加入更多神经元来提升神经网络的效果。在后文会介绍如何选择神经网络架构来优化算法性能的方法。
 
@@ -86,7 +86,7 @@ $$
 
 让我们展开一层分析神经网络是怎么运行的。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110205837460.png" alt="image-20241110205837460" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241110205837460.png?x-oss-process=style/blog" alt="image-20241110205837460" style="zoom:50%;" />
 
 将输入层记为layer0，把输入向量$X$输入到layer1中，并将其展开。layer1中一共有三个神经元，也就是三个学习模型，我们将其统一称为**激活单元**。
 
@@ -184,7 +184,7 @@ print(a2.numpy())
 
 现在我们来使用TensorFlow搭建一个神经网络架构。假设我们有数据集如下：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241111205452242.png" alt="image-20241111205452242" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241111205452242.png?x-oss-process=style/blog" alt="image-20241111205452242" style="zoom:50%;" />
 
 按照机器学习训练的基本流程，首先我们导入训练数据集来训练模型，然后输入待预测的输入得到预测值$\hat{y}$。故编写代码如下：
 
@@ -218,7 +218,7 @@ model = Sequential([Dense(units=3, activation='sigmoid'),
 
 观察下面这幅图：
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241112195619167.png" alt="image-20241112195619167" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241112195619167.png?x-oss-process=style/blog" alt="image-20241112195619167" style="zoom:50%;" />
 
 在得到最终的结果$\vec{a}^{[2]}$前，代码都做了些什么呢？
 
@@ -248,7 +248,7 @@ a2_1 = sigmoid(z2_1)
 
 在实际中，我们把三个权重向量$w_1^{[1]}$、$w_2^{[1]}$、$w_3^{[1]}$整合在一起得到一个权重矩阵$W^1$，同理偏置也可以进行整合为一个偏置向量$b^1$。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241112201234647.png" alt="image-20241112201234647" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241112201234647.png?x-oss-process=style/blog" alt="image-20241112201234647" style="zoom:50%;" />
 
 {% note danger simple %}
 
@@ -325,4 +325,4 @@ AGI，是指广义的人工智能，它可以完成一切泛人类的活动，�
 
 ---
 
-![123363067_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/123363067_p0.jpg)
+![123363067_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/123363067_p0.jpg?x-oss-process=style/blog)

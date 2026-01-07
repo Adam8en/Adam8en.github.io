@@ -403,4 +403,4 @@ type bailout struct{}
 
 ---
 
-![CE22E4EE388D674AB24D5CE15D445580](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/CE22E4EE388D674AB24D5CE15D445580.jpg)
+![CE22E4EE388D674AB24D5CE15D445580](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/CE22E4EE388D674AB24D5CE15D445580.jpg?x-oss-process=style/blog)

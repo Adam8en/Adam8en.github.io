@@ -391,4 +391,4 @@ user1.name.print_name()
 - 可以使用空行来组织代码，但不能滥用。可以使用一个空行分隔不同的方法；在模块中，可以使用两个空行来分隔不同的类。
 - 对于同时导入标准库中的模块和自定义模块时，都应该先编写标准库的import语句，再添加一个空行，随后再导入自己的自定义模块。这样能够更容易让人明白程序使用的各个模块都来自何处。
 
-![复件 86800272_p0 (1)](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2086800272_p0%20(1).jpg)
+![复件 86800272_p0 (1)](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2086800272_p0%20(1?x-oss-process=style/blog).jpg)

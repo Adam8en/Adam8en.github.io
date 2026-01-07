@@ -622,4 +622,4 @@ t, err := t.Parse(`{{lower .}}`)
 
 ---
 
-![f5c4c658c9623ef310f3d678caabff4c](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/f5c4c658c9623ef310f3d678caabff4c.jpeg)
+![f5c4c658c9623ef310f3d678caabff4c](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/f5c4c658c9623ef310f3d678caabff4c.jpeg?x-oss-process=style/blog)

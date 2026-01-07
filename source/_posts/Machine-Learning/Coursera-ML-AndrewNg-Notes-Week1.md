@@ -1,7 +1,7 @@
 ---
 title: Coursera-ML-AndrewNg-Notes-Week1
 date: 2024-10-30 12:50:11
-updated: 2024-10-30 12:50:11
+updated: 2026-01-07 15:56:22
 tags:
   - Machine Learning
   - Linear Regression
@@ -51,7 +51,7 @@ $<s^{(i)},w^{(i)}>$中$s$和$w$的指数$(i)$并不是幂运算的意思，而�
 
 {% endnote %}
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241030105108665.png" alt="image-20241030105108665" style="zoom: 33%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241030105108665.png?x-oss-process=style/blog" alt="image-20241030105108665" style="zoom: 33%;" />
 
 在实际中，训练数据集可以包含多个特征维度，这有助于提高模型的预测精度。例如，在利用机器学习诊断肿瘤良恶性的场景中，训练数据可以包括年龄、性别、肿瘤大小、厚度等多维度指标，模型最终输出良性或恶性预测。随着维度增加，模型学习的逻辑也会更加复杂。
 
@@ -61,7 +61,7 @@ $<s^{(i)},w^{(i)}>$中$s$和$w$的指数$(i)$并不是幂运算的意思，而�
 
 非监督学习，即只给定Training Set而不给订标注结果的Target Set。在这种情况下机器将无法给出预测，而只能根据数据本身的特征给出数据的结构信息。一般运用场景为聚类或者降维。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241030105244154.png" alt="image-20241030105244154" style="zoom: 33%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241030105244154.png?x-oss-process=style/blog" alt="image-20241030105244154" style="zoom: 33%;" />
 
 例如，在一个推荐场景中，当你阅读一篇关于熊猫在日本动物园成功繁育的新闻时，系统可能推荐相关的熊猫或动物园新闻。然而我相信并没有程序员会专门编写程序去推荐熊猫相关的新闻，而是通过机器的无监督学习，根据你当前阅读的新闻自动聚类相关内容，以生成个性化推荐。
 
@@ -71,7 +71,7 @@ $<s^{(i)},w^{(i)}>$中$s$和$w$的指数$(i)$并不是幂运算的意思，而�
 
 在第一周，课程主要介绍了相对简单的线性回归来简述机器学习（监督学习）是怎么做到“学习”找到映射关系$f$，进而进行预测的。这本质上是个回归的统计学问题。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241030105542110.png" alt="image-20241030105542110" style="zoom:33%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241030105542110.png?x-oss-process=style/blog" alt="image-20241030105542110" style="zoom:33%;" />
 
 对于给定的一组数据，我们的目标是找到一个直线，使得它的拟合效果最好。定义回归直线方程为：
 
@@ -172,8 +172,8 @@ b_{\text{new}} &= b_{\text{old}} - \alpha \frac{1}{m} \sum_{i=1}^{m} \left( f_{w
 $$
 通过设置学习率$\alpha$和迭代次数$i$，每次迭代计算参数$\theta$，从而求解出最小代价时的参数$\theta_{min}$，也就是$w_{min},b_{min}$。最终可以得到拟合效果最优的线性回归直线方程：$f(x)=w_{min}x+b_{min}$。
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241030123140570.png" alt="image-20241030123140570" style="zoom:80%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241030123140570.png?x-oss-process=style/blog" alt="image-20241030123140570" style="zoom:80%;" />
 
 ---
 
-![b887646c5f1680f1750aaad7fbedc57](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/b887646c5f1680f1750aaad7fbedc57.png)
+![b887646c5f1680f1750aaad7fbedc57](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/b887646c5f1680f1750aaad7fbedc57.png?x-oss-process=style/blog)

@@ -257,7 +257,7 @@ func min(m int, n int) int{
 
 小贴一手用时情况:fire:
 
-<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/fb526ed9340e525e85a88458840344a.png" alt="fb526ed9340e525e85a88458840344a" style="zoom:50%;" />
+<img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/fb526ed9340e525e85a88458840344a.png?x-oss-process=style/blog" alt="fb526ed9340e525e85a88458840344a" style="zoom:50%;" />
 
 ## 总结
 
@@ -269,4 +269,4 @@ func min(m int, n int) int{
 
 ---
 
-![2404CBF21EC9ECF50FF185A745A075DE](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2404CBF21EC9ECF50FF185A745A075DE.jpg)
+![2404CBF21EC9ECF50FF185A745A075DE](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2404CBF21EC9ECF50FF185A745A075DE.jpg?x-oss-process=style/blog)

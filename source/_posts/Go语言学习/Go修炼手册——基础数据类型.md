@@ -192,4 +192,4 @@ var z complex128 = math.Pi
 
 ---
 
-![a7a21eb76137fbe20b311c8a2c3ce9bc](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/a7a21eb76137fbe20b311c8a2c3ce9bc.jpeg)
+![a7a21eb76137fbe20b311c8a2c3ce9bc](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/a7a21eb76137fbe20b311c8a2c3ce9bc.jpeg?x-oss-process=style/blog)

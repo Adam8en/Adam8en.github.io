@@ -16,7 +16,7 @@ mathjax: true
 
 XYCTF中我主要是在隶属于校队的Xp0int战队中解题，虽说是校队公共账号但是老人都不会出手，基本都是几个新生在折腾。也一度取得了第一名的位置霸榜了几天，但最后一周因为各种安排导致腾不出手打比赛解新题又滑落到了第五的位置，实属惋惜。
 
-![echarts](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/echarts.svg)
+![echarts](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/echarts.svg?x-oss-process=style/blog)
 
 不过反正是新生赛，也不会有多大含金量就是了，姑且还是记录一下这次比赛的成果吧。
 
@@ -1028,4 +1028,4 @@ XYCTF{981e5_f3ca30_c841487_830f84_fb433e}
 
 ---
 
-![83776a4079fc052d284173c78b0c838c](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/83776a4079fc052d284173c78b0c838c.jpeg)
+![83776a4079fc052d284173c78b0c838c](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/83776a4079fc052d284173c78b0c838c.jpeg?x-oss-process=style/blog)

@@ -258,4 +258,4 @@ greet('ben')
 
 这样一来使用模块中的每一个函数都不需要加文件名和句点了，但是不推荐这么做，尤其是在编译大型程序时。因为这可能会导致模块中的函数名和主程序的函数名相冲突，进而引发意想不到的错误。
 
-![复件 62059095_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062059095_p0.jpg)
+![复件 62059095_p0](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062059095_p0.jpg?x-oss-process=style/blog)
