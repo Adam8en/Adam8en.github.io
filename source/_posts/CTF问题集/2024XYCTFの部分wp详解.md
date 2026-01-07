@@ -7,7 +7,7 @@ tags:
   - Misc
   - CTF
 categories: CTF Write Up
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/83776a4079fc052d284173c78b0c838c.jpeg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/83776a4079fc052d284173c78b0c838c.jpeg?x-oss-process=style/blog
 description: XYCTF中的Web、Misc部分write up
 mathjax: true
 ---

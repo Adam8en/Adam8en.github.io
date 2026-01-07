@@ -5,61 +5,59 @@ import os
 import re
 
 # ================= 配置区域 =================
-# 1. 你的 OSS 域名关键词 (保持默认即可)
-OSS_DOMAIN_KEYWORD = 'aliyuncs.com'
+# 目标目录
+POSTS_DIR = r'D:\hexo\source\_posts'
 
-# 2. 你的样式后缀 (已改为你设置的 style/blog)
+# 你的样式后缀
 SUFFIX = '?x-oss-process=style/blog'
 
-# 3. 文章目录
-POSTS_DIR = r'D:\hexo\source\_posts'
+# 阿里云域名关键词 (用于识别)
+OSS_KEYWORD = 'aliyuncs.com'
 # ===========================================
 
 def process_file(file_path):
-    # 【关键】先记录文件的原始时间，防止 Hexo 认为文章被更新了
-    file_stat = os.stat(file_path)
-    original_atime = file_stat.st_atime
-    original_mtime = file_stat.st_mtime
-
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # --- 正则替换逻辑 ---
-    
-    # 1. 处理 Markdown 格式图片: ](http...aliyuncs.com/...)
-    # 逻辑：找到阿里云链接，不管后面有没有旧参数，统统切掉，换成新的样式后缀
-    def replace_md_link(match):
-        clean_url = match.group(1) # 拿到纯净的 URL (不带问号后面的参数)
-        return f']({clean_url}{SUFFIX})'
+    # --- 核心正则逻辑 ---
+    # 解释：匹配 http(s)://...aliyuncs.com/... 
+    # 直到遇到 空格、引号("或')、反括号)、逗号, 或 HTML标签结束符
+    # 这样可以兼容 cover: url、{% image url, ... %}、![...](url) 等各种情况
+    url_pattern = re.compile(r'(https?://[^\s"\'\),<]*' + re.escape(OSS_KEYWORD) + r'[^\s"\'\),<]*)')
 
-    # 正则：匹配 ](url) 结构，非贪婪匹配直到遇到问号或反括号
-    # 这一行会精准提取 http://.../xxx.jpg 这一段
-    pattern_md = re.compile(r'\]\((https?://[^\s)?]*' + re.escape(OSS_DOMAIN_KEYWORD) + r'[^\s)?]*)(?:\?[^\s)]*)?\)')
-    new_content = pattern_md.sub(replace_md_link, content)
-    
-    # 2. 处理 HTML 格式图片: src="http..." (如果有的话)
-    def replace_html_link(match):
-        clean_url = match.group(1)
-        return f'src="{clean_url}{SUFFIX}"'
+    def replace_callback(match):
+        url = match.group(1)
         
-    pattern_html = re.compile(r'src=[\'"](https?://[^\'"]*?' + re.escape(OSS_DOMAIN_KEYWORD) + r'[^\'"]*?)(?:\?[^\'"]*)?[\'"]')
-    new_content = pattern_html.sub(replace_html_link, new_content)
+        # 1. 如果已经包含 style/blog，跳过
+        if 'style/blog' in url:
+            return url
+            
+        # 2. 如果包含旧的 x-oss-process 参数，替换掉
+        if '?x-oss-process=' in url:
+            # 找到参数开始的位置
+            base_url = url.split('?x-oss-process=')[0]
+            return base_url + SUFFIX
+        
+        # 3. 如果包含其他参数 (比如 ?token=...)，用 & 拼接 (虽然 OSS 公共读很少见这种情况)
+        if '?' in url:
+             return url + '&' + SUFFIX.replace('?', '')
+             
+        # 4. 纯净 URL，直接加后缀
+        return url + SUFFIX
 
-    # --- 保存逻辑 ---
+    new_content = url_pattern.sub(replace_callback, content)
+
     if new_content != content:
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(new_content)
-        
-        # 【关键】把时间改回去，实现“无感修改”
-        os.utime(file_path, (original_atime, original_mtime))
         print(f"Fixed: {os.path.basename(file_path)}")
         return True
     else:
         return False
 
 def main():
-    print(f"Target: {POSTS_DIR}")
-    print(f"Style:  {SUFFIX}")
+    print(f"Start scanning in: {POSTS_DIR}")
+    print("Mode: Universal Link Fixer (cover, tags, markdown, html)")
     print("-" * 30)
     
     count = 0
@@ -71,7 +69,9 @@ def main():
                     count += 1
                     
     print("-" * 30)
-    print(f"Done. Processed {count} files.")
+    print(f"Done. Modified {count} files.")
+    print("注意：由于修改了文件内容，Git 会检测到变动，'update.py' 可能会更新这些文章的时间戳。")
+    print("这是为了修复图片链接所必须的，请接受这次变更。")
 
 if __name__ == '__main__':
     main()

@@ -5,7 +5,7 @@ updated: 2024-10-12 15:14:46
 tags:
   - Go
 categories: Go!Go!Go!
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2FAA1B2C149C8C4BFF45431A929E653C.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2FAA1B2C149C8C4BFF45431A929E653C.jpg?x-oss-process=style/blog
 description: 介绍了Go语言中接口的用法，详细的列举了接口的概念到运用实现。
 ---
 

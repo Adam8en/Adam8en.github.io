@@ -3,7 +3,7 @@ title: 从零开始学Python（四）
 date: 2023-09-10 11:39:39
 tags: Python
 categories: Python学习
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2086800272_p0%20(1).jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2086800272_p0%20(1?x-oss-process=style/blog).jpg
 description: 详细介绍类以及类的继承
 updated: 2023-10-17 23:46:03
 ---

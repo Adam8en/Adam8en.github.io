@@ -6,7 +6,7 @@ tags:
   - Machine Learning
   -  Linear Regression with Multiple Variable
 categories: Machine-Learning
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/50140585_p0.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/50140585_p0.jpg?x-oss-process=style/blog
 description: My notes of Coursera-ML-AndrewNg-Week2, introducing Linear Regression with Multiple Variable and Nonlinear Regression.
 ---
 

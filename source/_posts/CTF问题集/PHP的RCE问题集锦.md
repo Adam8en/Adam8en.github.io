@@ -7,7 +7,7 @@ tags:
   - RCE
   - Web
 categories: CTF Write Up
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/c74d52864acadc32631ab8b75a6cb15.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/c74d52864acadc32631ab8b75a6cb15.jpg?x-oss-process=style/blog
 description: 关于CTF中Web的RCE问题汇总。包括题目和相关知识点的介绍。
 ---
 

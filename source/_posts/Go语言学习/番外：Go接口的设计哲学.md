@@ -5,7 +5,7 @@ updated: 2024-10-09 13:57:54
 tags:
   - Go
 categories: Go!Go!Go!
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/d367a38091cb770dfa360d3dbf289740.png
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/d367a38091cb770dfa360d3dbf289740.png?x-oss-process=style/blog
 description: Go学习的番外篇！探讨Go中接口的设计理念。
 ---
 

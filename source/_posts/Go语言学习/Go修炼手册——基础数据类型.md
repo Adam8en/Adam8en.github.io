@@ -5,7 +5,7 @@ updated: 2024-04-27 23:37:09
 tags:
   - Go
 categories: Go!Go!Go!
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/a7a21eb76137fbe20b311c8a2c3ce9bc.jpeg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/a7a21eb76137fbe20b311c8a2c3ce9bc.jpeg?x-oss-process=style/blog
 description: 本章介绍了Go中的基础数据结构
 ---
 

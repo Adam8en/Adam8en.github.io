@@ -6,7 +6,7 @@ tags:
   - Web
 date: 2024-02-20 22:43:10
 categories: CTF Write Up
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/AceAttorneyArtGallery.png
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/AceAttorneyArtGallery.png?x-oss-process=style/blog
 description: 关于MySQL中的“万能密码”和弱类型比较小记。
 updated: 2024-02-20 23:04:30
 ---

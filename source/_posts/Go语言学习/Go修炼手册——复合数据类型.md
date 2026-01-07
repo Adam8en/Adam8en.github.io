@@ -5,7 +5,7 @@ updated: 2024-05-09 16:37:28
 tags:
   - Go
 categories: Go!Go!Go!
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/f5c4c658c9623ef310f3d678caabff4c.jpeg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/f5c4c658c9623ef310f3d678caabff4c.jpeg?x-oss-process=style/blog
 description: Go的复合数据类型讲解，主要讨论四种类型——数组、slice、map和结构体。后两章JSON和模板内容还涉及一点网络编程。
 ---
 

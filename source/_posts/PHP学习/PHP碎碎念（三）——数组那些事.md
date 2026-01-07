@@ -3,7 +3,7 @@ title: PHP碎碎念（三）——数组那些事
 tags: PHP
 date: 2023-11-09 23:01:01
 categories: PHP学习
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/57672472_p0.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/57672472_p0.jpg?x-oss-process=style/blog
 description: 这一章介绍了PHP的一些处理数组的有用函数，只节选了一部分，要阅读全部函数请翻阅PHP的在线手册。
 updated: 2023-11-09 23:03:24
 ---

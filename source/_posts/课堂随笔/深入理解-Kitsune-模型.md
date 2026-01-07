@@ -9,7 +9,7 @@ tags:
 date: 2025-05-11 22:45:55
 updated: 2025-05-11 22:45:55
 categories: 课堂随笔
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511224410700.png
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511224410700.png?x-oss-process=style/blog
 description: 本文介绍了Kitsune，是一种用于在线网络入侵检测的自动编码器集合。
 ---
 

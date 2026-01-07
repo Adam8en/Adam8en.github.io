@@ -5,7 +5,7 @@ tags:
 date: 2024-11-14 15:31:56
 updated: 2026-01-07 15:56:22
 categories: Machine-Learning
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/D2C62FCE46B76B7B3305529FD6BBCE3D.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/D2C62FCE46B76B7B3305529FD6BBCE3D.jpg?x-oss-process=style/blog
 description: Learn more about neural network, introducing how to choose proper activation function and advanced optimization.
 ---
 

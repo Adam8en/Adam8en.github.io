@@ -6,7 +6,7 @@ tags:
   - Rolling Hashes
   - Rabin-Karp
 categories: 算法笔记
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2404CBF21EC9ECF50FF185A745A075DE.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2404CBF21EC9ECF50FF185A745A075DE.jpg?x-oss-process=style/blog
 description: 关于滚动哈希算法的原理介绍，以及实战运用。
 ---
 

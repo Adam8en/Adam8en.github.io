@@ -6,7 +6,7 @@ tags:
   - OS
   - 操作系统
 categories: 课堂随笔
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/64495434_p0.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/64495434_p0.jpg?x-oss-process=style/blog
 description: A document explaining the experimental code for the operating system, along with the debugging process and test inputs.
 ---
 

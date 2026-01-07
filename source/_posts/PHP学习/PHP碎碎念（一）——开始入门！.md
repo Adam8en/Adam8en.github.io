@@ -3,7 +3,7 @@ title: PHP碎碎念（一）——开始入门！
 date: 2023-09-22 00:34:41
 tags: PHP
 categories: PHP学习
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300411.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300411.jpg?x-oss-process=style/blog
 description: 关于PHP的学习笔记
 updated: 2023-11-07 23:26:29
 ---

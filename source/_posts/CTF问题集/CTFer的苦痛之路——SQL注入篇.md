@@ -6,7 +6,7 @@ tags:
   - SQL注入
   - CTF
 categories: CTF苦痛之路
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png?x-oss-process=style/blog
 description: "关于CTF的SQL的一些知识点"
 updated: 2023-10-17 23:40:15
 ---

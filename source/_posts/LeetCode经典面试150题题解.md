@@ -6,7 +6,7 @@ tags:
   - Go
   - 算法
 categories: LeetCode
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%7B930EB68A-6F85-4666-BA42-9333A5074315%7D.png
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%7B930EB68A-6F85-4666-BA42-9333A5074315%7D.png?x-oss-process=style/blog
 description: LeetCode面试经典 150 题的个人题解笔记
 ---
 

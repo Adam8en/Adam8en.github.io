@@ -7,7 +7,7 @@ tags:
   - 任意读取
 date: 2023-11-06 17:26:53
 categories: CTF苦痛之路
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300342.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300342.jpg?x-oss-process=style/blog
 description: 由于目录穿越引起的文件任意读取漏洞导致可以通过计算PIN码的方式来进入控制台
 updated: 2023-11-06 17:30:37
 ---

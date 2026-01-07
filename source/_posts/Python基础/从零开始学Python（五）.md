@@ -3,7 +3,7 @@ title: 从零开始学Python（五）
 date: 2023-09-10 22:54:32
 tags: Python
 categories: Python学习
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2068656793_p0.png
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2068656793_p0.png?x-oss-process=style/blog
 description: 如何操作文件、处理异常、调试程序
 updated: 2023-10-17 23:47:43
 ---

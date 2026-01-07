@@ -5,7 +5,7 @@ tags:
 date: 2024-11-12 21:18:13
 updated: 2026-01-07 15:56:22
 categories: Machine-Learning
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/123363067_p0.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/123363067_p0.jpg?x-oss-process=style/blog
 description: Starting to learn about neural network of its architecture, with implementation in Python.
 ---
 

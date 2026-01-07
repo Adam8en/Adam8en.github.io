@@ -5,7 +5,7 @@ updated: 2024-04-25 20:15:37
 tags: 
   - Go
 categories: Go!Go!Go!
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/1c3f280e740cecf4e83406e672b3525e.jpeg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/1c3f280e740cecf4e83406e672b3525e.jpeg?x-oss-process=style/blog
 description: Go语言的一些学习笔记。第一篇！比较基础的程序结构介绍。
 ---
 

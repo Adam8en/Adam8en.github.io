@@ -6,7 +6,7 @@ tags:
   - Logical Regression
   - Regularization
 categories: Machine-Learning
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/110028263_p0.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/110028263_p0.jpg?x-oss-process=style/blog
 description: Learning logical regression and explaining how to use reularization to solve the problem of overfitting.
 ---
 

@@ -6,7 +6,7 @@ tags:
   - Web
   - Misc
 categories: CTF Write Up
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300008.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300008.jpg?x-oss-process=style/blog
 description: 2023XSCTF招新赛Web，Misc部分WP
 updated: 2023-10-19 22:07:36
 ---

@@ -5,7 +5,7 @@ updated: 2024-05-16 10:20:43
 tags:
   - Go
 categories: Go!Go!Go!
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/CE22E4EE388D674AB24D5CE15D445580.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/CE22E4EE388D674AB24D5CE15D445580.jpg?x-oss-process=style/blog
 description: 本章主要介绍了Go中函数的特性。
 ---
 

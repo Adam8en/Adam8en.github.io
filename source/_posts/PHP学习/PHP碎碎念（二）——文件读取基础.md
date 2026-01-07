@@ -3,7 +3,7 @@ title: PHP碎碎念（二）——文件读取基础
 tags: PHP
 date: 2023-11-08 00:27:39
 categories: PHP学习
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300483.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300483.jpg?x-oss-process=style/blog
 description: 基础的PHP文件处理，和C语言类似。粗略的了解一下即可，真正主流的数据库处理后面再讲。
 updated: 2023-11-08 00:30:06
 ---

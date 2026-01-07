@@ -5,7 +5,7 @@ updated: 2024-10-15 23:13:14
 tags: 
   - 杂谈
 categories: 杂谈
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/4C04B4E3A66D79005E4BB402DFC0E397.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/4C04B4E3A66D79005E4BB402DFC0E397.jpg?x-oss-process=style/blog
 description: 简要的阐述了github中提交代码的格式规范
 ---
 

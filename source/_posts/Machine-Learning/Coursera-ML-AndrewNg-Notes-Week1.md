@@ -6,7 +6,7 @@ tags:
   - Machine Learning
   - Linear Regression
 categories: Machine-Learning
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/b887646c5f1680f1750aaad7fbedc57.png
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/b887646c5f1680f1750aaad7fbedc57.png?x-oss-process=style/blog
 description: My notes of Coursera-ML-AndrewNg-Week1, which introduces what is ML and explain how linear regression to solve problem.
 ---
 
@@ -147,7 +147,7 @@ $$
 
 即便你正确的选择了学习率$\alpha$，梯度下降过程中也会不可避免的出现*学习率衰退*。因为梯度下降法的本质就是沿着函数在当前该点的切线（导数方向/梯度向量）移动一个很小的距离（学习率），而随着变量不断趋于局部最小，导数会逐渐平缓趋于0，所以下降的过程也会更为缓慢。
 
-{% image https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241030115344324.png, width=400px, alt=代价降低速率逐渐减缓，但总是在降低。 %}
+{% image https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241030115344324.png?x-oss-process=style/blog, width=400px, alt=代价降低速率逐渐减缓，但总是在降低。 %}
 
 ### Batch Gradient Decent
 

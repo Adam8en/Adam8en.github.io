@@ -3,7 +3,7 @@ title: 关于高效空间匹配Efficiency Spatial Matching的一些理解
 date: 2023-09-17 22:20:52
 tags: Spatial Matching
 categories: 隐私保护计算
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300590.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300590.jpg?x-oss-process=style/blog
 description: 一个和隐私保护计算有重要关系的机制
 updated: 2023-10-17 23:48:24
 ---

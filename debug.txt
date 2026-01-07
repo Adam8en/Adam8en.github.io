@@ -1,0 +1,290 @@
+正在诊断目录: D:\hexo\source\_posts
+只显示包含 'aliyun' 但没有 'style/blog' 后缀的行...
+========================================
+📄 文件: Githubのcommit-规范.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/4C04B4E3A66D79005E4BB402DFC0E397.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: LeetCode经典面试150题题解.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%7B930EB68A-6F85-4666-BA42-9333A5074315%7D.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 为什么说中国神话是早衰的呢？.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/5632cfa4c9496fba9fa739db609203a.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 数据结构什锦（七）——查找.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/21%20-%2022.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 2023XSCTF初赛部分WP.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300008.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 2024XYCTFの部分wp详解.md (第 10 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/83776a4079fc052d284173c78b0c838c.jpeg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 2024训练营内部网络安全攻防演练复盘.md (第 11 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/93386896_p0.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: CTFer的苦痛之路——SQL注入篇.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062841026_p0.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: easy-md5-WP——SQL下的弱类型比较.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/AceAttorneyArtGallery.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: PHP的RCE问题集锦.md (第 10 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/c74d52864acadc32631ab8b75a6cb15.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 一文弄清楚Flask框架下该如何计算PIN码.md (第 10 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300342.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Go修炼手册——函数.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/CE22E4EE388D674AB24D5CE15D445580.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Go修炼手册——基础数据类型.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/a7a21eb76137fbe20b311c8a2c3ce9bc.jpeg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Go修炼手册——复合数据类型.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/f5c4c658c9623ef310f3d678caabff4c.jpeg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Go修炼手册——接口.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2FAA1B2C149C8C4BFF45431A929E653C.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Go修炼手册——方法.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2c28c545aca49c9b356d3b8ae2f935cf.jpeg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Go修炼手册——程序结构.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/1c3f280e740cecf4e83406e672b3525e.jpeg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 番外：Go接口的设计哲学.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/d367a38091cb770dfa360d3dbf289740.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Coursera-ML-AndrewNg-Notes-Week1.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/b887646c5f1680f1750aaad7fbedc57.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Coursera-ML-AndrewNg-Notes-Week1.md (第 150 行)
+   原始内容: {% image https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20241030115344324.png, width=400px, alt=代价降低速率逐渐减缓，但总是在降低。 %}
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Coursera-ML-AndrewNg-Notes-Week2.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/50140585_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Coursera-ML-AndrewNg-Notes-Week3.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/110028263_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Coursera-ML-AndrewNg-Notes-Week4.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/123363067_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Coursera-ML-AndrewNg-Notes-Week5.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/D2C62FCE46B76B7B3305529FD6BBCE3D.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: PHP碎碎念（一）——开始入门！.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300411.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: PHP碎碎念（三）——数组那些事.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/57672472_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: PHP碎碎念（二）——文件读取基础.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300483.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 从零开始学Python（一）.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2082457624_p0.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 从零开始学Python（三）.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062059095_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 从零开始学Python（二）.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/55982257_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 从零开始学Python（五）.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2068656793_p0.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 从零开始学Python（四）.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2086800272_p0%20(1).jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 数据结构什锦（一）——绪论、递归与回溯.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300431.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 数据结构什锦（三）——栈与队列篇.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/92133366_p0.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 数据结构什锦（二）——链表篇.md (第 7 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300470.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 数据结构什锦（五点五）——优先队列和堆.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/River%20&%20Faye%203.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 数据结构什锦（五）——树：线索二叉树.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2086464994_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 数据结构什锦（六）——走近图论.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/River%20&%20Faye.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 数据结构什锦（四）——树：二叉树.md (第 7 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/1ec9d6b3b80ed38cc22ced07ffb1c4c3.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 10月总结·2024.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/71409824_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 11月总结·2024.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/6b65aa1528d546543f3cd19e50aceb09.jpeg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 2024年度总结.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/58183995_p12.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 3月总结·2024.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/4ee07d93e2515fc33fd8f9f5dcaf207.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 4月总结·2024.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/033b910066680a5312d1b433806e879a.jpeg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 5月总结·2024.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/8981cb99c62b4476c46ad281521a5e11.jpeg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 6月总结·2024.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/116493728_p0.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 9月总结·2024.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/26424396_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Rolling-Hashes：滚动哈希详解.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2404CBF21EC9ECF50FF185A745A075DE.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 算法笔记之动态规划.md (第 12 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/56475bad5af636d0f03dc7aac3b1d87d.jpeg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 算法笔记之复杂性理论.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/100852589_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 算法笔记之贪心算法.md (第 8 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/103835289_p3.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 算法笔记之遍历搜索.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/IMG_20240609_195030.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 计算机组成指北（一）.md (第 10 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/60e6e4dec743523c13ccc9fcabd56171.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 计算机组成指北（七）.md (第 10 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/C10AD1752A521C3C297E7D81400952F1.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 计算机组成指北（三）.md (第 10 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/118769966_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 计算机组成指北（二）.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/121455066_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 计算机组成指北（五）.md (第 11 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/105468887_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 计算机组成指北（六）.md (第 10 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/612FFB2DEDE35B9C77545DB9ADF1C8BF.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 计算机组成指北（四）.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/B457C9EC79F0421BB773651E8FFE5F05.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 关于移动群智感知中的隐私保护的一些理解.md (第 11 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/20230904110250.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 关于高效空间匹配Efficiency-Spatial-Matching的一些理解.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/300590.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: Archive-of-operating-system-experiments.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/64495434_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 数字逻辑小结（一）——数制基础.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2b4ac66703d6f4f4f42296696389284f.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 数字逻辑小结（二）——逻辑电路基础.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/301684.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 汇编味小饼干.md (第 10 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/106476729_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 浅谈中国剩余定理.md (第 9 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/3be1fbc5b0aaefdae08b32df0e361258.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 浅谈古典密码.md (第 12 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/101268797_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 浅谈求逆元.md (第 10 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/101292197_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 浅谈非对称加密.md (第 12 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/116586172_p0.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 深入理解-Kitsune-模型.md (第 12 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20250511224410700.png
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+📄 文件: 计算机网络小笔记.md (第 6 行)
+   原始内容: cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/301790.jpg
+   -> ⚠️ 格式判断: 未知/纯文本链接 (之前的脚本不支持！)
+--------------------
+========================================
+诊断完成。发现 70 个文件含有未处理的阿里云链接。
+请查看上方日志，如果在 '⚠️' 标记处发现了大量链接，那就是漏掉的原因。

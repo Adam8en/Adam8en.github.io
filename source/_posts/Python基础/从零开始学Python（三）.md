@@ -3,7 +3,7 @@ title: 从零开始学Python（三）
 date: 2023-09-07 17:13:33
 tags: Python
 categories: Python学习
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062059095_p0.jpg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/%E5%A4%8D%E4%BB%B6%2062059095_p0.jpg?x-oss-process=style/blog
 description: 用户输入和函数
 updated: 2023-10-17 23:44:09
 ---

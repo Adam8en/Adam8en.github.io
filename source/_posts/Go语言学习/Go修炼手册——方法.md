@@ -5,7 +5,7 @@ updated: 2024-05-26 19:32:09
 tags:
   - Go
 categories: Go!Go!Go!
-cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2c28c545aca49c9b356d3b8ae2f935cf.jpeg
+cover: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/2c28c545aca49c9b356d3b8ae2f935cf.jpeg?x-oss-process=style/blog
 description: 介绍了Go语言中方法的特性，OOP编程完成度1/2！
 ---
 
