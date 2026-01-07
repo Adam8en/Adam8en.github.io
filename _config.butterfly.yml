@@ -961,6 +961,8 @@ inject:
     # - <link rel="stylesheet" href="/css/transparency.css"> #透明度插件
     - <link rel="stylesheet" href="/css/custom.css"> # 自定义插件
     # - <link rel="stylesheet" href="/css/modify.css"> # 修改插件样式，用于一图流
+    # 下面这一行是新增的，引用 霞鹜文楷 屏幕阅读版 (Screen)
+    - <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'">
     
   bottom:
     # - <div><canvas id="snow" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:99999;pointer-events:none"></canvas></div>
