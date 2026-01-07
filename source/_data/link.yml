@@ -1,0 +1,54 @@
+- class_name: 友情链接
+  class_desc: 那些人，那些事
+  link_list:
+    - name: Wahaha's Blog
+      link: https://gngtwhh.github.io/
+      avatar: https://gngtwhh.github.io/img/avatar.jpg
+      descr: Wahaha佬的博客，掌管C语言与逆向的神。
+
+    - name: Stardust's Blog
+      link: https://stardust-xx.github.io/
+      avatar: https://avatars.githubusercontent.com/u/115343437?s=400&u=112fd8d174229964d26c53fd5884e409225e8b62&v=4
+      descr: Crypto大佬的博客。
+
+    - name: xswlhhh's Blog
+      link: https://www.yuque.com/xswlhhh/zkscem
+      avatar: https://cdn.jsdelivr.net/gh/Adam8en/blogImage/images/20230918235521.png
+      descr: 海椰叶的博客，pwn大神。
+
+    - name: c_LBY's Blog
+      link: https://c-lby.github.io/
+      avatar: https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/fd1c7f992167a1546eb3238fb0f720c9_1.jpg
+      descr: 乌蒙pwn大神。
+
+    - name: Pilot's Blog
+      link: https://pilotztb.github.io/
+      avatar: https://pilotztb.github.io/images/avatar.jpg
+      descr: 佬就完了。
+
+    - name: Dunm1e's Blog
+      link: https://dunm1e.cn/
+      avatar: https://dunm1e.cn/images/touxiang.png
+      descr: Python + AIの尊者。
+
+    - name: lazy11's Blog
+      link: https://lazy11.top/
+      avatar: https://lazy11.top/img/lazy-icon.png
+      descr: lazy king!
+
+
+- class_name: 网站
+  class_desc: 值得推荐的网站
+  link_list:
+    - name: Youtube
+      link: https://www.youtube.com/
+      avatar: https://i.loli.net/2020/05/14/9ZkGg8v3azHJfM1.png
+      descr: 視頻網站
+    - name: Weibo
+      link: https://www.weibo.com/
+      avatar: https://i.loli.net/2020/05/14/TLJBum386vcnI1P.png
+      descr: 中國最大社交分享平台
+    - name: Twitter
+      link: https://twitter.com/
+      avatar: https://i.loli.net/2020/05/14/5VyHPQqR6LWF39a.png
+      descr: 社交分享平台
