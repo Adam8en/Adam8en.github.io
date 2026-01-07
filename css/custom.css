@@ -60,6 +60,14 @@ img {
 }
 
 body{
-  font-family: 'WK', sans-serif; /* 字体名自定义即可 */
+  /* font-family: 'WK', sans-serif;  */
+  /* 字体名自定义即可 */
   /* font-size: 101% */
+
+
+  /* 将原来的 'WK' 改为 CDN 字体库的标准名称 'LXGW WenKai Screen' */
+  font-family: 'LXGW WenKai Screen', sans-serif !important;
+  
+  /* 也就是从这样：font-family: 'WK', sans-serif; */
+  /* 变成了上面那样 */
 }
