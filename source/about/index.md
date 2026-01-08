@@ -1,6 +1,7 @@
 ---
 title: 关于
 date: 2023-09-03 19:22:21
+updated: 2026-01-08 19:59:36
 type: about
 comments: false
 aside: false
@@ -23,6 +24,14 @@ aside: false
 
 {% timeline 我的Blog,purple %}
 
+<!-- timeline 2026-01-07 -->
+
+- 新增了图床后缀样式，将原图统一压缩成webp格式显示（大原图时代的落幕……）
+- 新增了图片防盗链功能
+- 修复了若干配置错误，优化了博客加载速度
+
+<!-- endtimeline -->
+
 <!-- timeline 2024-09-29 -->
 
 - 新增深浅模式不同背景
@@ -42,7 +51,7 @@ aside: false
 
 <!-- timeline 2024-09-26 -->
 
-- 购买了新域名！现在可以通过adamben.top访问我的博客了。
+- 购买了新域名！现在可以通过adamben.top访问我的博客了
 - 部署了基于cloudflare的免费CDN加速
 
 <!-- endtimeline -->
