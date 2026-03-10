@@ -86,6 +86,12 @@ $$
 
 回到本文，SparseMM同样是立足于多模态大模型的任务场景，巧妙的设计了一套方法让机器自己评估每个头的贡献程度，在此基础上分配KV Cache与选择token。这种设计抓住了MLLMs的模态分工特性——多数头仍专注文本，仅少数负责视觉，通过“保核心（视觉头）、压冗余（非视觉头）”实现资源高效利用，比传统均匀压缩方法（MQA，GQA）更贴合多模态推理的本质需求。
 
+## 参考资料
+
+1. [【DSA】【深度解读】10分钟看懂最新发布的DeepSeek稀疏注意力新技术 从Sparse Attention讲起_bilibili](https://www.bilibili.com/video/BV1iynyzXEKx/?spm_id_from=333.1387.collection.video_card.click&vd_source=5e421b52b9103cce8e012430aa932553)
+2. [ ICCV 2025 开源｜清华&腾讯提出 SparseMM：仅5%视觉头激活，MLLMs推理加速1.87倍！ - 知乎](https://zhuanlan.zhihu.com/p/1952406823031251108)
+3. [SparseMM: Head Sparsity Emerges from Visual Concept Responses in MLLMs](https://arxiv.org/abs/2506.05344)
+
 ---
 
 ![image-20260310214707597](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260310214707597.png?x-oss-process=style/blog)
