@@ -29,30 +29,31 @@ description: 《SparseMM：Head Sparsity Emerges from Visual Concept Responses i
 
 <img src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260310205509560.png?x-oss-process=style/blog" alt="image-20260310205509560" style="zoom:50%;" />
 
-作者通过准备一组带文字的图片，并用OCR扫描处理，输出识别到的文字和文字所在的边界框，将其整理为`[文字，边界框]`格式的列表（这个边界框本质上是一组绝对坐标）。然后将图片输入MLLM，获得其输出output_token。最后，作者便按图索骥去寻找哪个头出力最多。
+简单来说就是：作者通过准备一组带文字的图片，并用OCR扫描处理，输出识别到的文字和文字所在区域的边界框，将其整理为`[文字，边界框]`格式的列表（这个边界框本质上是一组绝对坐标）。然后将图片输入MLLM，获得其输出output_token。最后，作者便如同按图索骥一般去寻找哪个头出力最多。
 
 我们知道，MLLM主要由**视觉编码器**，**适配器**与一个基于纯文本训练的标准**LLM**组成。多模态数据首先经过视觉编码器被切割成固定长度的patch，将其flatten（拉平为一维向量）并被映射为视觉特征信息，适配器将视觉特征信息对齐到文本特征信息空间，再经过LLM获取最终输出结果。
 
-知道MLLM的工作流程后，就可以看懂作者的实验思路。具体来说，作者在获取OCR扫描的`[文字，边界框]`列表与MLLM的输出output_token后：
+知道MLLM的工作流程后，我们就可以看懂作者的实验思路。具体来说，作者在获取OCR扫描的`[文字，边界框]`列表与MLLM的输出output_token后：
 
 - 首先遍历每一个output_token，找到和token相对应的`[文字，边界框]`组，提取其bbox（如果该token不对应OCR结果中的任何文字，就直接跳过该token）。
-- 接着，匹配和该边界框对应的patch_id，再由patch_id定位文字所在图像被flatten到了一维序列中的哪个位置，我们把对应位置的序列集合记为image_tokens。
+- 接着，根据提取出的bbox匹配和该边界框对应的patch_id。
+- 最后，由patch_id定位文字所在图像被flatten到了一维序列中的哪个位置，我们把对应位置的序列集合记为image_tokens。
 
-概括一下，就是**定位输出token对应的文字图像在进入LLM前的位置**，确定追踪对象。
+概括一下，就是{% span red,定位输出token对应的文字图像在进入LLM前的位置  %}，以确定追踪对象。
 
-确定完追踪对象后，作者遍历LLM的每一个层以及它的每一个头，寻找真正关注该对象的视觉头。具体来说，就是查看当前头的注意力矩阵Attention Matrix，找出Attention Matrix中权重最大的token序号，意味着当前头对这个token的关注度最高。如果关注度最高的token恰好在image_tokens中，意味着当前头高度关注图像上的文字部分，也就是找到了所谓视觉头。
+确定完追踪对象后，作者遍历LLM的每一层的所有头，寻找真正关注该对象的视觉头。具体来说，就是查看当前头的注意力矩阵Attention Matrix，找出Attention Matrix中权重最大的token序号，也就是说当前头对这个token的关注度最高。如果关注度最高的token恰好在image_tokens中，说明当前头高度关注图像上的文字部分，这个头就是所谓视觉头。
 
-我们给这个头加分 $\frac{1}{\#\text{image\_tokens}}$ ，这个$\#\text{image\_tokens}$代表image_tokens这个集合中的元素数量。这么做主要是给视觉头的作用加上一个权重，来评估其能力。这意味着更小（更精确）的区域会获得更高的分数，因为它们更难被捕捉。
+我们给这个头加分 $\frac{1}{\#\text{image\_tokens}}$ ，这个$\#\text{image\_tokens}$代表image_tokens这个集合中的元素数量。这么做主要是给视觉头的作用加上一个权重，来评估其能力。这会让更小（更精确）的区域会获得更高的分数，因为它们更难被捕捉。
 
 最后，我们返回一个 $Score_{L \times H}$ 矩阵（即 $S$ 矩阵，L与H代表层数与头数），这个矩阵即LLM中所有头的视觉评估得分。
 
 ![image-20260310210323887](https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260310210323887.png?x-oss-process=style/blog)
 
-有了 $S$ 矩阵，我们就可以确定给每个头分配的KV Cache大小。我们分配KV Cache的策略由三部分组成，假设KV Cache的总大小为 $B$ ：
+有了 $S$ 矩阵，我们就可以确定给每个头分配的KV Cache大小。我们分配KV Cache的策略由三部分组成，令KV Cache的总大小为 $B$ ：
 
-1. Local Window Cache：局部窗口缓存。它规定每个token必须要缓存它的前 $w$ 个token的KV，默认取 $w = 32$ 。分配给LWC的总大小为 $w \times N$ ， $N$ 即头的数量。 
+1. Local Window Cache：局部窗口缓存。它规定每个token必须要缓存它的前 $w$ 个token的KV，默认取 $w = 32$ 。分配给LWC的总大小为 $w \times N$ ， $N$ 为头的数量。 
 
-2. Uniform-Based Cache：统一基础的缓存，相当于低保，保证每一个头都留有那么一点Cache。这个值通过设置超参数 $\rho$ 来划分（ $\rho \in (0,1)$ ），比如 $\rho = 0.1$，那么就固定划分总量的10%作为UBC。每个头分到的大小 则可以表示为：
+2. Uniform-Based Cache：统一的基础缓存，相当于低保，保证每一个头都留有那么一点Cache。这个值通过设置超参数 $\rho$ 来划分（ $\rho \in (0,1)$ ），比如 $\rho = 0.1$，那么就固定划分总量的10%作为UBC。每个头分到的大小则可以表示为：
    $$
    r = \frac{\rho · (B - N · w)}{N}
    $$
