@@ -64,7 +64,7 @@ description: 《SparseMM：Head Sparsity Emerges from Visual Concept Responses i
    $$
    不难看出，SPC可分配的空间是巨大的，而它的分配方式也很简单，根据 $S$ 矩阵计算每个头的视觉关注权重即可。我们用 $s_{ij}$ 来表示 $S$ 矩阵 $i$ 行 $j$ 列的元素，可以确定每个头在SPC中应该分配的空间为：
    $$
-   b_{ij}^{\text{score}} = B_{\text{remain2}} \cdot \frac{s_{ij}}{\sum_{i=1}^{L} \sum_{j=1}^{H} s_{ij}}
+   b_{ij}^{\text{score}} = B_{\text{remain}} \cdot \frac{s_{ij}}{\sum_{i=1}^{L} \sum_{j=1}^{H} s_{ij}}
    $$
 
 综上所述，对于任意一个头 head $(i,j)$ ，它的最终Cache分配为：
