@@ -429,7 +429,7 @@ addtoany:
 comments:
   # Up to two comments system, the first will be shown as default
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
-  use: Valine # Valine,Disqus
+  use: Waline # Waline,Disqus
   text: true # Display the comment name next to the button
   # lazyload: The comment system will be load when comment element enters the browser's viewport.
   # If you set it to true, the comment count will be invalid
@@ -469,8 +469,8 @@ gitalk:
 # valine
 # https://valine.js.org
 valine:
-  appId: 07g7RVgbp0tb6j6gBjcZCTKv-gzGzoHsz
-  appKey: 4w4tpzByVtxnDriO8BFDKLBt
+  appId:
+  appKey:
   avatar: monsterid # gravatar style https://valine.js.org/#/avatar
   lang: zh_CN
   placeholder: 记得留下你的昵称和邮箱....可以快速收到回复 # valine comment input placeholder (like: Please leave your footprints)
@@ -483,10 +483,16 @@ valine:
 # waline - A simple comment system with backend support fork from Valine
 # https://waline.js.org/
 waline:
-  serverURL: # Waline server address url
+  serverURL: https://comment.adamben.top # Waline server address url
   bg: # waline background
   pageview: false
   option:
+    lang: zh-CN
+    locale:
+      placeholder: 记得留下你的昵称和邮箱，可以及时收到回复
+    requiredMeta:
+      - nick
+      - mail
 
 # utterances
 # https://utteranc.es/
@@ -1014,8 +1020,8 @@ CDN:
     # disqusjs:
     # disqusjs_css:
     # twikoo:
-    # waline_js:
-    # waline_css:
+    waline_js: https://cdn.jsdelivr.net/npm/@waline/client@2.15.5/dist/waline.min.js
+    waline_css: https://cdn.jsdelivr.net/npm/@waline/client@2.15.5/dist/waline.min.css
     # giscus:
     # sharejs:
     # sharejs_css:
