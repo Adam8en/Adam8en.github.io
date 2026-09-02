@@ -1,7 +1,7 @@
 ---
 title: 关于
 date: 2023-09-03 19:22:21
-updated: 2026-09-02 15:29:31
+updated: 2026-09-02 18:05:37
 type: about
 comments: false
 aside: false
@@ -27,6 +27,8 @@ aside: false
 <!-- timeline 2026-09-01 -->
 
 - 因为leancloud即将停止服务，将评论系统从Valine迁移至Waline
+- ClustrMaps服务中止，访客地图不得不暂时下线
+- 重启了最新评论服务！
 - 首次Agent全自动化部署！Token蹬得冒烟了~
 
 <!-- endtimeline -->

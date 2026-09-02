@@ -301,14 +301,11 @@ runtimeshow:
 
 # Aside widget - Newest Comments
 newest_comments:
-  enable: false
+  enable: true
   sort_order: # Don't modify the setting unless you know how it works
   limit: 6
   storage: 10 # unit: mins, save data to localStorage
   avatar: true
-  # You can only choose one, or neither
-  # 设置最新评论显示 Valine 的
-  valine: true
   github_issues:
     enable: false
     repo:
