@@ -1,7 +1,7 @@
 ---
 title: 关于
 date: 2023-09-03 19:22:21
-updated: 2026-09-01 22:15:43
+updated: 2026-09-02 15:29:31
 type: about
 comments: false
 aside: false
@@ -23,6 +23,13 @@ aside: false
 
 
 {% timeline 我的Blog,purple %}
+
+<!-- timeline 2026-09-01 -->
+
+- 因为leancloud即将停止服务，将评论系统从Valine迁移至Waline
+- 首次Agent全自动化部署！Token蹬得冒烟了~
+
+<!-- endtimeline -->
 
 <!-- timeline 2026-01-07 -->
 
@@ -53,13 +60,6 @@ aside: false
 
 - 购买了新域名！现在可以通过adamben.top访问我的博客了
 - 部署了基于cloudflare的免费CDN加速
-
-<!-- endtimeline -->
-
-<!-- timeline 2026-09-01 -->
-
-- 因为leancloud即将停止服务，将评论系统从Valine迁移至Waline
-- 首次Agent全自动化部署！Token蹬得冒烟了~
 
 <!-- endtimeline -->
 
