@@ -15,7 +15,7 @@
     "hexo": "^6.3.0",
     "hexo-asset-image": "github:CodeFalling/hexo-asset-image",
     "hexo-asset-img": "^1.0.0",
-    "hexo-bilibili-bangumi": "^1.10.6",
+    "hexo-bilibili-bangumi": "^2.0.4",
     "hexo-browsersync": "^0.3.0",
     "hexo-butterfly-artitalk": "^1.0.4",
     "hexo-butterfly-envelope": "^1.0.15",
