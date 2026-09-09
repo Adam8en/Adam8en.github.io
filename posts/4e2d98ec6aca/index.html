@@ -1,0 +1,528 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SpatialClaw：空间推理会梦见Agent吗？ | Adam8enの8log</title><meta name="author" content="Adam Ben"><meta name="copyright" content="Adam Ben"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="《SpatialClaw：Rethinking Action Interface for Agentic Spatial Reasoning》论文精读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpatialClaw：空间推理会梦见Agent吗？">
+<meta property="og:url" content="https://adamben.top/posts/4e2d98ec6aca/index.html">
+<meta property="og:site_name" content="Adam8enの8log">
+<meta property="og:description" content="《SpatialClaw：Rethinking Action Interface for Agentic Spatial Reasoning》论文精读">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909193808303.png?x-oss-process=style/blog">
+<meta property="article:published_time" content="2026-09-09T12:01:10.000Z">
+<meta property="article:modified_time" content="2026-09-09T12:01:10.000Z">
+<meta property="article:author" content="Adam Ben">
+<meta property="article:tag" content="Spatial Intelligence">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="Action interface">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909193808303.png?x-oss-process=style/blog"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://adamben.top/posts/4e2d98ec6aca/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SpatialClaw：空间推理会梦见Agent吗？',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-09-09 20:01:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@1.0.17/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Adam8enの8log" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">75</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">102</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw far fa-comment"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fas fa-tv"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909193808303.png?x-oss-process=style/blog')"><nav id="nav"><span id="blog-info"><a href="/" title="Adam8enの8log"><span class="site-name">Adam8enの8log</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw far fa-comment"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fa fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fas fa-tv"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">SpatialClaw：空间推理会梦见Agent吗？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-09-09T12:01:10.000Z" title="发表于 2026-09-09 20:01:10">2026-09-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-09T12:01:10.000Z" title="更新于 2026-09-09 20:01:10">2026-09-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Spatial-Intelligence/">Spatial-Intelligence</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="SpatialClaw：空间推理会梦见Agent吗？"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img gist" style="background-image: url(https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909193808303.png?x-oss-process=style/blog)"></div><article class="post-content" id="article-container"><span class='p center logo large'>SpatialClaw</span>
+<span class='p center small'>空间推理会梦见Agent吗？</span>
+<p>本文整理了个人对于[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.13673">2606.13673] SpatialClaw: Rethinking Action Interface for Agentic Spatial Reasoning</a>的一些见解与思考。论文代码地址：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/NVlabs/SpatialClaw"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/SpatialClaw.svg" alt="NVlabs/SpatialClaw - GitHub" /></a></p>
+<p>细心的读者可能发现了，论文的副标题不是叫“重新思考智能体空间推理的动作接口”么？</p>
+<p>没错，“空间推理会梦见Agent吗？”是笔者即兴发挥的，嘿嘿。</p>
+<p>那么废话少说，我们直接进入正题。</p>
+<h2 id="方法论"><a class="markdownIt-Anchor" href="#方法论"></a> 方法论</h2>
+<h3 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h3>
+<p>何谓Spatial Reasoning？</p>
+<blockquote>
+<p><em>Spatial reasoning, the ability to determine where objects are, how they relate, and how they move in 3D, remains a fundamental challenge for vision-language models (VLMs). Tool-augmented agents attempt to address this by augmenting VLMs with specialist perception modules, yet their effectiveness is bounded by the <strong>action interface</strong> through which those tools are invoked.</em></p>
+</blockquote>
+<p>以上节选自论文摘要。简单的说，Spatial Reasoning的定义是：物体在哪里，他们之间有什么关联，物体在3D空间内又是怎么移动的。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909161343701.png?x-oss-process=style/blog" alt="image-20260909161343701" /></p>
+<p>一言以蔽之，论文提出了一套称之为SpatialClaw的方法<psw>本质是agent harness</psw><psw>笔者高度怀疑这是在蹭OpenClaw的热点</psw>，并声称它在共20个Spatial Reasoning benchmark上取得了平均59.9%的Acc，高出最近的其他Spatial Agent 11.2 point。表现如上图所示。</p>
+<h3 id="核心设计"><a class="markdownIt-Anchor" href="#核心设计"></a> 核心设计</h3>
+<p>论文列出了三种解决空间推理的模式：</p>
+<ul>
+<li>single-pass code execution：单次代码执行</li>
+<li>structured tool-call interface：多步 agent loop，每步通过固定的 JSON schema 调用一个预定义 tool。常见的ReAct-style agent</li>
+<li>SpatialClaw：提出一个新的action interface。维护一个持久的Python Kernel，每步生成任意 Python cell作为动作执行，复用已有变量</li>
+</ul>
+<p>最终的novelty在于：维护一个持久的Python Kernel，每步生成任意 Python cell，并复用已有变量。比single-pass code execution多出了loop，比常见的ReAct架构中structured tool-call interface更直接，Python cell这个interface也许对agent更友好。</p>
+<p>锐评一下，就是拿agent的铲子做Embodied intelligence/Spatial intelligence的活。</p>
+<h3 id="数据流"><a class="markdownIt-Anchor" href="#数据流"></a> 数据流</h3>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/SpatialClawWorkflow.svg" alt="SpatialClawWorkflow" style="zoom: 67%;" />
+<p>如上图所示，这是论文代码中实际的数据流。benchmark sample首先由<code>run.py</code>并发采样，然后交由<code>Workflow.arun()</code>函数具体处理。黄色部分是由LangGraph定义的AgentState状态流，其中蓝色的节点是agent loop中会反复执行的节点。最后Agent结束循环返回一个final answer进行eval。</p>
+<p>接下来我将详细拆解每一个节点的实际执行逻辑。</p>
+<h4 id="agent-state-init_node"><a class="markdownIt-Anchor" href="#agent-state-init_node"></a> agent state: init_node</h4>
+<blockquote>
+<ul>
+<li>启用或复用一个Kernel</li>
+<li>通过cloudpickel临时文件注入样本对象</li>
+<li>搭建初始message</li>
+<li>记录变量注册表</li>
+<li>初始化日志</li>
+</ul>
+</blockquote>
+<p>首先是init节点，它的主要作用是启动或者复用一个Kernel，注入样本对象，再初始化message。</p>
+<p>这个样本对象如何理解？就是将图片和一些已经写好的方法注入进Kernel，这样Agent就能在Kernel里以对象为目标调用这些方法处理数据。</p>
+<p>message分为system message和human message，前者用来构造系统prompt，后者构造用户指令。除此之外，后续还会记录变量注册表和初始化日志。注册变量是为了不让模型因为上下文记错变量的名字，具体通过后续feedback节点的 variable diff实现。</p>
+<h4 id="agent-state-plan_node"><a class="markdownIt-Anchor" href="#agent-state-plan_node"></a> agent state: plan_node*</h4>
+<blockquote>
+<ul>
+<li>不看图片，text-only，防止猜答案</li>
+<li>搭建<strong>独立</strong>的planning session messages</li>
+<li>注入plan</li>
+<li><em>提取checklist items</em></li>
+</ul>
+</blockquote>
+<p>该节点是可选的。</p>
+<p>plan节点主要作用是调用 LLM 生成执行计划，并把计划和过渡提示用一条human message的形式加入 Agent 的消息历史。</p>
+<p>这里有几个细节：第一，LLM在进行plan时只能读取文本信息，看不到图片，这么做是为了防止LLM看到图片后开始猜测答案；第二，用于plan的LLM会话和执行主Agent的LLM 会话是相互独立的，这么做也许是为了减少耦合，并且只专注于进行plan；第三，最后提取的checklist item用于给reflection节点做检查，但只有启用了reflection功能才会提取。</p>
+<h4 id="agent-state-llm_step_node"><a class="markdownIt-Anchor" href="#agent-state-llm_step_node"></a> agent state: llm_step_node</h4>
+<blockquote>
+<ul>
+<li>搭建给LLM的message并发送</li>
+<li>验证返回的structured response</li>
+<li>如果成功：从structured response中提取code等信息</li>
+<li>搭建带有structured content的AI message</li>
+</ul>
+</blockquote>
+<p>llm_step节点调用LLM来生成要执行的代码，并且更新agent state的状态。但是它不做实际执行，只做输出格式检查。</p>
+<p>它先把message发送给LLM，然后接受并验证返回的structured response。如果验证成功就从中提取code等信息，整理成一个规格化形式的AI message。这个 AIMessage 可以理解为一份规范化的 trajectory record，主要目的是让后续 Agent 和 reflection 继续读取，同时也方便人类阅读。而原始的raw response 则单独保存在日志里。</p>
+<h4 id="agent-state-execute_node"><a class="markdownIt-Anchor" href="#agent-state-execute_node"></a> agent state: execute_node</h4>
+<blockquote>
+<ul>
+<li>安全性检查；黑名单静态检查，不是系统级Sandbox</li>
+<li>清空缓冲区</li>
+<li>在Jupyter Kernel中执行代码</li>
+<li>计数tool calls；正则搜索，不准确</li>
+<li>从VLM和feedback modules中收集VLM queries</li>
+<li>更新current_step_result</li>
+</ul>
+</blockquote>
+<p>execute节点的作用是对代码进行安全性检查，再交由Jupyter Kernel实际执行，并收集 stdout、异常、图片和 VLM 调用等数据，将其更新进current_step_result。</p>
+<p>这里有几个细节，一个是这里的安全性检查其实只是黑名单静态检查，对一些涉及到系统操作的敏感函数拒绝调用，并不是系统级别的sandbox。第二是这里对tool calls进行统计，代码里的具体实现是直接对生成的code进行正则匹配，统计函数名出现的次数，实际上这一块的计数是相当不严谨的。</p>
+<h4 id="agent-state-feedback_node"><a class="markdownIt-Anchor" href="#agent-state-feedback_node"></a> agent state: feedback_node</h4>
+<blockquote>
+<ul>
+<li>从Kernel中获取现有变量并且记录产生变化的变量</li>
+<li>对errored steps决策使用何种rollback策略</li>
+<li>检查大变量更新step_result</li>
+<li>检查ReturnAnswer sentinel</li>
+<li>搭建condense messages</li>
+<li>搭建messages</li>
+</ul>
+</blockquote>
+<p>feedback节点的作用主要是整理结果、反馈给 LLM，并判断是否结束。</p>
+<p>首先这里从Kernel中获取现有变量并且记录产生变化的变量（variable diff），就用上了先前在init节点中保存的变量快照。这里单独记录发生变化的变量，能让模型不至于一次性读入太多变量，然后因上下文过长而产生幻觉记错名字，同时也让 Agent 更容易掌握本轮产生了哪些新状态。</p>
+<p>而后，如果执行代码中出现了error，feedback节点将决定使用什么rollback策略。一种是能定位错误行，并且有新变量产生，就采用部分回滚策略：只删除发生error的对应行所产生的新变量，上文中没有出错的变量作为Survivor全部保留；另一种是无法确认error产生的范围，就采用完全回滚策略：把所有在这一轮代码执行过程中新产生的变量全部删除，本质上是一种尽最大努力的清除还原策略。</p>
+<p>检查大变量是为了预防内存耗尽，通过向agent发出警告来实现这一点，并不采取强制性预防措施。</p>
+<p>检查ReturnAnswer sentinel来判断是否产生了final answer，如果有，就更新agent状态。</p>
+<p>搭建condense messages的目的是对错误信息进行压缩，防止因错误产生的无用代码占据太多上下文。</p>
+<p>最后，再搭建一轮新的message，准备传给下一轮循环的LLM。</p>
+<h4 id="agent-state-reflection_node"><a class="markdownIt-Anchor" href="#agent-state-reflection_node"></a> agent state: reflection_node*</h4>
+<blockquote>
+<ul>
+<li>检查逻辑、几何、工具使用和证据充分性，维护Checklist</li>
+<li>发现问题时给出警告</li>
+<li>答案提交后发现问题时可撤销答案并要求主 Agent继续验证</li>
+<li>受到剩余步数和提交次数限制，防止无限反思</li>
+<li>同样是一次独立的LLM调用</li>
+</ul>
+</blockquote>
+<p>reflection节点也是可选的。</p>
+<p>它额外调用一次 LLM，对 Agent 刚才的执行过程和答案进行自我审查。</p>
+<p>不过，如果剩余步骤太少或者答案已被拒绝太多次/已经提交过太多次，它会接受当前答案，避免 Agent 因反复修改answer最终被强制终止。</p>
+<h4 id="should_continuerouter"><a class="markdownIt-Anchor" href="#should_continuerouter"></a> should_continue/router</h4>
+<blockquote>
+<ul>
+<li>
+<p>final_answer: END</p>
+</li>
+<li>
+<p>step_count &gt;= max_steps: force_terminate</p>
+</li>
+<li>
+<p>failure_count &gt;= max_failures: force_terminate</p>
+</li>
+<li>
+<p>total_tool_calls &gt;= max_tool_calls: force_terminate</p>
+</li>
+</ul>
+</blockquote>
+<p>should_continue，它实际上充当一个路由的角色，也就是router，来决定工作流走向。</p>
+<p>如果此时Agent state中存在final answer，就直接进入END，退出agent loop。而剩下的三种情况：超过最大执行步数、LLM连续执行出错超过最大错误限制、超过最大工具调用次数，都会被force_terminate，然后再进入END。</p>
+<h4 id="force_terminate"><a class="markdownIt-Anchor" href="#force_terminate"></a> force_terminate</h4>
+<blockquote>
+<ul>
+<li>记录强制终止的reason</li>
+<li>提交最近一次产生的answer</li>
+<li>如果先前没有产生过answer，执行一次CoT产生answer提交</li>
+<li>搭建summary</li>
+</ul>
+</blockquote>
+<p>如果进入到了force_terminate节点，那么它会首先记录强制终止的reason，然后再尝试提交一个answer，优先级是：</p>
+<ol>
+<li>使用最近一次提交过的答案</li>
+<li>调用 CoT 视觉模型产出answer兜底</li>
+<li>如果CoT也失败了，那就查看历史记录，尝试用正则找出一个答案</li>
+<li>实在没有才返回一个空答案。</li>
+</ol>
+<p>最后，搭建一个summary。</p>
+<h3 id="模式配置"><a class="markdownIt-Anchor" href="#模式配置"></a> 模式配置</h3>
+<p>介绍完AgentState状态流，项目的基本架构就差不多明显了。再回头说说论文里提到的三种模式，其实他们都共享同一套底层架构，只不过是通过参数和消融来实现，或者说模拟不同的执行效果。</p>
+<ul>
+<li>Single-pass模式：通过设置<code>max_step = 1</code>，然后关闭Plan和Reflection节点来实现。这样就相当于只执行了一次代码生成。</li>
+<li>ReAct模式：每一步只让LLM输出一个JSON tool call。应该是通过prompt注入实现的，然后再把Json格式翻译成Python执行。</li>
+<li>Code模式：也就是SpatialClaw，每步生成一个自由的python cell，组合多个操作。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>动作</th>
+<th>循环</th>
+<th>Planning/Reflection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-pass</td>
+<td>一个自由 Python cell，可调用多个工具</td>
+<td>1 轮</td>
+<td>关闭</td>
+</tr>
+<tr>
+<td>ReAct</td>
+<td>每步一个 JSON tool call，再翻译成 Python</td>
+<td>多轮</td>
+<td>复用相同 graph</td>
+</tr>
+<tr>
+<td>Code</td>
+<td>每步一个自由 Python cell，可组合多个操作</td>
+<td>多轮</td>
+<td>可配置</td>
+</tr>
+</tbody>
+</table>
+<h2 id="实验部分"><a class="markdownIt-Anchor" href="#实验部分"></a> 实验部分</h2>
+<h3 id="实验设置"><a class="markdownIt-Anchor" href="#实验设置"></a> 实验设置</h3>
+<p>实验一共采用了20个Benchmark，分为五类：</p>
+<ul>
+<li>单图空间推理，4个</li>
+<li>多视角空间推理，3个</li>
+<li>视频空间与 4D 推理，6 个</li>
+<li>通用空间推理，3 个</li>
+<li>通用视频理解，4 个</li>
+</ul>
+<p>且最终 Average 是 20 个 benchmark 分数的非加权平均。</p>
+<p>使用6个开源的VLM：</p>
+<ul>
+<li>Qwen3.5-397B-A17B		GPTQ Int4</li>
+<li>Qwen3.5-122B-A10B		FP8</li>
+<li>Qwen3.6-35B-A3B		FP8</li>
+<li>Qwen3.6-27B			FP8</li>
+<li>Gemma4-31B			FP8</li>
+<li>Gemma4-26B-A4B		FP8</li>
+</ul>
+<p>所有模型使用相同的system prompt，perception tools，输入预处理，且<code>max_step = 30</code></p>
+<h3 id="实验结果"><a class="markdownIt-Anchor" href="#实验结果"></a> 实验结果</h3>
+<div class="tabs" id="result"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#result-1">只改变action-interface</button></li><li class="tab"><button type="button" data-href="#result-2">与其他Spatial Agent对比</button></li><li class="tab"><button type="button" data-href="#result-3">消融实验</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="result-1"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909190246615.png?x-oss-process=style/blog" alt="image-20260909190246615" style="zoom:80%;" />
+<blockquote>
+<ul>
+<li>No-tool reasoning	53.4</li>
+<li>Single-pass code	55.2</li>
+<li>Structured tool-call	56.7</li>
+<li><strong>SpatialClaw		59.9</strong></li>
+</ul>
+</blockquote>
+<p>固定一个模型Gemma4-31B，然后只改变action interface对比分数。这里解释一下No tool reasoning baseline，其实就是把问题拿去问LLM，然后LLM也不生成代码，直接给出答案。最后可以看到Spatialclaw的平均分是最高的。</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="result-2"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909190309199.png?x-oss-process=style/blog" alt="image-20260909190309199" style="zoom:80%;" />
+<blockquote>
+<ul>
+<li>VADAR只支持单图	  -</li>
+<li>SpaceTools-Toolshed	48.7</li>
+<li>pySpatial			47.8</li>
+<li>SpatialClaw		59.9</li>
+</ul>
+</blockquote>
+<p>这里是与其他Spatial Agent的比较，Spatialclaw也是拿下了最高平均分。可以看到作者拿来对比的Agent得分甚至不如baseline，<s>我也不知道为什么会这样</s>。</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="result-3"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909190641531.png?x-oss-process=style/blog" alt="image-20260909190641531" style="zoom:80%;" />
+<p>这里是作者做的消融实验，第一行是完整的Spatialclaw，第二行移除了提前写好的计算工具，第三行移除了视觉感知工具，第四行是baseline。</p>
+<p>从结果我们可以看出，预定义的 tools.Mask这些CPU工具不是关键，去掉他们的分数只掉了0.5分左右。而依赖GPU的perception tools很重要，去掉他们分数直接掉了5.5分。</p>
+<p>第三是没有 perception tools 时仍比 no-tool 高 2.7 分，论文认为这说明了action interface本身也有贡献。不过这里也不是很严谨，因为他没有排除掉plan，多步循环等因素，所以说因果性不是很严格。</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909191534964.png?x-oss-process=style/blog" alt="image-20260909191534964" /></p>
+<p>最后作者对实验结果做了整理，统计了表现更好的任务和表现不如single-pass与structured tool-call的任务。</p>
+<p>可以看出增益明显的任务主要有camera motion， multiview reasoning这种多视角组合任务，增益一般或者负增益的任务主要是visual recognition，spatial counting这种偏静态识别的任务。这就说明：<span class='p red'>当任务需要需要跨帧、跨视角组合多个中间结果时，persistent code interface 最有价值，</span>不然的话表现可能还不如传统方法。</p>
+<h3 id="失败分析"><a class="markdownIt-Anchor" href="#失败分析"></a> 失败分析</h3>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909192101621.png?x-oss-process=style/blog" alt="image-20260909192101621" style="zoom: 50%;" />
+<p>作者对失败案例单独进行了分析：用LLM as judge的方法让Gemini-3.1-Pro分类了1000个错误轨迹。可以看到占大头的错误是<emp>几何计算错误</emp>，<emp>工具选择或覆盖不足</emp>，<emp>工具不支持视觉判断</emp>和<emp>VLM幻觉</emp>。</p>
+<p>这说明目前的bottleneck主要集中于<u>正确感知</u>，<u>正确选工具</u>，<u>正确几何计算</u>和<u>错误恢复</u>这几个方面，主要聚焦于底层VLM和视觉工具，继续研究action interface的提升空间比较有限。</p>
+<h2 id="结论"><a class="markdownIt-Anchor" href="#结论"></a> 结论</h2>
+<p>最后我们可以得出几个结论。</p>
+<p>第一是这套action interface对空间推理任务来说确有提升，准确的说是persistent Kernel、Agent loop，还有中间过程检查与修改这么几个机制共同提升了任务表现。</p>
+<p>第二是在需要跨帧计算几何信息链的场景下，才能够让SpatialClaw的表现最大化。因为这样才能够更充分的利用到SpatialClaw架构多轮循环检查带来的优势，在单帧场景下的就显得有点冗余，表现可能还不如传统方法。</p>
+<p>第三就是Spatialclaw目前的bottleneck主要在于底层的VLM和感知工具的质量，因为SpatialClaw的执行与检查都依赖这两个组件，而缺乏对他们的校验机制。</p>
+<p>第四就是这个方法的推理成本高，它每一轮循环都会调用额外的LLM 会话做规划反思，还要对中间结果检查，会在这几个步骤上耗费很多token。</p>
+<h2 id="不足"><a class="markdownIt-Anchor" href="#不足"></a> 不足</h2>
+<p>笔者认为的不足主要有三点。一是计算的预算不公平：No-tool baseline一次执行只调用一次llm，但是SpatialClaw的一步执行可能会在代码中调用多次VLM，还有planner，SAM3等。所以，论文里给出的“59.9%”的数据和提升，并不好说到底是来自action interface，还是更多 test-time compute 和更多外部工具。论文没有给出 accuracy-token-cost-latency 曲线，所以无法判断 SpatialClaw 是更高效，还是“花更多资源得到更高准确率”。</p>
+<p>第二是没有把 harness 组件的贡献拆开。SpatialClaw 同时包含 persistent kernel、visual feedback、variable summary、planner 和 verification prompt。论文主要比较的是整套 bundle，没有单独证明哪个组件最重要。也就是说，消融部分还有待改进。</p>
+<p>第三是统计和指标口径不够严谨。论文没有报告多随机种子、置信区间或显著性检验；20 个 benchmark 还混合了 Accuracy、MRA 和 VCI，并进行等权平均。因此 59.9% 只是一个方便汇总的 macro-average，不等于所有问题的总体正确率，也不能直接判断较小的提升是否稳定。</p>
+<h2 id="参考文献"><a class="markdownIt-Anchor" href="#参考文献"></a> 参考文献</h2>
+<ul>
+<li>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03629">2210.03629] ReAct: Synergizing Reasoning and Acting in Language Models</a></li>
+<li>[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.15793">2405.15793] SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering</a></li>
+</ul>
+<hr />
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909193808303.png?x-oss-process=style/blog" alt="image-20260909193808303" /></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://adamben.top">Adam Ben</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://adamben.top/posts/4e2d98ec6aca/">https://adamben.top/posts/4e2d98ec6aca/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://adamben.top" target="_blank">Adam8enの8log</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Spatial-Intelligence/">Spatial Intelligence</a><a class="post-meta__tags" href="/tags/Agent/">Agent</a><a class="post-meta__tags" href="/tags/Action-interface/">Action interface</a></div><div class="post_share"><div class="social-share" data-image="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909193808303.png?x-oss-process=style/blog" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/05e541580ad1/" title="VS-Bench：论如何评估多模态大语言模型的策略能力"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260422211642703.png?x-oss-process=style/blog" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">VS-Bench：论如何评估多模态大语言模型的策略能力</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/05e541580ad1/" title="VS-Bench：论如何评估多模态大语言模型的策略能力"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260422211642703.png?x-oss-process=style/blog" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-22</div><div class="title">VS-Bench：论如何评估多模态大语言模型的策略能力</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Adam Ben</div><div class="author-info__description">你的孤独与月为伴，你的深情与星同归</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">75</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">102</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adam8en"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Adam8en" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:adamben@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/Adam_Ben?type=blog" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a><a class="social-icon" href="tencent://AddContact/?fromId=45&amp;fromSubId=1&amp;subcmd=all&amp;uin=2813879949&amp;website=www.oicqzone.com" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不知道说什么好,<br>放个表情包在这里好了,<br>⁽˙³˙⁾◟(๑•́ ₃ •̀๑)◞⁽˙³˙⁾,<br><br>如有疑问欢迎联系邮箱：<br>adamben@qq.com</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text"> 方法论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.1.</span> <span class="toc-text"> 背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.</span> <span class="toc-text"> 核心设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number">1.3.</span> <span class="toc-text"> 数据流</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#agent-state-init_node"><span class="toc-number">1.3.1.</span> <span class="toc-text"> agent state: init_node</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#agent-state-plan_node"><span class="toc-number">1.3.2.</span> <span class="toc-text"> agent state: plan_node*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#agent-state-llm_step_node"><span class="toc-number">1.3.3.</span> <span class="toc-text"> agent state: llm_step_node</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#agent-state-execute_node"><span class="toc-number">1.3.4.</span> <span class="toc-text"> agent state: execute_node</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#agent-state-feedback_node"><span class="toc-number">1.3.5.</span> <span class="toc-text"> agent state: feedback_node</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#agent-state-reflection_node"><span class="toc-number">1.3.6.</span> <span class="toc-text"> agent state: reflection_node*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#should_continuerouter"><span class="toc-number">1.3.7.</span> <span class="toc-text"> should_continue&#x2F;router</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#force_terminate"><span class="toc-number">1.3.8.</span> <span class="toc-text"> force_terminate</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E9%85%8D%E7%BD%AE"><span class="toc-number">1.4.</span> <span class="toc-text"> 模式配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E9%83%A8%E5%88%86"><span class="toc-number">2.</span> <span class="toc-text"> 实验部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.1.</span> <span class="toc-text"> 实验设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">2.2.</span> <span class="toc-text"> 实验结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B1%E8%B4%A5%E5%88%86%E6%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text"> 失败分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">3.</span> <span class="toc-text"> 结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E8%B6%B3"><span class="toc-number">4.</span> <span class="toc-text"> 不足</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">5.</span> <span class="toc-text"> 参考文献</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/4e2d98ec6aca/" title="SpatialClaw：空间推理会梦见Agent吗？"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909193808303.png?x-oss-process=style/blog" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SpatialClaw：空间推理会梦见Agent吗？"/></a><div class="content"><a class="title" href="/posts/4e2d98ec6aca/" title="SpatialClaw：空间推理会梦见Agent吗？">SpatialClaw：空间推理会梦见Agent吗？</a><time datetime="2026-09-09T12:01:10.000Z" title="发表于 2026-09-09 20:01:10">2026-09-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/05e541580ad1/" title="VS-Bench：论如何评估多模态大语言模型的策略能力"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260422211642703.png?x-oss-process=style/blog" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VS-Bench：论如何评估多模态大语言模型的策略能力"/></a><div class="content"><a class="title" href="/posts/05e541580ad1/" title="VS-Bench：论如何评估多模态大语言模型的策略能力">VS-Bench：论如何评估多模态大语言模型的策略能力</a><time datetime="2026-04-22T13:09:59.000Z" title="发表于 2026-04-22 21:09:59">2026-04-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/8128123308bc/" title="小谈SparseMM，利用多模态大模型中视觉头的稀疏性优化KV Cache"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260310214707597.png?x-oss-process=style/blog" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="小谈SparseMM，利用多模态大模型中视觉头的稀疏性优化KV Cache"/></a><div class="content"><a class="title" href="/posts/8128123308bc/" title="小谈SparseMM，利用多模态大模型中视觉头的稀疏性优化KV Cache">小谈SparseMM，利用多模态大模型中视觉头的稀疏性优化KV Cache</a><time datetime="2026-03-10T13:41:05.000Z" title="发表于 2026-03-10 21:41:05">2026-03-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/525dec7699db/" title="什么是KV Cache？从认识到优化！"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260309211638054.png?x-oss-process=style/blog" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="什么是KV Cache？从认识到优化！"/></a><div class="content"><a class="title" href="/posts/525dec7699db/" title="什么是KV Cache？从认识到优化！">什么是KV Cache？从认识到优化！</a><time datetime="2026-03-09T13:09:19.000Z" title="发表于 2026-03-09 21:09:19">2026-03-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2ed6902d017c/" title="从 Linear Model 到 Stacking，我是如何将 RMSLE 优化至 0.12 的？"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260115192208544.png?x-oss-process=style/blog" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从 Linear Model 到 Stacking，我是如何将 RMSLE 优化至 0.12 的？"/></a><div class="content"><a class="title" href="/posts/2ed6902d017c/" title="从 Linear Model 到 Stacking，我是如何将 RMSLE 优化至 0.12 的？">从 Linear Model 到 Stacking，我是如何将 RMSLE 优化至 0.12 的？</a><time datetime="2026-01-15T12:06:12.000Z" title="发表于 2026-01-15 20:06:12">2026-01-15</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://adam8en-blog-image.oss-cn-guangzhou.aliyuncs.com/image-20260909193808303.png?x-oss-process=style/blog')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Adam Ben</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://npm.elemecdn.com/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://comment.adamben.top',
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, {"lang":"zh-CN","locale":{"placeholder":"记得留下你的昵称和邮箱，可以及时收到回复"},"requiredMeta":["nick","mail"]}))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.jsdelivr.net/npm/@waline/client@2.15.5/dist/waline.min.css').then(() => {
+      getScript('https://cdn.jsdelivr.net/npm/@waline/client@2.15.5/dist/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Waline' === 'Waline' || !false) {
+  if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><script src="/js/sun_moon.js" async></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
